@@ -6,18 +6,36 @@ public class Actor
 {
      private String firstname;
      private String lastname;
-     private ArrayList<movies> movies;
+     private ArrayList<Movie> movies = new ArrayList<Movie>();
      private Date birthday;
 
-     public Actor(firstname String, lastname String, movies ArrayList<movies>, birthday Date)
+     public Actor(String firstname, String lastname, ArrayList<Movie> movies , Date birthday)
      {
          this.firstname = firstname;
          this.lastname = lastname;
          this.username = username;
+         this.movies = movies;
      }
      
      
+    public ArrayList<Movie> getmovies()
+    {
+        return this.movies;
+    }
+    
 
+    public void addMovie(String title, int releaseYear)
+    {
+        movies.add(new Movie(title, releaseYear));
+        return movies;
+    }
+    
+    
+    @Override
+    public String toString()
+    {
+
+    }
 
 
 }
