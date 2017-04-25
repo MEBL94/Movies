@@ -13,7 +13,7 @@ public class Actor
      {
          this.firstname = firstname;
          this.lastname = lastname;
-         this.username = username;
+         this.birthday = birthday;
          this.movies = movies;
      }
      
@@ -26,7 +26,7 @@ public class Actor
 
     public void addMovie(String title, int releaseYear)
     {
-        movies.add(new Movie(title, releaseYear));
+        movies.add(title, releaseYear));
         return movies;
     }
     

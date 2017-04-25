@@ -6,7 +6,7 @@ public class Movie
     private int releaseYear;
     private ArrayList<Actor> actors = new ArrayList<Actor>();
 
-    public Movie(String title, int releaseYear, Arraylist<Actor> actors )
+    public Movie(String title, int releaseYear, ArrayList<Actor> actors )
     {
         this.title = title;
         this.releaseYear = releaseYear;
@@ -21,7 +21,7 @@ public class Movie
     @Override
     public String toString()
     {
-
+        return this.title + " " + this.releaseYear;
     }
 
 }
