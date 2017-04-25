@@ -1,26 +1,51 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 public class Menu {
     public void mainMenu() {
-        int choice = 1;
         Scanner scan = new Scanner(System.in);
-        // System.out.println("You now have two choices:");
-        // System.out.println("1. Create user");
-        // System.out.println("2. Login");
+        int choice = 1;
+        while (choice >= 1) {
+        System.out.println("You now have two choices:");
+        System.out.println("1. Create user");
+        System.out.println("2. Login");
+        choice = scan.nextInt();
         switch (choice) {
             case 1: choice = 1;
             createUserMenu();
-            scan.nextInt();
             break;
             case 2: choice = 2;
             logInUserMenu();
-            scan.nextInt();
             break;
             default: System.out.println("Invalid input");
+            mainMenu();
         }
+    }
+    }
+
+    public void userMenu() {
+        Scanner scan = new Scanner(System.in);
+        int choice = 1;
+        while (choice >= 1) {
+        System.out.println("You now have two choices:");
+        System.out.println("1. Favorites");
+        System.out.println("2. History");
+        choice = scan.nextInt();
+        switch (choice) {
+            case 1: choice = 1;
+            showFavoritesMenu();
+            break;
+            case 2: choice = 2;
+            displayHistoryMenu();
+            break;
+            default: System.out.println("Invalid input");
+            userMenu();
+        }
+    }
     }
 
     public void showFavoritesMenu() {
-        System.out.println("Favorites: ");
+        System.out.println("Welcome to the favorites menu:");
+
     }
 
     public void createUserMenu() {
@@ -85,10 +110,20 @@ public class Menu {
         System.out.println("Edit actor");
     }
     public void pause() {
-
+        
     }
     public void cls() {
-
+        try { 
+            Process p = Runtime.getRuntime().exec("clear"); 
+            BufferedReader in = new BufferedReader( 
+                                new InputStreamReader(p.getInputStream())); 
+            String line = null; 
+            while ((line = in.readLine()) != null) { 
+                System.out.println(line); 
+            } 
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+        } 
     }
 
 }
