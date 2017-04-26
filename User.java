@@ -7,8 +7,8 @@ public class User
     private String userName;
     private String password;
     private boolean admin;
-    private ArrayList<Movie> favorites;
-    private ArrayList<HE> history = new ArrayList<HE>();
+    private ArrayList<Movie> favorites = new ArrayList<Movie>();
+    private ArrayList<HistoryEvent> history = new ArrayList<HistoryEvent>();
 
     public User(String firstName, String lastName, String userName, boolean admin)
     {
@@ -33,7 +33,7 @@ public class User
         return favorites;
     }
 
-        public ArrayList<HE> getHistory()
+        public ArrayList<HistoryEvent> getHistory()
     {
         return history;
     }
