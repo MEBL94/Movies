@@ -8,20 +8,20 @@ public class Library {
     private ArrayList<Actor> actors = new ArrayList<Actor>();
     
     public int findMovie(String movieTitle){
-        for (Movie movie : movies){
-            if(movie.getTitle().equals(movieTitle)){
-                return movies.indexOf(movie);
-            }
-        }
+        // for (Movie movie : movies){
+        //     if(movie.getTitle().equals(movieTitle)){
+        //         return movies.indexOf(movie);
+        //     }
+        // }
         return -1; // -1 error signal: no movie found
     }
               
     public int findActor(String actorName){
-        for (Actor actor : actors){
-            if(actor.getName().equals(actorName)){
-                return actors.indexOf(actor);
-            }
-        }
+        // for (Actor actor : actors){
+        //     if(actor.getName().equals(actorName)){
+        //         return actors.indexOf(actor);
+        //     }
+        // }
         return -1; // -1 error signal: no actor found
     }
     
@@ -34,11 +34,11 @@ public class Library {
     }
 
     public void createMovie(){
-        movies.add(new Movie());
+        // movies.add(new Movie());
     } 
     
     public void createActor(){
-        actors.add(new Actor());
+        // actors.add(new Actor());
     } 
      
     public void deleteMovie(String movieTitle){
@@ -59,43 +59,4 @@ public class Library {
         }
     } 
     
-    public void editMovie(){
-        // Skal nok over i Movie class faktisk
-        // er i virkeligheden nok SET metoder
-    } 
-    
-    public void editActor(){
-        // Skal nok over i Actor class faktisk
-        // er i virkeligheden nok SET metoder
-    } 
-    
-    public void readFromFile(){
-    try {
-            File file = new File("database.db");
-            Scanner scan = new Scanner(file);
-            //hvordan vi lige læser filen, skal jeg snakke med Movie og Actor guy om.
-            movies.add(new Movie());
-        }
-        catch (Exception e) {
-            System.out.println("Error dude!!");
-        }
-    } 
-    
-    public void writeToFile(){
-        try {
-            File dbFile = new File("database.db");
-            dbFile.createNewFile();
-            PrintStream database = new PrintStream(dbFile);
-            for(Movie movie : movies){
-                database.println(movie); // skal også rettes for at passe ind med 
-            }
-            database.println("$$$");      
-            for(Actor actor : actors){
-                database.println(actor);
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }        
-    } 
 }
