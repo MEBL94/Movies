@@ -5,20 +5,21 @@ public class Menu {
     public void mainMenu() {
         int choice = 1;
         Scanner scan = new Scanner(System.in);
-        while (choice >= 1) {
+        while (choice != 0) {
         System.out.println("You now have the following choices:");
         System.out.println("1. Create user");
         System.out.println("2. Login");
         choice = scan.nextInt();
         switch (choice) {
-            case 1: choice = 1;
+            case 0:
+            break;
+            case 1:
             createUserMenu();
             break;
-            case 2: choice = 2;
+            case 2:
             logInUserMenu();
             break;
             default: System.out.println("Invalid input");
-            mainMenu();
             break;        
             }
     }
@@ -27,7 +28,7 @@ public class Menu {
     public void showFavoritesMenu() {
         int choice = 1;
         Scanner scan = new Scanner(System.in);
-        while (choice >= 1) {
+        while (choice != 0) {
             System.out.println("Welcome to the favorites menu!");
             System.out.println("You now have the following choices:");
             System.out.println("1. Show favorites list.");
@@ -35,17 +36,19 @@ public class Menu {
             System.out.println("3. Return to main menu.");
             choice = scan.nextInt();
             switch (choice) {
-                case 1: choice = 1;
-                // supposed to show favorites list
+                case 0:
                 break;
-                case 2: choice = 2;
+                case 1: 
+                // supposed to show favorites list
+                System.out.println(createUserMenu().user.getFavorites().get(i));
+                break;
+                case 2:
                 userMenu();
                 break;
-                case 3: choice = 3;
+                case 3:
                 mainMenu();
                 break;
                 default: System.out.println("Invalid input");
-                showFavoritesMenu();
                 break;
             }
 
@@ -55,9 +58,19 @@ public class Menu {
     // implementation on its way...
     public void createUserMenu() {
         Scanner scanner = new Scanner(System.in);
+        Authenticator authenticator = new Authenticator();
         System.out.println("Welcome to the create user menu!");
-        System.out.println("You must choose a username and a password");
-
+        System.out.print("Enter your firstname: ");
+        String firstname = scanner.next();
+        System.out.print("\nEnter your lastname: ");
+        String lastname = scanner.next();
+        System.out.print("\nEnter your desired username: ");
+        String username = scanner.next();
+        System.out.print("\nEnter your desired password: ");
+        String password = scanner.next();
+        User user = new User(firstname, lastname, username, password, false);
+        authenticator.createUser(user);
+        System.out.println("You have successfully created a user!");
         // System.out.println("So you would like to create a new user.");
         // System.out.print("Enter your desired username: ");
         // Scanner usernameScanner = new Scanner(System.in);
@@ -79,8 +92,25 @@ public class Menu {
 
     // implementation on its way
     public void logInUserMenu() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the login menu!");
-        System.out.println("Enter username and password to proceed");
+        System.out.print("Enter username: ");
+        String username = scanner.next();
+        if (username.equals(createUserMenu().username)) {
+            System.out.print("Enter password: ");
+            String password = scanner.next();
+            if (password.equals(createUserMenu().password)) {
+                System.out.println("Login successful");
+            }
+            else {
+                System.out.println("Wrong password! Try again.");
+                logInUserMenu();              
+            }
+        }
+        else {
+            System.out.print("Wrong username");
+            logInUserMenu();
+        }
         // System.out.println("Welcome to the login menu!");
         // System.out.print("Enter username: ");
         // Scanner usernameScanner = new Scanner(System.in);
@@ -93,7 +123,7 @@ public class Menu {
     public void userMenu() {
         int choice = 1;
         Scanner scanner = new Scanner(System.in);
-        while (choice >= 1) {
+        while (choice != 0) {
             System.out.println("Welcome to the user menu! You now have the following choices:");
             System.out.println("1. Play movie");
             System.out.println("2. Display favorites");
@@ -101,16 +131,18 @@ public class Menu {
             System.out.println("4. Return to main menu");
             choice = scanner.nextInt();
             switch (choice) {
-                case 1: choice = 1;
+                case 0:
+                break;
+                case 1:
                 // call of play movie method
                 break;
-                case 2: choice = 2;
+                case 2: 
                 // call of favorites method
                 break;
-                case 3: choice = 3;
+                case 3: 
                 // call of display history method
                 break;
-                case 4: choice = 4;
+                case 4:
                 mainMenu();
                 break;
                 default: System.out.println("Invalid input");
