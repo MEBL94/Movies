@@ -10,11 +10,12 @@ public class User
     private ArrayList<Movie> favorites = new ArrayList<Movie>();
     private ArrayList<HistoryEvent> history = new ArrayList<HistoryEvent>();
 
-    public User(String firstName, String lastName, String userName, boolean admin)
+    public User(String firstName, String lastName, String userName, String password, boolean admin)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
+        this.password = password;
         this.admin = admin;
     }
 
@@ -25,12 +26,15 @@ public class User
 
     public void deleteFromFavorites(Movie movie)
     {
-        while (favorites.hasNext())
+        for (Movie m : favorites)
         {
-            Movie movie = favorites.next();
-            if (movie.getTitle().equals("Titanic")) 
+            if(m.getTitle().equals(movie.getTitle()))
             {
-                favorites.remove(movie);
+                favorites.remove(m);
+            }
+            else
+            {
+                System.out.println("Can't find movie");
             }
         }
     }

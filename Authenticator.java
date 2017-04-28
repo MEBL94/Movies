@@ -4,7 +4,6 @@ public class Authenticator
 {
     private ArrayList<User> users = new ArrayList<User>();
 
-
     public void createUser(String firstname, String lastname, String username, String password, boolean admin)
     {
         users.add(new User(firstname, lastname, username, password, admin));
@@ -18,14 +17,9 @@ public class Authenticator
         {
             return true; // the user exist
         }
-        else
-        {
-            return false; // the user doesn't exist
-        }
        }   
+        return false; // the user doesn't exist
     }
-
-
 
     public boolean login(String username, String password)
     {
@@ -35,10 +29,7 @@ public class Authenticator
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
         }
+        return false;
     }
 }
