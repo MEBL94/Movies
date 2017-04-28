@@ -33,10 +33,9 @@ public class Movie
        return this.actors;
     }
 
-
-    public void addActor(Actor actors)
+    public void addActor(Actor actor)
     {
-        actors.add(new Actor());
+        actors.add(actor);
     }
 
     @Override

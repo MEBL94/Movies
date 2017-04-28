@@ -44,9 +44,9 @@ public class Actor
      }
     
 
-     public void addMovies(Movie movies)
+     public void addMovies(Movie movie)
      {
-        movies.add(new Movie());
+        movies.add(movie);
         
      }
     

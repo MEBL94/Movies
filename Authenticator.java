@@ -7,16 +7,38 @@ public class Authenticator
 
     public void createUser(String firstname, String lastname, String username, String password, boolean admin)
     {
-        users.add(new User());
+        users.add(new User(firstname, lastname, username, password, admin));
     }
 
-    public boolean checkUser()
+    public boolean checkUser(String username)
     {
-
+       for (User user : users)
+       {
+        if(user.getUsername().equals(username))
+        {
+            return true; // the user exist
+        }
+        else
+        {
+            return false; // the user doesn't exist
+        }
+       }   
     }
 
-    public boolean login()
-    {
 
+
+    public boolean login(String username, String password)
+    {
+        for (User user : users)
+        {
+            if(user.getUsername().equals(username) && user.getPassword().equals(password))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
