@@ -6,7 +6,10 @@ public class Authenticator
 
     public void createUser(String firstname, String lastname, String username, String password, boolean admin)
     {
-        users.add(new User(firstname, lastname, username, password, admin));
+        if(!checkUser(username))
+        {
+            users.add(new User(firstname, lastname, username, password, admin));
+        }
     }
 
     public boolean checkUser(String username)
@@ -32,4 +35,14 @@ public class Authenticator
         }
         return false;
     }
+    
+    // For testing purposes!
+    
+    // public void printUsers()
+    // {
+    //     for(User user : users)
+    //     {
+    //         System.out.println(user.getUsername());
+    //     }
+    // }
 }
