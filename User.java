@@ -44,4 +44,14 @@ public class User
     {
         return history;
     }
+
+    public String getUsername()
+    {
+        return this.userName;
+    }
+    
+    public String getPassword()
+    {
+        return this.password;
+    }
 }

@@ -23,7 +23,7 @@ public class Movie
         this.releaseYear = releaseYear;
     }
  
-    public String getTitle(String title)
+    public String getTitle()
     {
         return this.title;
     }
@@ -32,6 +32,7 @@ public class Movie
     {
        return this.actors;
     }
+
 
     public void addActor(Actor actors)
     {
