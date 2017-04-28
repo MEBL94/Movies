@@ -25,15 +25,22 @@ public class User
 
     public void deleteFromFavorites(Movie movie)
     {
-        // todo: find index of movie
-        favorites.remove(favorites.get(movie));
+        while (favorites.hasNext())
+        {
+            Movie movie = favorites.next();
+            if (movie.getTitle().equals("Titanic")) 
+            {
+                favorites.remove(movie);
+            }
+        }
     }
+
     public ArrayList<Movie> getFavorites()
     {
         return favorites;
     }
 
-        public ArrayList<HistoryEvent> getHistory()
+    public ArrayList<HistoryEvent> getHistory()
     {
         return history;
     }
