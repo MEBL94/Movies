@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-
 public class Actor
 {
      private String firstname;
@@ -14,7 +13,6 @@ public class Actor
          this.firstname = firstname;
          this.lastname = lastname;
          this.birthday = birthday;
-         
      }
 
      public void setFirstname(String firstname)
@@ -43,19 +41,15 @@ public class Actor
         return this.movies;
      }
     
-
      public void addMovies(Movie movie)
      {
         movies.add(movie);
         
      }
     
-    
      @Override
      public String toString()
      {
         return this.firstname + " " + this.lastname + " " + this.birthday;
      }
-
-
 }
