@@ -14,7 +14,9 @@ public class FileHandler {
     }
 
     private void loadMovies(){
-
+        File file = new File("database.db");
+        Scanner scan = new Scanner(file);
+        lib.addMovie();
     }
 
     private void loadActors(){
@@ -37,7 +39,7 @@ public class FileHandler {
     }
 
     public void saveToFiles(){
-        
+
     }
 
 
