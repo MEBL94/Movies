@@ -7,14 +7,15 @@ public class User
     private String userName;
     private String password;
     private boolean admin;
-    private ArrayList<Movie> favorites;
-    private ArrayList<HE> history = new ArrayList<HE>();
+    private ArrayList<Movie> favorites = new ArrayList<Movie>();
+    private ArrayList<HistoryEvent> history = new ArrayList<HistoryEvent>();
 
-    public User(String firstName, String lastName, String userName, boolean admin)
+    public User(String firstName, String lastName, String userName, String password, boolean admin)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
+        this.password = password;
         this.admin = admin;
     }
 
@@ -25,16 +26,36 @@ public class User
 
     public void deleteFromFavorites(Movie movie)
     {
-        // todo: find index of movie
-        favorites.remove(favorites.get(movie));
+        for (Movie m : favorites)
+        {
+            if(m.getTitle().equals(movie.getTitle()))
+            {
+                favorites.remove(m);
+            }
+            else
+            {
+                System.out.println("Can't find movie");
+            }
+        }
     }
+
     public ArrayList<Movie> getFavorites()
     {
         return favorites;
     }
 
-        public ArrayList<HE> getHistory()
+    public ArrayList<HistoryEvent> getHistory()
     {
         return history;
+    }
+
+    public String getUsername()
+    {
+        return this.userName;
+    }
+    
+    public String getPassword()
+    {
+        return this.password;
     }
 }

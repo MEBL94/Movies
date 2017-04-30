@@ -1,41 +1,55 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-
 public class Actor
 {
      private String firstname;
      private String lastname;
-     private ArrayList<Movie> movies = new ArrayList<Movie>();
      private Date birthday;
+     private ArrayList<Movie> movies = new ArrayList<Movie>();
 
-     public Actor(String firstname, String lastname, ArrayList<Movie> movies , Date birthday)
+     public Actor(String firstname, String lastname, Date birthday)
      {
          this.firstname = firstname;
          this.lastname = lastname;
          this.birthday = birthday;
-         this.movies = movies;
+     }
+
+     public void setFirstname(String firstname)
+     {
+         this.firstname = firstname;
      }
      
+     public void setLastname(String lastname)
+     {
+         this.lastname = lastname;
+     }
      
-    public ArrayList<Movie> getmovies()
-    {
+     public void setBirthday(Date birthday)
+     {
+         this.birthday = birthday;
+     }
+   
+     
+     public String getname()
+     {
+         return this.firstname + this.lastname;
+     }
+
+     public ArrayList<Movie> getmovies()
+     {
         return this.movies;
-    }
+     }
     
-
-    public void addMovie(String title, int releaseYear)
-    {
-        movies.add(title, releaseYear));
-        return movies;
-    }
+     public void addMovies(Movie movie)
+     {
+        movies.add(movie);
+        
+     }
     
-    
-    @Override
-    public String toString()
-    {
-
-    }
-
-
+     @Override
+     public String toString()
+     {
+        return this.firstname + " " + this.lastname + " " + this.birthday;
+     }
 }
