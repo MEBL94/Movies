@@ -1,7 +1,8 @@
 public class Main
 {
     public static void main(String[] args)
-    {
+        Menu menu = new Menu();
+        menu.mainMenu();
         Authenticator au = new Authenticator();; 
         au.createUser("Andreas", "Nissen", "Nissemand", "123456", true);
         au.createUser("Andreas", "Nissen", "Tissemand", "123456", true);
