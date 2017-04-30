@@ -1,8 +1,48 @@
 import java.io.File;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class FileHandler {
+
+    Library lib;
+    Authenticator auth;
+
+    public FileHandler(Library lib, Authenticator auth){
+        this.lib = lib;
+        this.auth = auth;
+    }
+
+    private void loadMovies(){
+
+    }
+
+    private void loadActors(){
+
+    }
+
+    private void loadUsers(){
+
+    }
+
+    private void linker(){
+
+    }
+
+    public void loadFromFiles(){
+        loadActors();
+        loadMovies();
+        loadUsers();
+        linker();
+    }
+
+    public void saveToFiles(){
+        
+    }
+
+
+
+
     public void readFromFile(){
     try {
             File file = new File("database.db");

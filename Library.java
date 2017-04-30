@@ -6,6 +6,14 @@ import java.util.Scanner;
 public class Library {
     private ArrayList<Movie> movies = new ArrayList<Movie>();
     private ArrayList<Actor> actors = new ArrayList<Actor>();
+
+    public ArrayList<Movie> getMovies(){
+        return movies;
+    }
+
+    public ArrayList<Actor> getActors(){
+        return actors;
+    }
     
     public int findMovie(String movieTitle){
         // for (Movie movie : movies){
