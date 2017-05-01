@@ -29,11 +29,10 @@ public class FileHandler {
             Scanner scan = new Scanner(file);
         
             while(scan.hasNext()){
-                String token = scan.next();
-                if(token.equals("<user>")){
-                    userCreator(scan, token);
+                if(scan.next().equals("<user>")){
+                    createUserFromFile(scan);
+                }
             }
-        }
         } catch (Exception e){
             System.out.println(e);
         }
@@ -47,10 +46,10 @@ public class FileHandler {
     }
 
     public void loadFromFiles(){
-        loadActors();
-        loadMovies();
+        // loadActors();
+        // loadMovies();
         loadUsers();
-        linker();
+        // linker();
     }
 
     public void saveToFiles(){
@@ -89,25 +88,19 @@ public class FileHandler {
         // }        
     }
 
-    private void userCreator(Scanner scan, String token){
+    private void createUserFromFile(Scanner scan){
+        System.out.println(scan.nextLine());
         String firstname = scan.nextLine();
         String lastname = scan.nextLine();
         String username = scan.nextLine();
         String password = scan.nextLine();
         boolean admin = false;
-        
-        token = scan.next();
-        if(token.equals("true")){
+        System.out.println(firstname + lastname);
+        if(scan.next().equals("true")){
             admin = true;
         }
-        token = scan.next();
-        if(token.equals("<favorites>")){
-            lib.findMovie
-            while(!token.equals("</favorites>")){
-
-            }
-        }
-
+        
+        auth.createUser(firstname,lastname,username,password,admin);
+        
     }
-    private void 
 }
