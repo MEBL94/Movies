@@ -20,7 +20,19 @@ public class FileHandler {
     }
 
     private void loadActors(){
-
+        File file = new File("Users.xml");
+        Scanner scan = new Scanner(file);
+        while(scan.hasNext()){
+            
+        }
+        String firstname;
+        String lastname;
+        String username;
+        String password;
+        boolean admin;
+        auth.createUser(firstname, lastname, username, password, admin);
+        
+        
     }
 
     private void loadUsers(){
