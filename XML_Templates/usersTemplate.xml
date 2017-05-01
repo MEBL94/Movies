@@ -1,59 +1,26 @@
 <user>
-    <firstName>
         Jonas
-    </firstName>
-    <lastName>
         Ladefoged Holm
-    </lastName>
-    <userName>
         duch22
-    </userName>
-    <password>
         mitpassword
-    </password>
+        true
     <favorites>
-        <movie>
             Beauty and the beast
-        </movie>
-        <movie>
             Beauty and the beast 2
-        </movie>
     </favorites>
     <history>
         <historyEvent>
-            <date>
-                <day>
                     27
-                </day>
-                <month>
                     april
-                </month>
-                <year>
                     2017
-                </year>
-            </date>
-            <movie>
-                Beauty and the beast 2
-            </movie>
+                    Beauty and the beast 2
         </historyEvent>
          <historyEvent>
-            <date>
-                <day>
                     25
-                </day>
-                <month>
                     april
-                </month>
-                <year>
                     2017
-                </year>
-            </date>
-            <movie>
-                Beauty and the beast
-            </movie>
+                    Beauty and the beast
         </historyEvent>
     </history>
-    <admin>
-        true
-    </admin>
+    true
 </user>
