@@ -4,11 +4,11 @@ public class Authenticator
 {
     private ArrayList<User> users = new ArrayList<User>();
 
-    public void createUser(String firstname, String lastname, String username, String password, boolean admin)
+    public void createUser(String firstname, String lastname, String username, String password, int userID, boolean admin)
     {
         if(!checkUser(username))
         {
-            users.add(new User(firstname, lastname, username, password, admin));
+            users.add(new User(firstname, lastname, username, password, userID, admin));
         }
     }
 
@@ -40,7 +40,7 @@ public class Authenticator
     {
         for (User user : users)
         {
-        if(user.getUserID == userID)
+        if(user.getUserID() == userID)
         {
             return user;
         }    
