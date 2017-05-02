@@ -1,22 +1,15 @@
-<<<<<<< HEAD
 public class Main {
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.mainMenu();
-=======
-public class Main
-{
-    public static void main(String[] args)
-    {
         Authenticator au = new Authenticator();; 
         au.createUser("Andreas", "Nissen", "Nissemand", "123456", true);
         au.createUser("Andreas", "Nissen", "Tissemand", "123456", true);
 
-        au.printUsers();
+        //au.printUsers();
 
         if(au.login("Tissemand", "123456")){
             System.out.println("Go away");
         }
->>>>>>> Toby
     }
 }
