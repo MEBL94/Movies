@@ -83,15 +83,17 @@ public class Menu {
     public User createUserMenu() {
         System.out.println("Welcome to the create user menu!");
         System.out.print("Enter your firstname: ");
-        String firstname = scan.next();
-        System.out.print("\nEnter your lastname: ");
-        String lastname = scan.next();
-        System.out.print("\nEnter your desired username: ");
-        String username = scan.next();
-        System.out.print("\nEnter your desired password: ");
-        String password = scan.next();
-        if (au.checkUser(username)) {
+        String firstname = scan.nextLine();
+        pause();
+        System.out.print("Enter your lastname: ");
+        String lastname = scan.nextLine();
+        System.out.print("Enter your desired username: ");
+        String username = scan.nextLine();
+        System.out.print("Enter your desired password: ");
+        String password = scan.nextLine();
+        if (au.checkUser(username) == false) {
         au.createUser(firstname, lastname, username, password, false);
+        System.out.println("User created successfully.");
         }
         else {
             System.out.println("Go away.");
@@ -104,13 +106,14 @@ public class Menu {
 
     public void logInUserMenu() {
         System.out.println("Welcome to the login menu!");
-        System.out.print("Enter username: ");
+        System.out.println("Enter username: ");
         String username = scan.nextLine();
-        System.out.print("Enter password: ");
+        System.out.println("Enter password: ");
         String password = scan.nextLine();
-        if (au.login(username, password) >= 0) {
+        if (au.login(username, password) > 0) {
             System.out.println("Login successful");
-            au.getUser(au.login(username, password));
+            //au.getUser(au.login(username, password));
+            createUserMenu().getUserID();
             userMenu();
         }
         else {
@@ -216,6 +219,7 @@ public class Menu {
     public void createMovieMenu() {
         System.out.println("So you wish to create a movie");
         System.out.print("Title: ");
+        scan.nextLine();
         String title = scan.nextLine();
         System.out.print("Release year: ");
         int year = scan.nextInt();
@@ -224,6 +228,7 @@ public class Menu {
     public void deleteMovieMenu() {
         System.out.println("So you wish to delete a movie");
         System.out.print("Title: ");
+        scan.nextLine();
         String title = scan.nextLine();
         System.out.print("Release year: ");
         int year = scan.nextInt();
@@ -232,6 +237,7 @@ public class Menu {
     public void editMovieMenu() {
         System.out.println("So you wish to edit a movie");
         System.out.print("Title: ");
+        scan.nextLine();
         String title = scan.nextLine();
         System.out.print("Release year: ");
         int year = scan.nextInt();
@@ -240,6 +246,7 @@ public class Menu {
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
         System.out.print("Firstname: ");
+        scan.nextLine();
         String firstname = scan.nextLine();
         System.out.print("Lastname: ");
         String lastname = scan.nextLine();
@@ -254,7 +261,7 @@ public class Menu {
     
     public void deleteActorMenu() {
         System.out.println("So you wish to delete an actor");
-        System.out.print("Name: ");
+        System.out.println("Name: ");
         String name = scan.nextLine();        
         lib.deleteActor(name);
     }
