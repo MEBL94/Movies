@@ -5,6 +5,7 @@ public class Menu {
     UserInput scan = new UserInput();
     Authenticator au = new Authenticator();
     Library lib = new Library();
+    private int userID = 0;
 
     public void mainMenu() {
         int choice = 1;
@@ -21,7 +22,8 @@ public class Menu {
             createUserMenu();
             break;
             case 2:
-            logInUserMenu();
+            userID = logInUserMenu();
+            userMenu(userID);
             break;
             case 3:
             cls();
@@ -44,32 +46,31 @@ public class Menu {
             System.out.println("4. Return to user menu.");
             System.out.println("5. Return to main menu.");
             choice = scan.getInt();
-            pause();
             switch (choice) {
                 case 0:
                 break;
                 case 1: 
                 System.out.println("Favorites list: ");
-                System.out.println(createUserMenu().getFavorites());
+                System.out.println(au.getUser(userID).getFavorites());
                 break;
                 case 2:
                 System.out.print("Title: ");
-                String title = userInput.getLine();
+                String title = scan.getLine();
                 System.out.print("Release year: ");
                 int year = scan.getInt();
                 Movie movie = new Movie(title, year);
-                createUserMenu().addToFavorites(movie);
+                au.getUser(userID).addToFavorites(movie);
                 break;
                 case 3:
                 System.out.print("Title: ");
-                String title2 = userInput.getLine();
+                String title2 = scan.getLine();
                 System.out.print("Release year: ");
                 int year2 = scan.getInt();
                 Movie movie2 = new Movie(title2, year2);
                 createUserMenu().deleteFromFavorites(movie2);
                 break;
                 case 4:
-                userMenu();
+                userMenu(userID);
                 break;
                 case 5:
                 mainMenu();
@@ -84,7 +85,6 @@ public class Menu {
         System.out.println("Welcome to the create user menu!");
         System.out.print("Enter your firstname: ");
         String firstname = scan.getLine();
-        pause();
         System.out.print("Enter your lastname: ");
         String lastname = scan.getLine();
         System.out.print("Enter your desired username: ");
@@ -98,33 +98,36 @@ public class Menu {
         else {
             System.out.println("Go away.");
         }
-        int userid = au.login(username, password); 
-        User user = au.getUser(userid);
+        userID = au.login(username, password); 
+        User user = au.getUser(userID);
         return user;
         //System.out.println("You have successfully created an account!");
     }
 
-    public void logInUserMenu() {
+    public int logInUserMenu() {
         System.out.println("Welcome to the login menu!");
-        System.out.println("Enter username: ");
+        System.out.print("Enter username: ");
         String username = scan.getLine();
-        System.out.println("Enter password: ");
+        System.out.print("Enter password: ");
         String password = scan.getLine();
-        if (au.login(username, password) > 0) {
+        int userid = au.login(username, password);
+        if (userid > 0) {
             System.out.println("Login successful");
-            //au.getUser(au.login(username, password));
-            createUserMenu().getUserID();
-            userMenu();
+            return userid;
         }
         else {
-            System.out.println("Go away.");
+            System.out.println("Go awallly.");
             mainMenu();
+            return 0;
         }
     }
 
-    public void userMenu() {
+    public void userMenu(int userid) {
         int choice = 1;
         while (choice != 0) {
+            if (userid == 0) {
+                break;
+            }
             System.out.println("Welcome to the user menu! You now have the following choices:");
             System.out.println("1. Play movie");
             System.out.println("2. Go to favorites menu");
@@ -148,7 +151,7 @@ public class Menu {
                 mainMenu();
                 break;
                 default: System.out.println("Invalid input");
-                userMenu();
+                userMenu(userID);
                 break;
             }
         }
@@ -221,7 +224,7 @@ public class Menu {
         System.out.print("Title: ");
         String title = scan.getLine();
         System.out.print("Release year: ");
-        int year = scan.nextInt();
+        int year = scan.getInt();
         lib.createMovie(title, year);    
     }
     public void deleteMovieMenu() {

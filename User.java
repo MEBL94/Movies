@@ -18,6 +18,7 @@ public class User
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.userID = userID;
         this.admin = admin;
     }
 
