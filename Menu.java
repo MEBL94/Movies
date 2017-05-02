@@ -238,13 +238,21 @@ public class Menu {
         Movie movie = new Movie(title, year);
         //lib.editMovie(movie);
     }
-    public void createActorMenu() {
+    public Actor createActorMenu() {
         System.out.println("So you wish to create an actor");
-        System.out.print("Name: ");
-        String name = scan.nextLine();
-        System.out.print("Release year: ");
-        //Actor actor = new Actor(name);
-        //lib.createActor(actor);
+        System.out.print("Firstname: ");
+        String firstname = scan.nextLine();
+        System.out.print("Lastname: ");
+        String lastname = scan.nextLine();
+        System.out.print("Day: ");
+        int day = scan.nextInt();
+        System.out.print("Month: ");
+        int month = scan.nextInt();
+        System.out.print("Year: ");
+        int year = scan.nextInt();
+        Actor actor = new Actor(firstname, lastname, day, month, year);
+        lib.createActor(actor);
+        return Actor;
     }
     
     public void deleteActorMenu() {
