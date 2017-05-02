@@ -12,7 +12,7 @@ public class User
     private ArrayList<Movie> favorites = new ArrayList<Movie>();
     private ArrayList<HistoryEvent> history = new ArrayList<HistoryEvent>();
 
-    public User(String firstName, String lastName, String userName, String password, int userID boolean admin)
+    public User(String firstName, String lastName, String userName, String password, int userID, boolean admin)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,7 +65,7 @@ public class User
     {
         this.firstName = firstName;
     }
-    public void getUserID()
+    public int getUserID()
     {
         return userID;
     }
