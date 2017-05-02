@@ -3,6 +3,8 @@ import java.io.*;
 
 public class Menu {
     Scanner scan = new Scanner(System.in);
+    Authenticator au = new Authenticator();
+    Library lib = new Library();
     public void mainMenu() {
 
         int choice = 1;
@@ -30,7 +32,7 @@ public class Menu {
     }
     }    
     
-    public void showFavoritesMenu(User user) {
+    public void showFavoritesMenu() {
         int choice = 1;
         while (choice != 0) {
             System.out.println("Welcome to the favorites menu!");
@@ -45,23 +47,24 @@ public class Menu {
                 case 0:
                 break;
                 case 1: 
-                // supposed to show favorites list
                 System.out.println("Favorites list: ");
-                System.out.println(user.getFavorites());
+                System.out.println(createUserMenu().getFavorites());
                 break;
                 case 2:
                 System.out.print("Title: ");
                 String title = scan.nextLine();
                 System.out.print("Release year: ");
                 int year = scan.nextInt();
-                user.addToFavorites(title, year);
+                Movie movie = new Movie(title, year);
+                createUserMenu().addToFavorites(movie);
                 break;
                 case 3:
                 System.out.print("Title: ");
-                String title = scan.nextLine();
+                String title2 = scan.nextLine();
                 System.out.print("Release year: ");
-                int year = scan.nextInt();
-                user.deleteFromFavorites(title, year);
+                int year2 = scan.nextInt();
+                Movie movie2 = new Movie(title2, year2);
+                createUserMenu().deleteFromFavorites(title2);
                 break;
                 case 4:
                 userMenu();
@@ -75,8 +78,7 @@ public class Menu {
         }
     }
 
-    public void createUserMenu() {
-        Authenticator authenticator = new Authenticator();
+    public User createUserMenu() {
         System.out.println("Welcome to the create user menu!");
         System.out.print("Enter your firstname: ");
         String firstname = scan.nextLine();
@@ -84,24 +86,25 @@ public class Menu {
         String lastname = scan.nextLine();
         System.out.print("Enter your desired username: ");
         String username = scan.nextLine();
-        authenticator.checkUser(username);
+        au.checkUser(username);
         System.out.print("Enter your desired password: ");
-        String password = scan.next();
-        authenticator.createUser(firstname, lastname, username, password, false);
-        User user = new User(firstname, lastname, username, password, false);
-        
+        String password = scan.nextLine();
+        au.createUser(firstname, lastname, username, password, false);
+        int userid = au.login(username, password); 
+        User user = au.getUser(userid);
+        return user;
         //System.out.println("You have successfully created an account!");
     }
 
     public void logInUserMenu() {
-        Authenticator authenticator = new Authenticator();
         System.out.println("Welcome to the login menu!");
         System.out.print("Enter username: ");
         String username = scan.nextLine();
         System.out.print("Enter password: ");
         String password = scan.nextLine();
-        if (authenticator.login(username, password)) {
+        if (au.login(username, password) >= 0) {
             System.out.println("Login successful");
+            au.getUser(au.login(username, password));
             userMenu();
         }
         else {
@@ -144,7 +147,7 @@ public class Menu {
 
     public void displayHistoryMenu() {
         System.out.println("Welcome to the history menu!");
-        user.getHistory();
+        createUserMenu().getHistory();
     }
 
     public void searchMenu() {
@@ -168,6 +171,7 @@ public class Menu {
             System.out.println("Invalid input");
             break;
         }
+    }
     }
 
     public void adminMenu() {
@@ -211,22 +215,48 @@ public class Menu {
         System.out.println("So you wish to create a movie");
         System.out.print("Title: ");
         String title = scan.nextLine();
-        
+        System.out.print("Release year: ");
+        int year = scan.nextInt();
+        lib.createMovie();    
     }
     public void deleteMovieMenu() {
-        System.out.println("Delete movie option");
+        System.out.println("So you wish to delete a movie");
+        System.out.print("Title: ");
+        String title = scan.nextLine();
+        System.out.print("Release year: ");
+        int year = scan.nextInt();
+        lib.deleteMovie(title);
     }
     public void editMovieMenu() {
-        System.out.println("Edit movie option");
+        System.out.println("So you wish to edit a movie");
+        System.out.print("Title: ");
+        String title = scan.nextLine();
+        System.out.print("Release year: ");
+        int year = scan.nextInt();
+        Movie movie = new Movie(title, year);
+        //lib.editMovie(movie);
     }
     public void createActorMenu() {
-        System.out.println("Create actor option");
+        System.out.println("So you wish to create an actor");
+        System.out.print("Name: ");
+        String name = scan.nextLine();
+        System.out.print("Release year: ");
+        //Actor actor = new Actor(name);
+        //lib.createActor(actor);
     }
+    
     public void deleteActorMenu() {
-        System.out.println("Delete actor option");
+        System.out.println("So you wish to delete an actor");
+        System.out.print("Name: ");
+        String name = scan.nextLine();
+        //Actor actor = new Actor(name);        
+        //lib.deleteActor(actor);
     }
     public void editActorMenu() {
-        System.out.println("Edit actor option");
+        System.out.println("So you wish to edit an actor");
+        System.out.print("Name: ");
+        String name = scan.nextLine();        
+        //lib.editActor(name);
     }
     public void pause() {
         Scanner input = new Scanner(System.in);                     
