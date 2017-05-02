@@ -102,7 +102,7 @@ public class FileHandler {
         String username = scan.nextLine();
         String password = scan.nextLine();
         boolean admin = false;
-        System.out.println(firstname + lastname);
+        // System.out.println(firstname + lastname);
         if(scan.next().equals("true")){
             admin = true;
         }
