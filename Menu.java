@@ -219,7 +219,7 @@ public class Menu {
         String title = scan.nextLine();
         System.out.print("Release year: ");
         int year = scan.nextInt();
-        lib.createMovie();    
+        lib.createMovie(title, year);    
     }
     public void deleteMovieMenu() {
         System.out.println("So you wish to delete a movie");
@@ -235,10 +235,9 @@ public class Menu {
         String title = scan.nextLine();
         System.out.print("Release year: ");
         int year = scan.nextInt();
-        Movie movie = new Movie(title, year);
-        //lib.editMovie(movie);
+        //lib.editMovie(title, year);
     }
-    public Actor createActorMenu() {
+    public void createActorMenu() {
         System.out.println("So you wish to create an actor");
         System.out.print("Firstname: ");
         String firstname = scan.nextLine();
@@ -250,17 +249,14 @@ public class Menu {
         int month = scan.nextInt();
         System.out.print("Year: ");
         int year = scan.nextInt();
-        Actor actor = new Actor(firstname, lastname, day, month, year);
-        lib.createActor(actor);
-        return Actor;
+        lib.createActor(firstname, lastname, day, month, year);
     }
     
     public void deleteActorMenu() {
         System.out.println("So you wish to delete an actor");
         System.out.print("Name: ");
-        String name = scan.nextLine();
-        //Actor actor = new Actor(name);        
-        //lib.deleteActor(actor);
+        String name = scan.nextLine();        
+        lib.deleteActor(name);
     }
 
     // public void editActorMenu() {
