@@ -30,6 +30,7 @@ public class Library {
     public int findActor(String actorName)
     {
         for (Actor actor : actors){
+            System.out.println("Printing current actor " + actor);
             if(actor.getName().equals(actorName)){
                 return actors.indexOf(actor);
             }
@@ -53,7 +54,9 @@ public class Library {
     } 
     
     public void createActor(String firstname, String lastname, int day, int month, int year){
-        actors.add(new Actor(firstname, lastname, day, month, year));
+            Actor tempActor = new Actor(firstname, lastname, day, month, year);
+            System.out.println(firstname + "jsjsjs " + lastname + " " + day + " " + month + " " + year);
+            actors.add(tempActor);
     } 
      
     public void deleteMovie(String movieTitle)
