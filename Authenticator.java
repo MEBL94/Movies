@@ -44,11 +44,10 @@ public class Authenticator
         {
             return user;
         }    
-        else
-        {
+        }
             return null;
-        }
-        }
+        
+        
         
     }
     // For testing purposes!
