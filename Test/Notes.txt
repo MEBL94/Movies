@@ -1,3 +1,2 @@
-This didn't make any sense.. 
-alle objekter passes som memory addresser, og dermed er det en pointer.
-alle primitive datatyper, er bare deres værdi.. 
+alle objekter passes som memory addresser, DVS pointers.
+alle primitive datatyper, er bare pass by value IKKE pointer.. 
