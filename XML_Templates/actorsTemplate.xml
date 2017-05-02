@@ -1,0 +1,54 @@
+<actor>
+    <firstName>
+        Belle
+    </firstName>
+    <lastname>
+        the beauty
+    </lastname>
+    <birthday>
+        <day>
+            20
+        </day>
+        <month>
+            april
+        </month>
+        <year>
+            1805
+        </year>
+    </birthday>
+    <movies>
+        <movie>
+            Beauty and the beast
+        </movie>
+        <movie>
+            Beauty and the beast 2
+        </movie>
+    </movies>
+</actor>
+<actor>
+    <firstName>
+        Monster 
+    </firstName>
+    <lastname>
+        the beast
+    </lastname>
+    <birthday>
+        <day>
+            11
+        </day>
+        <month>
+            december
+        </month>
+        <year>
+            1800
+        </year>
+    </birthday>
+    <movies>
+        <movie>
+            Beauty and the beast
+        </movie>
+        <movie>
+            Beauty and the beast 2
+        </movie>
+    </movies>
+</actor>
