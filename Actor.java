@@ -13,7 +13,7 @@ public class Actor
          this.firstname = firstname;
          this.lastname = lastname;
          //Virker ikke, giver mig NULL POINTER EXCEPTION
-        //  this.birthday.set(year, month, day);
+         this.birthday.set(year, month, day);
      }
 
      public void setFirstname(String firstname)
