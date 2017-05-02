@@ -5,9 +5,11 @@ public class Menu {
     UserInput scan = new UserInput();
     Authenticator au = new Authenticator();
     Library lib = new Library();
+    FileHandler fileHandler = new FileHandler(lib, au);
     private int userID = 0;
 
     public void mainMenu() {
+        fileHandler.loadFromFiles();
         int choice = 1;
         while (choice != 0) {
         System.out.println("You now have the following choices:");
@@ -96,7 +98,7 @@ public class Menu {
         System.out.println("User created successfully.");
         }
         else {
-            System.out.println("Go away.");
+            System.out.println("Creating a user failed.");
         }
         userID = au.login(username, password); 
         User user = au.getUser(userID);
@@ -116,7 +118,7 @@ public class Menu {
             return userid;
         }
         else {
-            System.out.println("Go awallly.");
+            System.out.println("Login failed. Wrong username or password.");
             mainMenu();
             return 0;
         }
