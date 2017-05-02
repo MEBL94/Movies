@@ -7,10 +7,12 @@ public class User
     private String userName;
     private String password;
     private boolean admin;
+    private int userID;
+    
     private ArrayList<Movie> favorites = new ArrayList<Movie>();
     private ArrayList<HistoryEvent> history = new ArrayList<HistoryEvent>();
 
-    public User(String firstName, String lastName, String userName, String password, boolean admin)
+    public User(String firstName, String lastName, String userName, String password, int userID, boolean admin)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,4 +60,17 @@ public class User
     {
         return this.password;
     }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+    public int getUserID()
+    {
+        return userID;
+    }
+    
+    
+    
+    
 }

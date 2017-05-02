@@ -8,7 +8,8 @@ public class Authenticator
     {
         if(!checkUser(username))
         {
-            users.add(new User(firstname, lastname, username, password, admin));
+            int userID = users.size() +1;
+            users.add(new User(firstname, lastname, username, password, userID, admin));
         }
     }
 
@@ -40,15 +41,14 @@ public class Authenticator
     {
         for (User user : users)
         {
-        if(user.getUserID == userID)
+        if(user.getUserID() == userID)
         {
             return user;
         }    
-        else
-        {
+        }
             return null;
-        }
-        }
+        
+        
         
     }
     // For testing purposes!
