@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Menu {
-    Userinput scan = new UserInput();
+    UserInput scan = new UserInput();
     Authenticator au = new Authenticator();
     Library lib = new Library();
 
