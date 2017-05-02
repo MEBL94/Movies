@@ -13,14 +13,32 @@ public class FileHandler {
         this.auth = auth;
     }
 
+    public void loadFromFiles(){
+        loadActors();
+        // loadMovies();
+        loadUsers();
+        // linker();
+    }
+
+    private void loadActors(){
+        try{
+            File file = new File("Actors.xml");
+            Scanner scan = new Scanner(file);
+        
+            while(scan.hasNext()){
+                if(scan.next().equals("<actor>")){
+                    createActorFromFile(scan);
+                }
+            }
+        } catch (Exception e){
+            System.out.println(">> Fejl i LoadActors " + e);
+        }
+    }
+
     private void loadMovies(){
         // File file = new File("database.db");
         // Scanner scan = new Scanner(file);
         // // lib.addMovie();
-    }
-
-    private void loadActors(){
-        String hej;
     }
 
     private void loadUsers(){
@@ -36,60 +54,35 @@ public class FileHandler {
         } catch (Exception e){
             System.out.println(e);
         }
-        
-        
-        // auth.createUser(firstname, lastname, username, password, admin);
     }
 
     private void linker(){
 
     }
 
-    public void loadFromFiles(){
-        // loadActors();
-        // loadMovies();
-        loadUsers();
-        // linker();
-    }
-
     public void saveToFiles(){
 
     }
 
+    private void createActorFromFile(Scanner scan){
+        scan.nextLine();
+        String firstname = scan.nextLine();
+        String lastname = scan.nextLine();
+        int birthday = scan.nextInt();
+        int birthmonth = scan.nextInt();
+        int birthyear = scan.nextInt();
+        
+        //lib.
 
-
-
-    public void readFromFile(){
-    // try {
-    //         File file = new File("database.db");
-    //         Scanner scan = new Scanner(file);
-    //         movies.add(new Movie());
-    //     }
-    //     catch (Exception e) {
-    //         System.out.println(e);
-    //     }
-    } 
-    
-    public void writeToFile(){
-        // try {
-        //     File dbFile = new File("database.db");
-        //     dbFile.createNewFile();
-        //     PrintStream database = new PrintStream(dbFile);
-        //     for(Movie movie : movies){
-        //         database.println(movie);
-        //     }
-        //     database.println("$$$");      
-        //     for(Actor actor : actors){
-        //         database.println(actor);
-        //     }
-        // }
-        // catch (Exception e) {
-        //     System.out.println(e);
-        // }        
+        //test statements:
+        // System.out.println("XXXXXXX");
+        // System.out.println(firstname + " " + lastname + " " + birthday + " " + birthmonth + " " + birthyear);
     }
 
+
+
     private void createUserFromFile(Scanner scan){
-        System.out.println(scan.nextLine());
+        scan.nextLine();
         String firstname = scan.nextLine();
         String lastname = scan.nextLine();
         String username = scan.nextLine();
@@ -103,4 +96,7 @@ public class FileHandler {
         auth.createUser(firstname,lastname,username,password,admin);
         
     }
+
+
 }
+

@@ -45,8 +45,8 @@ public class Library {
         // movies.add(new Movie());
     } 
     
-    public void createActor(){
-        // actors.add(new Actor());
+    public void createActor(String firstname, String lastname, int day, int month, int year){
+        actors.add(new Actor(firstname, lastname, day, month, year));
     } 
      
     public void deleteMovie(String movieTitle){
