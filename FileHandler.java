@@ -15,7 +15,7 @@ public class FileHandler {
 
     public void loadFromFiles(){
         loadActors();
-        // loadMovies();
+        loadMovies();
         loadUsers();
         // linker();
     }
@@ -36,9 +36,18 @@ public class FileHandler {
     }
 
     private void loadMovies(){
-        // File file = new File("database.db");
-        // Scanner scan = new Scanner(file);
-        // // lib.addMovie();
+        try{
+            File file = new File("Movies.xml");
+            Scanner scan = new Scanner(file);
+        
+            while(scan.hasNext()){
+                if(scan.next().equals("<movie>")){
+                    createMovieFromFile(scan);
+                }
+            }
+        } catch (Exception e){
+            System.out.println(">> Fejl i load Movies: " + e);
+        }
     }
 
     private void loadUsers(){
@@ -52,7 +61,7 @@ public class FileHandler {
                 }
             }
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println(">> Fejl i load Users: " + e);
         }
     }
 
@@ -72,14 +81,19 @@ public class FileHandler {
         int birthmonth = scan.nextInt();
         int birthyear = scan.nextInt();
         
+        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
 
         // test statements:
-        System.out.println("XXXXXXX");
-        System.out.println(firstname + " " + lastname + " " + birthday + " " + birthmonth + " " + birthyear);
-        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
+        // System.out.println("XXXXXXX");
+        // System.out.println(firstname + " " + lastname + " " + birthday + " " + birthmonth + " " + birthyear);
     }
 
-
+    private void createMovieFromFile(Scanner scan){
+        scan.nextLine();
+        String movieTitle = scan.nextLine();
+        int productionYear = scan.nextInt();
+        lib.createMovie(movieTitle, productionYear);
+    }
 
     private void createUserFromFile(Scanner scan){
         scan.nextLine();
@@ -92,11 +106,6 @@ public class FileHandler {
         if(scan.next().equals("true")){
             admin = true;
         }
-        
         auth.createUser(firstname,lastname,username,password,admin);
-        
     }
-
-
 }
-
