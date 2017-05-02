@@ -67,7 +67,7 @@ public class Menu {
                 System.out.print("Release year: ");
                 int year2 = scan.getInt();
                 Movie movie2 = new Movie(title2, year2);
-                createUserMenu().deleteFromFavorites(movie2);
+                au.getUser(userID).deleteFromFavorites(movie2);
                 break;
                 case 4:
                 userMenu(userID);
