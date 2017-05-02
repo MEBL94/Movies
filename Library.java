@@ -47,14 +47,13 @@ public class Library {
         return movies.get(index);
     }
 
-    public void createMovie()
+    public void createMovie(String title, int releaseYear)
     {
-        // movies.add(new Movie());
+        movies.add(new Movie(title, releaseYear));
     } 
     
-    public void createActor()
-    {
-        // actors.add(new Actor());
+    public void createActor(String firstname, String lastname, int day, int month, int year){
+        actors.add(new Actor(firstname, lastname, day, month, year));
     } 
      
     public void deleteMovie(String movieTitle)
