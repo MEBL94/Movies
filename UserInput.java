@@ -26,9 +26,9 @@ public class UserInput {
         return scanner.hasNext();
     }
     
-    public int getInt(Scanner scan){
+    public int getInt(){
         try{
-        int integer = Integer.parseInt(scan.nextLine());
+        int integer = Integer.parseInt(scanner.nextLine());
         return integer;
         } catch (NumberFormatException e){
             System.out.println(">> ikke et tal: " + e);
