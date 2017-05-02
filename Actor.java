@@ -1,18 +1,18 @@
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Actor
 {
      private String firstname;
      private String lastname;
-     private Date birthday;
+     private Calendar birthday;
      private ArrayList<Movie> movies = new ArrayList<Movie>();
 
-     public Actor(String firstname, String lastname, Date birthday)
+     public Actor(String firstname, String lastname, int day, int month, int year)
      {
          this.firstname = firstname;
          this.lastname = lastname;
-         this.birthday = birthday;
+         this.birthday.set(year, month, day);
      }
 
      public void setFirstname(String firstname)
@@ -25,18 +25,19 @@ public class Actor
          this.lastname = lastname;
      }
      
-     public void setBirthday(Date birthday)
+     public void setBirthday(int day, int month, int year)
      {
-         this.birthday = birthday;
+         this.birthday.set(year, month, day);
      }
+
    
      
-     public String getname()
+     public String getName()
      {
          return this.firstname + this.lastname;
      }
 
-     public ArrayList<Movie> getmovies()
+     public ArrayList<Movie> getMovies()
      {
         return this.movies;
      }

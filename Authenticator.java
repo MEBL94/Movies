@@ -8,7 +8,8 @@ public class Authenticator
     {
         if(!checkUser(username))
         {
-            users.add(new User(firstname, lastname, username, password, admin));
+            int userID = users.size() +1;
+            users.add(new User(firstname, lastname, username, password, userID, admin));
         }
     }
 
@@ -24,18 +25,32 @@ public class Authenticator
         return false; // the user doesn't exist
     }
 
-    public boolean login(String username, String password)
+    public int login(String username, String password)
     {
         for (User user : users)
         {
             if(user.getUsername().equals(username) && user.getPassword().equals(password))
             {
-                return true;
+                return user.getUserID();
             }
         }
-        return false;
+        return 0;
     }
     
+    public User getUser(int userID)
+    {
+        for (User user : users)
+        {
+        if(user.getUserID() == userID)
+        {
+            return user;
+        }    
+        }
+            return null;
+        
+        
+        
+    }
     // For testing purposes!
     
     // public void printUsers()
