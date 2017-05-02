@@ -28,16 +28,19 @@ public class User
 
     public void deleteFromFavorites(Movie movie)
     {
+        int deletedMovieCount = 0;
         for (Movie m : favorites)
         {
             if(m.getTitle().equals(movie.getTitle()))
             {
                 favorites.remove(m);
+                deletedMovieCount += 1;
             }
-            else
-            {
-                System.out.println("Can't find movie");
-            }
+        }
+        if(deletedMovieCount == 0){
+            System.out.println("No movies deleted from favorites");
+        } else {
+            System.out.println("Deleted " + deletedMovieCount + " movies from favorites.");
         }
     }
 
