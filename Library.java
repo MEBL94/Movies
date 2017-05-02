@@ -30,6 +30,7 @@ public class Library {
     public int findActor(String actorName)
     {
         for (Actor actor : actors){
+            System.out.println("Printing current actor " + actor);
             if(actor.getName().equals(actorName)){
                 return actors.indexOf(actor);
             }

@@ -34,7 +34,7 @@ public class Actor
      
      public String getName()
      {
-         return this.firstname + this.lastname;
+         return this.firstname + " " + this.lastname;
      }
 
      public ArrayList<Movie> getMovies()

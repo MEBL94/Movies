@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
-    Library lib;
-    Authenticator auth;
+    private Library lib;
+    private Authenticator auth;
 
     public FileHandler(Library lib, Authenticator auth){
         this.lib = lib;
@@ -72,11 +72,11 @@ public class FileHandler {
         int birthmonth = scan.nextInt();
         int birthyear = scan.nextInt();
         
-        //lib.
 
-        //test statements:
-        // System.out.println("XXXXXXX");
-        // System.out.println(firstname + " " + lastname + " " + birthday + " " + birthmonth + " " + birthyear);
+        // test statements:
+        System.out.println("XXXXXXX");
+        System.out.println(firstname + " " + lastname + " " + birthday + " " + birthmonth + " " + birthyear);
+        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
     }
 
 
