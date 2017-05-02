@@ -24,18 +24,33 @@ public class Authenticator
         return false; // the user doesn't exist
     }
 
-    public boolean login(String username, String password)
+    public int login(String username, String password)
     {
         for (User user : users)
         {
             if(user.getUsername().equals(username) && user.getPassword().equals(password))
             {
-                return true;
+                return user.getUserID();
             }
         }
-        return false;
+        return 0;
     }
     
+    public User getUser(int userID)
+    {
+        for (User user : users)
+        {
+        if(user.getUserID == userID)
+        {
+            return user;
+        }    
+        else
+        {
+            return null;
+        }
+        }
+        
+    }
     // For testing purposes!
     
     // public void printUsers()
