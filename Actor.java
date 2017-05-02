@@ -32,12 +32,12 @@ public class Actor
 
    
      
-     public String getname()
+     public String getName()
      {
          return this.firstname + this.lastname;
      }
 
-     public ArrayList<Movie> getmovies()
+     public ArrayList<Movie> getMovies()
      {
         return this.movies;
      }
