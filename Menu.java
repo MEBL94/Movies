@@ -24,6 +24,7 @@ public class Menu {
             logInUserMenu();
             break;
             case 3:
+            cls();
             adminMenu();
             break;
             default: System.out.println("Invalid input");
@@ -43,6 +44,7 @@ public class Menu {
             System.out.println("4. Return to user menu.");
             System.out.println("5. Return to main menu.");
             choice = scan.nextInt();
+            pause();
             switch (choice) {
                 case 0:
                 break;
@@ -81,15 +83,19 @@ public class Menu {
     public User createUserMenu() {
         System.out.println("Welcome to the create user menu!");
         System.out.print("Enter your firstname: ");
-        String firstname = scan.nextLine();
-        System.out.print("Enter your lastname: ");
-        String lastname = scan.nextLine();
-        System.out.print("Enter your desired username: ");
-        String username = scan.nextLine();
-        au.checkUser(username);
-        System.out.print("Enter your desired password: ");
-        String password = scan.nextLine();
+        String firstname = scan.next();
+        System.out.print("\nEnter your lastname: ");
+        String lastname = scan.next();
+        System.out.print("\nEnter your desired username: ");
+        String username = scan.next();
+        System.out.print("\nEnter your desired password: ");
+        String password = scan.next();
+        if (au.checkUser(username)) {
         au.createUser(firstname, lastname, username, password, false);
+        }
+        else {
+            System.out.println("Go away.");
+        }
         int userid = au.login(username, password); 
         User user = au.getUser(userid);
         return user;
@@ -182,7 +188,6 @@ public class Menu {
             System.out.println("3. Edit movie menu");
             System.out.println("4. Create actor menu");
             System.out.println("5. Delete actor menu");
-            System.out.println("6. Edit actor menu");
             choice = scan.nextInt();
             switch (choice) {
                 case 0:
@@ -201,9 +206,6 @@ public class Menu {
                 break;
                 case 5:
                 deleteActorMenu();
-                break;
-                case 6:
-                editActorMenu();
                 break;
                 default: System.out.println("Invalid input");
                 break;
@@ -252,12 +254,14 @@ public class Menu {
         //Actor actor = new Actor(name);        
         //lib.deleteActor(actor);
     }
-    public void editActorMenu() {
-        System.out.println("So you wish to edit an actor");
-        System.out.print("Name: ");
-        String name = scan.nextLine();        
-        //lib.editActor(name);
-    }
+
+    // public void editActorMenu() {
+    //     System.out.println("So you wish to edit an actor");
+    //     System.out.print("Name: ");
+    //     String name = scan.nextLine();        
+    //     //lib.editActor(name);
+    //}
+
     public void pause() {
         Scanner input = new Scanner(System.in);                     
         input.nextLine(); //fanger den nye linie der kommer ved et entertryk
