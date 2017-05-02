@@ -1,0 +1,32 @@
+<movie> 
+    <title>
+        Beauty and the beast
+    </title>
+    <releaseYear>
+        1999
+    </releaseYear>
+    <actors>
+        <actor>
+            Belle the beauty
+        </actor>
+        <actor>
+            Monster the beast
+        </actor>
+    </actors>
+</movie>
+<movie> 
+    <title>
+        Beauty and the beast 2
+    </title>
+    <releaseYear>
+        2003
+    </releaseYear>
+    <actors>
+        <actor>
+            Belle the beauty
+        </actor>
+        <actor>
+            Monster the beast
+        </actor>
+    </actors>
+</movie>
