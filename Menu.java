@@ -41,40 +41,39 @@ public class Menu {
         int choice = 1;
         while (choice != 0) {
             System.out.println("Welcome to the favorites menu!");
+            System.out.println("Favorites list: ");
+            for (Movie movie : au.getUser(userID).getFavorites()) {
+                 System.out.println(movie);
+            }
             System.out.println("You now have the following choices:");
-            System.out.println("1. Show favorites list.");
-            System.out.println("2. Add to favorites");
-            System.out.println("3. Delete from favorites");
-            System.out.println("4. Return to user menu.");
-            System.out.println("5. Return to main menu.");
+            System.out.println("1. Add to favorites");
+            System.out.println("2. Delete from favorites");
+            System.out.println("3. Return to user menu.");
+            System.out.println("4. Return to main menu.");
             choice = scan.getInt();
             switch (choice) {
                 case 0:
                 break;
-                case 1: 
-                System.out.println("Favorites list: ");
-                System.out.println(au.getUser(userID).getFavorites());
-                break;
-                case 2:
-                System.out.print("Title: ");
-                String title = scan.getLine();
-                System.out.print("Release year: ");
-                int year = scan.getInt();
-                Movie movie = new Movie(title, year);
+                case 1:
+                int index = searchForMovie();
+                if (index == -1) {
+                    break;
+                }
+                Movie movie = lib.getMovie(index);
                 au.getUser(userID).addToFavorites(movie);
                 break;
-                case 3:
-                System.out.print("Title: ");
-                String title2 = scan.getLine();
-                System.out.print("Release year: ");
-                int year2 = scan.getInt();
-                Movie movie2 = new Movie(title2, year2);
+                case 2:
+                int index2 = searchForMovie();
+                if (index2 == -1) {
+                    break;
+                }
+                Movie movie2 = lib.getMovie(index2);
                 au.getUser(userID).deleteFromFavorites(movie2);
                 break;
-                case 4:
+                case 3:
                 userMenu(userID);
                 break;
-                case 5:
+                case 4:
                 mainMenu();
                 break;
                 default: System.out.println("Invalid input");
@@ -175,17 +174,55 @@ public class Menu {
             case 0:
             break;
             case 1:
-            System.out.print("Title");
-            String title = scan.getLine();
-            System.out.println(lib.findMovie(title));
+            searchForMovie();
+            // System.out.println(movie);
             break;
             case 2:
+            searchForActor();
             break;
             default:
             System.out.println("Invalid input");
             break;
         }
     }
+    }
+
+    private int searchForMovie() {
+            String search = "";
+            boolean foundMovie = false;
+            while(foundMovie == false) {
+                System.out.print("Search term (only title): "); 
+                search = scan.getLine();
+                if (lib.findMovie(search) >= 0) {
+                    foundMovie = true;
+                }
+                else {
+                    System.out.println("Could not find the movie. Try Again! Want to try again? Yes or no?");
+                    if (scan.getLine().equalsIgnoreCase("no")) {
+                        return -1;
+                    } 
+                }
+            }
+        return lib.findMovie(search); 
+    }
+
+    private int searchForActor() {
+            String search = "";
+            boolean foundActor = false;
+            while(foundActor == false) {
+                System.out.print("Search term (only name): "); 
+                search = scan.getLine();
+                if (lib.findActor(search) >= 0) {
+                    foundActor = true;
+                }
+                else {
+                    System.out.println("Could not find the actor. Try Again! Want to try again? Yes or no?");
+                    if (scan.getLine().equalsIgnoreCase("no")) {
+                        return -1;
+                    } 
+                }
+            }
+        return lib.findActor(search); 
     }
 
     public void adminMenu() {
