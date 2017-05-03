@@ -16,6 +16,14 @@ public class JonasTest {
         System.out.println("Monster index: " + lib.findActor("Monster the beast"));
         System.out.println("Belle index: " + lib.findActor("Belle the beauty"));
         System.out.println("noone index: " + lib.findActor("blurp"));
+        for(Movie movie : lib.getActor(lib.findActor("Monster the beast")).getMovies()){
+            System.out.println("Monster the beast has: " + movie.getTitle());
+        }
+        for(Movie movie : lib.getActor(lib.findActor("Belle the beauty")).getMovies()){
+            System.out.println("Belle has: " + movie.getTitle());
+        }
+
+
         fh.saveToFiles();
         
         //Test

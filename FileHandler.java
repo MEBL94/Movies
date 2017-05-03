@@ -16,7 +16,7 @@ public class FileHandler {
         loadActors();
         loadMovies();
         loadUsers();
-        // linker();
+        linker();
     }
 
     private void loadActors(){
@@ -31,7 +31,7 @@ public class FileHandler {
                 }
             }
         } catch (Exception e){
-            System.out.println(">> Fejl i Load Actors " + e);
+            System.out.println(">> Fejl i LoadActors " + e);
         }
     }
 
@@ -61,7 +61,7 @@ public class FileHandler {
                 }
             }
         } catch (Exception e){
-            System.out.println(">> Fejl i load Users: " + e);
+            System.out.println(">> Fejl i loadUsers: " + e);
         }
     }
 
@@ -120,23 +120,50 @@ public class FileHandler {
                         //go look for movies
                         tag = scan.getLine();
                         if (tag.equals("<movies>")){
-                            while(!tag.equals("</movies>")){
-                            //until end of movies, add a movie to the actor.
                             tag = scan.getLine();
-                            thisActor.addMovies(lib.getMovie(lib.findMovie(tag)));
+                            while(!tag.equals("</movies>")){
+                                thisActor.addMovies(lib.getMovie(lib.findMovie(tag)));
+                                tag = scan.getLine();
                             }
                         }
                     }
                 }
             }
         } catch (Exception e){
-            System.out.println(">> Fejl i load Users: " + e);
+            System.out.println(">> Fejl i link actors: " + e);
         }
 
     }
 
     private void linkMovies(){
-
+        try{
+            File file = new File("Movies.xml");
+            UserInput scan = new UserInput(file);
+        
+            String tag;
+            while(scan.hasNext()){
+                //Look for movie tag
+                tag = scan.getLine();
+                if(tag.equals("<movie>")){
+                    //find movietitle, to get the movie object from library.
+                    String movieTitle = scan.getLine();
+                    Movie thisMovie = lib.getMovie(lib.findMovie(movieTitle));
+                    while(!tag.equals("</movie>")){
+                        //go look for actors
+                        tag = scan.getLine();
+                        if (tag.equals("<actors>")){
+                            tag = scan.getLine();
+                            while(!tag.equals("</actors>")){
+                                thisMovie.addActor(lib.getActor(lib.findActor(tag)));
+                                tag = scan.getLine();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e){
+            System.out.println(">> Fejl i link movies: " + e);
+        }
     }
 
     private void linkUsers(){
