@@ -28,7 +28,7 @@ public class Movie
         return this.title;
     }
 
-    public ArrayList<Actor> getactors()
+    public ArrayList<Actor> getActors()
     {
        return this.actors;
     }
