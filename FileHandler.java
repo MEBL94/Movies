@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.PrintStream;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class FileHandler {
@@ -23,25 +22,26 @@ public class FileHandler {
     private void loadActors(){
         try{
             File file = new File("Actors.xml");
-            Scanner scan = new Scanner(file);
+            // Scanner scan = new Scanner(file);
+            UserInput scan = new UserInput(file);
         
             while(scan.hasNext()){
-                if(scan.next().equals("<actor>")){
+                if(scan.getWord().equals("<actor>")){
                     createActorFromFile(scan);
                 }
             }
         } catch (Exception e){
-            System.out.println(">> Fejl i LoadActors " + e);
+            System.out.println(">> Fejl i Load Actors " + e);
         }
     }
 
     private void loadMovies(){
         try{
             File file = new File("Movies.xml");
-            Scanner scan = new Scanner(file);
+            UserInput scan = new UserInput(file);
         
             while(scan.hasNext()){
-                if(scan.next().equals("<movie>")){
+                if(scan.getWord().equals("<movie>")){
                     createMovieFromFile(scan);
                 }
             }
@@ -53,10 +53,10 @@ public class FileHandler {
     private void loadUsers(){
         try{
             File file = new File("Users.xml");
-            Scanner scan = new Scanner(file);
+            UserInput scan = new UserInput(file);
         
             while(scan.hasNext()){
-                if(scan.next().equals("<user>")){
+                if(scan.getWord().equals("<user>")){
                     createUserFromFile(scan);
                 }
             }
@@ -65,47 +65,115 @@ public class FileHandler {
         }
     }
 
+    private void createActorFromFile(UserInput scan){
+        scan.getLine();
+        String firstname = scan.getLine();
+        String lastname = scan.getLine();
+        int birthday = scan.getInt();
+        int birthmonth = scan.getInt();
+        int birthyear = scan.getInt();
+
+        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
+    }
+
+    private void createMovieFromFile(UserInput scan){
+        scan.getLine();
+        String movieTitle = scan.getLine();
+        int productionYear = scan.getInt();
+
+        lib.createMovie(movieTitle, productionYear);
+    }
+
+    private void createUserFromFile(UserInput scan){
+        scan.getLine();
+        String firstname = scan.getLine();
+        String lastname = scan.getLine();
+        String username = scan.getLine();
+        String password = scan.getLine();
+        boolean admin = false;
+        if(scan.getWord().equals("true")){ admin = true; }
+
+        auth.createUser(firstname,lastname,username,password,admin);
+    }
+
     private void linker(){
+        linkActors();
+        linkMovies();
+        linkUsers();
+    }
+
+    private void linkActors(){
+        try{
+            File file = new File("Actors.xml");
+            UserInput scan = new UserInput(file);
+        
+            Actor placeholder;
+            while(scan.hasNext()){
+                String tagFinder = scan.getLine();
+                if(tagFinder.equals("<actor>")){
+                    placeholder = lib.getActor(lib.findActor(scan.getLine() + " " + scan.getLine()));
+                } else if (tagFinder.equals("<movies>")){
+                    String movietag = "";
+                    while(movietag != "</movies>"){
+                        // movietag 
+                        // placeholder.addMovies(lib.getMovie(lib.findMovie(scan.getL)))
+                    }
+                }
+            }
+        } catch (Exception e){
+            System.out.println(">> Fejl i load Users: " + e);
+        }
+
+    }
+
+    private void linkMovies(){
+
+    }
+
+    private void linkUsers(){
 
     }
 
     public void saveToFiles(){
-
+        saveActors();
+        saveMovies();
+        saveUsers();
     }
 
-    private void createActorFromFile(Scanner scan){
-        scan.nextLine();
-        String firstname = scan.nextLine();
-        String lastname = scan.nextLine();
-        int birthday = scan.nextInt();
-        int birthmonth = scan.nextInt();
-        int birthyear = scan.nextInt();
-        
-        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
-
-        // test statements:
-        // System.out.println("XXXXXXX");
-        // System.out.println(firstname + " " + lastname + " " + birthday + " " + birthmonth + " " + birthyear);
-    }
-
-    private void createMovieFromFile(Scanner scan){
-        scan.nextLine();
-        String movieTitle = scan.nextLine();
-        int productionYear = scan.nextInt();
-        lib.createMovie(movieTitle, productionYear);
-    }
-
-    private void createUserFromFile(Scanner scan){
-        scan.nextLine();
-        String firstname = scan.nextLine();
-        String lastname = scan.nextLine();
-        String username = scan.nextLine();
-        String password = scan.nextLine();
-        boolean admin = false;
-        // System.out.println(firstname + lastname);
-        if(scan.next().equals("true")){
-            admin = true;
+    private void saveActors(){
+        try{
+            File movieFile = new File("ActorsTest.xml");
+            PrintStream fileStream = new PrintStream(movieFile);
+            for(Actor actor : lib.getActors()){
+                //StartTag
+                fileStream.println("<actor>");
+                //FirstName
+                UserInput nameScan = new UserInput(actor.getName());
+                fileStream.println(nameScan.getWord());
+                //lastname
+                String lastname = nameScan.getWord();
+                while(nameScan.hasNext()){
+                    lastname += " ";
+                    lastname += (nameScan.getWord());
+                }
+                fileStream.println(lastname);
+                //birthday
+                //code here?? 
+                fileStream.println("</actor>");
+            }
         }
-        auth.createUser(firstname,lastname,username,password,admin);
+        catch(Exception e){
+            System.out.println(">> Exception in saveActors: " + e);
+        }
     }
+
+    private void saveMovies(){
+
+    }
+
+    private void saveUsers(){
+
+    }
+
+
 }

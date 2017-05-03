@@ -10,10 +10,14 @@ public class JonasTest {
         System.out.println("Check for users:");
         System.out.println(auth.checkUser("duch22"));
         System.out.println(auth.checkUser("duch21"));
+        System.out.println(auth.checkUser("d"));
         //Test Load Actors
         System.out.println("Check for Actors:");
-        System.out.println(lib.findActor("Monster the beast"));
-        System.out.println(lib.findActor("Belle the beauty"));
+        System.out.println("Monster index: " + lib.findActor("Monster the beast"));
+        System.out.println("Belle index: " + lib.findActor("Belle the beauty"));
+        System.out.println("noone index: " + lib.findActor("blurp"));
+        fh.saveToFiles();
+        
         //Test
 
 
