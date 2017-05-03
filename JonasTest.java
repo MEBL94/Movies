@@ -26,10 +26,10 @@ public class JonasTest {
         for(Actor actor : lib.getMovie(lib.findMovie("Beauty and the beast")).getActors()){
             System.out.println("Budibeast 1 har: " + actor);
         }
+
         for(Actor actor : lib.getMovie(lib.findMovie("Beauty and the beast 2")).getActors()){
             System.out.println("Budibeast 2 har: " + actor);
         }
-
 
         fh.saveToFiles();
         
