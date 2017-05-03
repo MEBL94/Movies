@@ -107,16 +107,25 @@ public class FileHandler {
             File file = new File("Actors.xml");
             UserInput scan = new UserInput(file);
         
-            Actor placeholder;
+            String tag;
             while(scan.hasNext()){
-                String tagFinder = scan.getLine();
-                if(tagFinder.equals("<actor>")){
-                    placeholder = lib.getActor(lib.findActor(scan.getLine() + " " + scan.getLine()));
-                } else if (tagFinder.equals("<movies>")){
-                    String movietag = "";
-                    while(movietag != "</movies>"){
-                        // movietag 
-                        // placeholder.addMovies(lib.getMovie(lib.findMovie(scan.getL)))
+                //Look for actor tag
+                tag = scan.getLine();
+                if(tag.equals("<actor>")){
+                    //fill in name blanks to find user
+                    String firstName = scan.getLine();
+                    String lastName = scan.getLine();
+                    Actor thisActor = lib.getActor(lib.findActor(firstName + " " + lastName));
+                    while(!tag.equals("</actor>")){
+                        //go look for movies
+                        tag = scan.getLine();
+                        if (tag.equals("<movies>")){
+                            while(!tag.equals("</movies>")){
+                            //until end of movies, add a movie to the actor.
+                            tag = scan.getLine();
+                            thisActor.addMovies(lib.getMovie(lib.findMovie(tag)));
+                            }
+                        }
                     }
                 }
             }
