@@ -99,7 +99,7 @@ public class Menu {
         else {
             System.out.println("Creating a user failed.");
         }
-        userID = au.login(username, password); 
+        this.userID = au.login(username, password); 
         User user = au.getUser(userID);
         return user;
         //System.out.println("You have successfully created an account!");
@@ -123,10 +123,10 @@ public class Menu {
         }
     }
 
-    public void userMenu(int userid) {
+    public void userMenu(int userID) {
         int choice = 1;
         while (choice != 0) {
-            if (userid == 0) {
+            if (userID == 0) {
                 break;
             }
             System.out.println("Welcome to the user menu! You now have the following choices:");
@@ -140,7 +140,10 @@ public class Menu {
                 break;
                 case 1:
                 // call of play movie method
-                System.out.println("Movie is played");
+                System.out.println("Choose a movie that you would like to play.");
+                searchForMovie();
+                au.getUser(this.searchForMovie());
+                //createHistoryEvent(lib.getMovie(searchForMovie()));
                 break;
                 case 2: 
                 showFavoritesMenu();
@@ -166,7 +169,7 @@ public class Menu {
             userMenu(userID);
         } 
         else { 
-        System.out.println(createUserMenu().getHistory());
+        System.out.println(au.getUser(userID).getHistory());
         }
     }
 
@@ -235,11 +238,11 @@ public class Menu {
     public void adminMenu() {
         int choice = 1;
         while (choice != 0) {
-            System.out.println("1. Create movie menu");
-            System.out.println("2. Delete movie menu");
-            System.out.println("3. Edit movie menu");
-            System.out.println("4. Create actor menu");
-            System.out.println("5. Delete actor menu");
+            System.out.println("1. Create movie.");
+            System.out.println("2. Delete movie.");
+            System.out.println("3. Edit movie.");
+            System.out.println("4. Create actor.");
+            System.out.println("5. Delete actor.");
             choice = scan.getInt();
             switch (choice) {
                 case 0:
@@ -285,9 +288,14 @@ public class Menu {
         System.out.println("So you wish to edit a movie");
         System.out.print("Title: ");
         String title = scan.getLine();
-        System.out.print("Release year: ");
-        int year = scan.getInt();
-        //lib.editMovie(title, year);
+        lib.findMovie(title);
+        System.out.print("New title: ");
+        String newTitle = scan.getLine();
+        System.out.print("New release year: ");
+        int newYear = scan.getInt();
+        lib.createMovie(newTitle, newYear);
+        lib.deleteMovie(title);
+        
     }
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
