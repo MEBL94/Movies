@@ -5,20 +5,20 @@ public class Actor
 {
      private String firstname;
      private String lastname;
-     private Calendar birthday;
+     private String birthday;
      private ArrayList<Movie> movies = new ArrayList<Movie>();
 
      public Actor(String firstname, String lastname, int day, int month, int year)
      {
-         this.firstname = firstname;
-         this.lastname = lastname;
-         //Virker ikke, giver mig NULL POINTER EXCEPTION
-        //  this.birthday.set(year, month, day);
+        this.firstname = firstname;
+        this.lastname = lastname;
+
+        birthday = day + "/" + month + "-" + year;
      }
 
      public void setFirstname(String firstname)
      {
-         this.firstname = firstname;
+        this.firstname = firstname;
      }
      
      public void setLastname(String lastname)
@@ -28,7 +28,7 @@ public class Actor
      
      public void setBirthday(int day, int month, int year)
      {
-         this.birthday.set(year, month, day);
+         this.birthday = day + "/" + month + "-" + year;
      }
 
    

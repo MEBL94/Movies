@@ -50,6 +50,27 @@ public class User
         return favorites;
     }
 
+    public void createHistoryEvent(Movie movie)
+    {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm dd/MM-yyyy");
+        Calendar calendar = new GregorianCalendar();
+        String startDateString = df.format(calendar.getTime());
+        Date startDate;
+        try
+        {        
+            startDate = df.parse(startDateString);
+            String newDateString = df.format(startDate);
+            HistoryEvent event = new HistoryEvent(newDateString, movie);
+            history.add(event);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Doh!");
+            
+        }
+    }
+    
+
     public ArrayList<HistoryEvent> getHistory()
     {
         return history;
@@ -65,16 +86,8 @@ public class User
         return this.password;
     }
 
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
     public int getUserID()
     {
         return userID;
     }
-    
-    
-    
-    
 }
