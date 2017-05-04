@@ -5,7 +5,7 @@ public class Actor
 {
      private String firstname;
      private String lastname;
-     private Calendar birthday;
+     private String birthday;
      private ArrayList<Movie> movies = new ArrayList<Movie>();
 
      public Actor(String firstname, String lastname, int day, int month, int year)
@@ -13,10 +13,7 @@ public class Actor
         this.firstname = firstname;
         this.lastname = lastname;
 
-        birthday = Calendar.getInstance();
-        birthday.set(Calendar.YEAR, year);
-        birthday.set(Calendar.MONTH, month-1);
-        birthday.set(Calendar.DAY_OF_MONTH, day);
+        birthday = day + "/" + month + "-" + year;
      }
 
      public void setFirstname(String firstname)
@@ -31,7 +28,7 @@ public class Actor
      
      public void setBirthday(int day, int month, int year)
      {
-         this.birthday.set(year, month, day);
+         this.birthday = day + "/" + month + "-" + year;
      }
 
    
