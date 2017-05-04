@@ -300,9 +300,9 @@ public class Menu {
         String newTitle = scan.getLine();
         System.out.print("New release year: ");
         int newYear = scan.getInt();
-        lib.createMovie(newTitle, newYear);
-        lib.deleteMovie(title);
-        
+        Movie movie = lib.getMovie(lib.findMovie(title));
+        movie.setTitle(newTitle);
+        movie.setReleaseYear(newYear);
     }
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
