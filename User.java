@@ -69,6 +69,11 @@ public class User
             
         }
     }
+    public void createHistoryEvent(String date, Movie movie)
+    {
+        HistoryEvent event = new HistoryEvent(date, movie);
+        history.add(event);
+    }
     
 
     public ArrayList<HistoryEvent> getHistory()
@@ -89,5 +94,17 @@ public class User
     public int getUserID()
     {
         return userID;
+    }
+
+    public String getName(){
+        return firstName + " " + lastName;
+    }
+
+    public boolean getAdminStatus(){
+        return admin;
+    }
+
+    public String toString() {
+        return firstName + " " + lastName + ": " + userName;
     }
 }

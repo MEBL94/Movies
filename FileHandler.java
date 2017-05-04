@@ -19,7 +19,7 @@ public class FileHandler {
         loadMovies();
         //done
         loadUsers();
-        //mangler
+        //done
         linker();
     }
     
@@ -58,7 +58,7 @@ public class FileHandler {
             UserInput scan = new UserInput(file);
         
             while(scan.hasNext()){
-                if(scan.getWord().equals("<user>")){
+                if(scan.getLine().equals("<user>")){
                     createUserFromFile(scan);
                 }
             }
@@ -70,10 +70,8 @@ public class FileHandler {
     private void createActorFromFile(UserInput scan){
         String firstname = scan.getLine();
         String lastname = scan.getLine();
-        int birthday = scan.getInt();
-        int birthmonth = scan.getInt();
-        int birthyear = scan.getInt();
-        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
+        String birthday = scan.getLine();
+        lib.createActor(firstname, lastname, birthday);
     }
 
     private void createMovieFromFile(UserInput scan){
@@ -86,7 +84,8 @@ public class FileHandler {
         String firstname = scan.getLine();
         String lastname = scan.getLine();
         //skip credentials tag
-        scan.getLine();
+        while(!scan.getLine().equals("<credentials>")){
+        }
         String username = scan.getLine();
         String password = scan.getLine();
         boolean admin = false;
@@ -100,7 +99,7 @@ public class FileHandler {
         linkActors();
         //done
         linkMovies();
-        //mangler
+        //done
         linkUsers();
     }
 
@@ -178,7 +177,6 @@ public class FileHandler {
                 //Look for user tag
                 tag = scan.getLine();
                 if(tag.equals("<user>")){
-                    System.out.println("Ysssssssssssssssshej");
                     //go to credentials tag
                     while(!tag.equals("<credentials>")){
                         tag = scan.getLine();
@@ -195,6 +193,19 @@ public class FileHandler {
                             while(!tag.equals("</favorites>")){
                                 thisUser.addToFavorites(lib.getMovie(lib.findMovie(tag)));
                                 tag = scan.getLine();
+                            }
+                        } else if (tag.equals("<history>")){
+                            while(!tag.equals("</history>")){
+                                tag = scan.getLine();
+                                if(tag.equals("<historyEvent>")){
+                                    while(!tag.equals("</historyEvent>")){
+                                        String date = scan.getLine();
+                                        String movieTitle = scan.getLine();
+                                        thisUser.createHistoryEvent(date, lib.getMovie(lib.findMovie(movieTitle)));
+                                        //look for historyevent closer
+                                        tag = scan.getLine();
+                                    }
+                                }
                             }
                         }
                     }
@@ -213,8 +224,8 @@ public class FileHandler {
 
     private void saveActors(){
         try{
-            File movieFile = new File("ActorsTest.xml");
-            PrintStream fileStream = new PrintStream(movieFile);
+            File actorFile = new File("Actors.xml");
+            PrintStream fileStream = new PrintStream(actorFile);
             for(Actor actor : lib.getActors()){
                 //StartTag
                 fileStream.println("<actor>");
@@ -228,6 +239,13 @@ public class FileHandler {
                     lastname += (nameScan.getWord());
                 }
                 fileStream.println(lastname);
+                fileStream.println(actor.getBirthday());
+                fileStream.println("<movies>");
+                for(Movie movie : actor.getMovies()){
+                    fileStream.println(movie.getTitle());
+                }
+                fileStream.println("</movies>");
+
                 //birthday
                 //code here?? 
                 fileStream.println("</actor>");
@@ -239,11 +257,84 @@ public class FileHandler {
     }
 
     private void saveMovies(){
-
+        try{
+            File movieFile = new File("Movies.xml");
+            PrintStream fileStream = new PrintStream(movieFile);
+            for(Movie movie : lib.getMovies()){
+                //StartTag
+                fileStream.println("<movie>");
+                //Title
+                fileStream.println(movie.getTitle());
+                fileStream.println(movie.getReleaseYear());
+                fileStream.println("<actors>");
+                for(Actor actor : movie.getActors()){
+                    fileStream.println( actor.getName());
+                }
+                fileStream.println("</actors>");
+                fileStream.println("</movie>");
+                
+            }
+        }
+        catch(Exception e){
+            System.out.println(">> Exception in saveActors: " + e);
+        }
     }
+    
 
     private void saveUsers(){
+        try{
+            File userFile = new File("Users.xml");
+            PrintStream fileStream = new PrintStream(userFile);
+            for(User user : auth.getUsers()){
+                //StartTag
+                fileStream.println("<user>");
+                //firstname
+                UserInput nameScan = new UserInput(user.getName());
+                fileStream.println(nameScan.getWord());
+                //lastname
+                String lastname = nameScan.getWord();
+                while(nameScan.hasNext()){
+                    lastname += " ";
+                    lastname += (nameScan.getWord());
+                }
+                fileStream.println(lastname);
+                fileStream.println("<credentials>");
+                fileStream.println(user.getUsername());
+                fileStream.println(user.getPassword());
+                if(user.getAdminStatus()){
+                    fileStream.println("true");
+                } else {
+                    fileStream.println("false");
+                }
+                fileStream.println("<favorites>");
+                for(Movie movie : user.getFavorites()){
+                    fileStream.println( movie.getTitle());
+                }
+                fileStream.println("</favorites>");
+                fileStream.println("<history>");
+                for(HistoryEvent historyEvent : user.getHistory()){
+                    fileStream.println("<historyEvent>");
+                    UserInput historyScanner = new UserInput(historyEvent.getData());
+                    fileStream.println(historyScanner.getWord());
+                    String movieTitle = historyScanner.getWord();
+                    while(historyScanner.hasNext()){
+                        movieTitle += " ";
+                        movieTitle += historyScanner.getWord();
+                    }
+                    fileStream.println(movieTitle);
+                    
+                    fileStream.println("</historyEvent>");
+                }
+                fileStream.println("</history>");
 
+                fileStream.println("</user>");
+                
+                
+            }
+        }
+        catch(Exception e){
+            System.out.println(">> Exception in saveActors: " + e);
+        }
     }
 
 

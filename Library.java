@@ -52,8 +52,8 @@ public class Library {
         movies.add(new Movie(title, releaseYear));
     } 
     
-    public void createActor(String firstname, String lastname, int day, int month, int year){
-            Actor tempActor = new Actor(firstname, lastname, day, month, year);
+    public void createActor(String firstname, String lastname, String birthday){
+            Actor tempActor = new Actor(firstname, lastname, birthday);
             actors.add(tempActor);
     } 
      
@@ -70,7 +70,7 @@ public class Library {
     public void deleteActor(String actorName)
     {
         if ( findActor(actorName) > -1) {
-            movies.remove(findActor(actorName));
+            actors.remove(findActor(actorName));
             System.out.println("Actor deleted.");
         } else {
             System.out.println("Actor not found.");

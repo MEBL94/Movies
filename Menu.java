@@ -19,6 +19,7 @@ public class Menu {
         choice = scan.getInt();
         switch (choice) {
             case 0:
+            fileHandler.saveToFiles();
             break;
             case 1:
             createUserMenu();
@@ -28,7 +29,6 @@ public class Menu {
             userMenu(userID);
             break;
             case 3:
-            cls();
             adminMenu();
             break;
             default: System.out.println("Invalid input");
@@ -53,29 +53,36 @@ public class Menu {
             choice = scan.getInt();
             switch (choice) {
                 case 0:
-                break;
+                    break;
                 case 1:
-                int index = searchForMovie();
-                if (index == -1) {
+                    int index = searchForMovie();
+                    if (index == -1) {
+                        break;
+                    }
+                    Movie movie = lib.getMovie(index);
+                    au.getUser(userID).addToFavorites(movie);
                     break;
-                }
-                Movie movie = lib.getMovie(index);
-                au.getUser(userID).addToFavorites(movie);
-                break;
                 case 2:
-                int index2 = searchForMovie();
-                if (index2 == -1) {
+                    int index2 = searchForMovie();
+                    if (index2 == -1) {
+                        break;
+                    }
+                    Movie movie2 = lib.getMovie(index2);
+                    try
+                    {
+                        au.getUser(userID).deleteFromFavorites(movie2);
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
                     break;
-                }
-                Movie movie2 = lib.getMovie(index2);
-                au.getUser(userID).deleteFromFavorites(movie2);
-                break;
                 case 3:
-                userMenu(userID);
-                break;
+                    userMenu(userID);
+                    break;
                 case 4:
-                mainMenu();
-                break;
+                    mainMenu();
+                    break;
                 default: System.out.println("Invalid input");
                 break;
             }
@@ -141,8 +148,22 @@ public class Menu {
                 case 1:
                 // call of play movie method
                 System.out.println("Choose a movie that you would like to play.");
-                searchForMovie();
-                au.getUser(this.searchForMovie());
+                System.out.println("0 for search");
+                int number = 0;
+                for (Movie movie : lib.getMovies()) {
+                    number++;
+                    System.out.println(number +": "+ movie);
+                }
+                choice = scan.getInt();
+                if (choice == 0){
+                    int searchResult = this.searchForMovie();
+                    if (searchResult > -1){
+                        playMovie(lib.getMovie(searchResult));
+                    }
+                } else if (choice > 0){
+                    playMovie(lib.getMovie(choice -1));
+                }
+
                 //createHistoryEvent(lib.getMovie(searchForMovie()));
                 break;
                 case 2: 
@@ -171,6 +192,14 @@ public class Menu {
         else { 
         System.out.println(au.getUser(userID).getHistory());
         }
+    }
+
+    public void playMovie(Movie movie){
+        System.out.println("#################");
+        System.out.println("You are now playing a movie:");
+        System.out.println(movie);
+        System.out.println("#################");
+        pause();
     }
 
     public void searchMenu() {
@@ -238,11 +267,12 @@ public class Menu {
     public void adminMenu() {
         int choice = 1;
         while (choice != 0) {
-            System.out.println("1. Create movie.");
-            System.out.println("2. Delete movie.");
-            System.out.println("3. Edit movie.");
-            System.out.println("4. Create actor.");
-            System.out.println("5. Delete actor.");
+            System.out.println("1. Create movie");
+            System.out.println("2. Delete movie");
+            System.out.println("3. Edit movie");
+            System.out.println("4. Create actor");
+            System.out.println("5. Delete actor");
+            System.out.println("6. Users");
             choice = scan.getInt();
             switch (choice) {
                 case 0:
@@ -262,6 +292,25 @@ public class Menu {
                 case 5:
                 deleteActorMenu();
                 break;
+                case 6:
+                System.out.println("List of all users:");
+                for (User user : au.getUsers()) {
+                    System.out.println(user);
+                }
+                System.out.println("Do you wish to create a new user or delete an existing user? Write create/delete.");
+                String answer = scan.getLine();
+                if (answer.equalsIgnoreCase("create")) {
+                    createUserMenu();
+                }
+                else if (answer.equalsIgnoreCase("delete")) {
+                   System.out.print("Which user do you wish to remove? Enter the specific username : ");
+                   String username = scan.getLine(); 
+                   au.removeUser(username);               
+                }
+                else {
+                    System.out.println("Invalid input");
+                }
+                break;
                 default: System.out.println("Invalid input");
                 break;
             }
@@ -274,7 +323,19 @@ public class Menu {
         String title = scan.getLine();
         System.out.print("Release year: ");
         int year = scan.getInt();
-        lib.createMovie(title, year);    
+        lib.createMovie(title, year);
+        System.out.print("Which actor do you wish to add to the movie? : ");
+        String actor = scan.getLine();
+        lib.getActor(lib.findActor(actor));
+        System.out.print("Do you wish to add another actor? Yes or no?");
+        String answer = scan.getLine();
+        if (answer.equals("yes")) {
+            String anotherActor = scan.getLine();
+            lib.getActor(lib.findActor(anotherActor));
+        }
+        else {
+            adminMenu();
+        }
     }
     public void deleteMovieMenu() {
         System.out.println("So you wish to delete a movie");
@@ -293,14 +354,13 @@ public class Menu {
         String newTitle = scan.getLine();
         System.out.print("New release year: ");
         int newYear = scan.getInt();
-        lib.createMovie(newTitle, newYear);
-        lib.deleteMovie(title);
-        
+        Movie movie = lib.getMovie(lib.findMovie(title));
+        movie.setTitle(newTitle);
+        movie.setReleaseYear(newYear);
     }
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
         System.out.print("Firstname: ");
-        scan.getLine();
         String firstname = scan.getLine();
         System.out.print("Lastname: ");
         String lastname = scan.getLine();
@@ -310,12 +370,13 @@ public class Menu {
         int month = scan.getInt();
         System.out.print("Year: ");
         int year = scan.getInt();
-        lib.createActor(firstname, lastname, day, month, year);
+        String birthday = day + "/" + month + "-" + year;
+        lib.createActor(firstname, lastname, birthday);
     }
     
     public void deleteActorMenu() {
         System.out.println("So you wish to delete an actor");
-        System.out.println("Name: ");
+        System.out.print("Name: ");
         String name = scan.getLine();        
         lib.deleteActor(name);
     }
@@ -330,7 +391,7 @@ public class Menu {
     public void pause() {
         Scanner input = new Scanner(System.in);                     
         input.nextLine(); //fanger den nye linie der kommer ved et entertryk
-        cls();        
+        // cls();        
     }
     public void cls() {
          try { 
