@@ -67,8 +67,8 @@ public class Menu {
                 if (index2 == -1) {
                     break;
                 }
-                Movie movie2 = lib.getMovie(index2);
-                au.getUser(userID).deleteFromFavorites(movie2);
+                //Movie movie2 = lib.getMovie(index2);
+                au.getUser(userID).deleteFromFavorites(lib.getMovie(index2));
                 break;
                 case 3:
                 userMenu(userID);
