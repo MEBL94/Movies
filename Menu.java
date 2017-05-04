@@ -53,29 +53,36 @@ public class Menu {
             choice = scan.getInt();
             switch (choice) {
                 case 0:
-                break;
+                    break;
                 case 1:
-                int index = searchForMovie();
-                if (index == -1) {
+                    int index = searchForMovie();
+                    if (index == -1) {
+                        break;
+                    }
+                    Movie movie = lib.getMovie(index);
+                    au.getUser(userID).addToFavorites(movie);
                     break;
-                }
-                Movie movie = lib.getMovie(index);
-                au.getUser(userID).addToFavorites(movie);
-                break;
                 case 2:
-                int index2 = searchForMovie();
-                if (index2 == -1) {
+                    int index2 = searchForMovie();
+                    if (index2 == -1) {
+                        break;
+                    }
+                    Movie movie2 = lib.getMovie(index2);
+                    try
+                    {
+                        au.getUser(userID).deleteFromFavorites(movie2);
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
                     break;
-                }
-                Movie movie2 = lib.getMovie(index2);
-                au.getUser(userID).deleteFromFavorites(movie2);
-                break;
                 case 3:
-                userMenu(userID);
-                break;
+                    userMenu(userID);
+                    break;
                 case 4:
-                mainMenu();
-                break;
+                    mainMenu();
+                    break;
                 default: System.out.println("Invalid input");
                 break;
             }
@@ -300,7 +307,6 @@ public class Menu {
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
         System.out.print("Firstname: ");
-        scan.getLine();
         String firstname = scan.getLine();
         System.out.print("Lastname: ");
         String lastname = scan.getLine();
@@ -316,7 +322,7 @@ public class Menu {
     
     public void deleteActorMenu() {
         System.out.println("So you wish to delete an actor");
-        System.out.println("Name: ");
+        System.out.print("Name: ");
         String name = scan.getLine();        
         lib.deleteActor(name);
     }
