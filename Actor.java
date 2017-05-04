@@ -13,7 +13,7 @@ public class Actor
         this.firstname = firstname;
         this.lastname = lastname;
 
-        Calendar birthday = Calendar.getInstance();
+        birthday = Calendar.getInstance();
         birthday.set(Calendar.YEAR, year);
         birthday.set(Calendar.MONTH, month+1);
         birthday.set(Calendar.DAY_OF_MONTH, day);

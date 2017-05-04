@@ -22,11 +22,9 @@ public class FileHandler {
     private void loadActors(){
         try{
             File file = new File("Actors.xml");
-            // Scanner scan = new Scanner(file);
             UserInput scan = new UserInput(file);
-        
             while(scan.hasNext()){
-                if(scan.getWord().equals("<actor>")){
+                if(scan.getLine().equals("<actor>")){
                     createActorFromFile(scan);
                 }
             }
@@ -66,7 +64,6 @@ public class FileHandler {
     }
 
     private void createActorFromFile(UserInput scan){
-        scan.getLine();
         String firstname = scan.getLine();
         String lastname = scan.getLine();
         int birthday = scan.getInt();
@@ -167,7 +164,7 @@ public class FileHandler {
     }
 
     private void linkUsers(){
-
+        
     }
 
     public void saveToFiles(){
