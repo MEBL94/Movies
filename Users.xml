@@ -1,7 +1,6 @@
 <user>
 Jonas
 Ladefoged Holm
-
 <credentials>
 duch22
 mitpassword
@@ -63,5 +62,17 @@ Beauty and the beast 2
 25/4-2017
 Beauty and the beast
 </historyEvent>
+</history>
+</user>
+<user>
+Andreas
+er grim
+<credentials>
+grim
+grim
+false
+<favorites>
+</favorites>
+<history>
 </history>
 </user>

@@ -29,7 +29,6 @@ public class Menu {
             userMenu(userID);
             break;
             case 3:
-            cls();
             adminMenu();
             break;
             default: System.out.println("Invalid input");
@@ -150,17 +149,19 @@ public class Menu {
                 // call of play movie method
                 System.out.println("Choose a movie that you would like to play.");
                 System.out.println("0 for search");
+                int number = 0;
                 for (Movie movie : lib.getMovies()) {
-                    System.out.println(movie);
+                    number++;
+                    System.out.println(number +": "+ movie);
                 }
                 choice = scan.getInt();
                 if (choice == 0){
                     int searchResult = this.searchForMovie();
                     if (searchResult > -1){
-                        System.out.println(lib.getMovie(searchResult));
+                        playMovie(lib.getMovie(searchResult));
                     }
                 } else if (choice > 0){
-                    System.out.println(lib.getMovie(choice -1));
+                    playMovie(lib.getMovie(choice -1));
                 }
 
                 //createHistoryEvent(lib.getMovie(searchForMovie()));
@@ -191,6 +192,14 @@ public class Menu {
         else { 
         System.out.println(au.getUser(userID).getHistory());
         }
+    }
+
+    public void playMovie(Movie movie){
+        System.out.println("#################");
+        System.out.println("You are now playing a movie:");
+        System.out.println(movie);
+        System.out.println("#################");
+        pause();
     }
 
     public void searchMenu() {
@@ -382,7 +391,7 @@ public class Menu {
     public void pause() {
         Scanner input = new Scanner(System.in);                     
         input.nextLine(); //fanger den nye linie der kommer ved et entertryk
-        cls();        
+        // cls();        
     }
     public void cls() {
          try { 
