@@ -19,6 +19,7 @@ public class Menu {
         choice = scan.getInt();
         switch (choice) {
             case 0:
+            fileHandler.saveToFiles();
             break;
             case 1:
             createUserMenu();
@@ -245,11 +246,12 @@ public class Menu {
     public void adminMenu() {
         int choice = 1;
         while (choice != 0) {
-            System.out.println("1. Create movie.");
-            System.out.println("2. Delete movie.");
-            System.out.println("3. Edit movie.");
-            System.out.println("4. Create actor.");
-            System.out.println("5. Delete actor.");
+            System.out.println("1. Create movie");
+            System.out.println("2. Delete movie");
+            System.out.println("3. Edit movie");
+            System.out.println("4. Create actor");
+            System.out.println("5. Delete actor");
+            System.out.println("6. Users");
             choice = scan.getInt();
             switch (choice) {
                 case 0:
@@ -269,6 +271,26 @@ public class Menu {
                 case 5:
                 deleteActorMenu();
                 break;
+                case 6:
+                System.out.println("List of all users:");
+                for (User user : au.getUsers()) {
+                    System.out.println(user);
+                }
+                System.out.println("Do you wish to create a new user or delete an existing user? Write create/delete.");
+                String answer = scan.getLine();
+                if (answer.equalsIgnoreCase("create")) {
+                    createUserMenu();
+                }
+                else if (answer.equalsIgnoreCase("delete")) {
+                   System.out.print("Which user do you wish to remove? Enter the specific username : ");
+                   answer = scan.getLine(); 
+                   for (int i = 0; i < au.getUsers().size(); i++) {
+                   if (au.getUser(userID).getUsername().equals(answer)) {
+                        au.getUsers().remove(i);
+                   }               
+                }
+                }
+                break;
                 default: System.out.println("Invalid input");
                 break;
             }
@@ -281,7 +303,19 @@ public class Menu {
         String title = scan.getLine();
         System.out.print("Release year: ");
         int year = scan.getInt();
-        lib.createMovie(title, year);    
+        lib.createMovie(title, year);
+        System.out.print("Which actor do you wish to add to the movie? : ");
+        String actor = scan.getLine();
+        lib.getActor(lib.findActor(actor));
+        System.out.print("Do you wish to add another actor? Yes or no?");
+        String answer = scan.getLine();
+        if (answer.equals("yes")) {
+            String anotherActor = scan.getLine();
+            lib.getActor(lib.findActor(anotherActor));
+        }
+        else {
+            adminMenu();
+        }
     }
     public void deleteMovieMenu() {
         System.out.println("So you wish to delete a movie");
@@ -300,9 +334,9 @@ public class Menu {
         String newTitle = scan.getLine();
         System.out.print("New release year: ");
         int newYear = scan.getInt();
-        lib.createMovie(newTitle, newYear);
-        lib.deleteMovie(title);
-        
+        Movie movie = lib.getMovie(lib.findMovie(title));
+        movie.setTitle(newTitle);
+        movie.setReleaseYear(newYear);
     }
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
