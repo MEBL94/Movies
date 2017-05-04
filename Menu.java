@@ -150,6 +150,9 @@ public class Menu {
                 // call of play movie method
                 System.out.println("Choose a movie that you would like to play.");
                 System.out.println("0 for search");
+                for (Movie movie : lib.getMovies()) {
+                    System.out.println(movie);
+                }
                 choice = scan.getInt();
                 if (choice == 0){
                     int searchResult = this.searchForMovie();
@@ -292,12 +295,11 @@ public class Menu {
                 }
                 else if (answer.equalsIgnoreCase("delete")) {
                    System.out.print("Which user do you wish to remove? Enter the specific username : ");
-                   answer = scan.getLine(); 
-                   for (int i = 0; i < au.getUsers().size(); i++) {
-                   if (au.getUser(userID).getUsername().equals(answer)) {
-                        au.getUsers().remove(i);
-                   }               
+                   String username = scan.getLine(); 
+                   au.removeUser(username);               
                 }
+                else {
+                    System.out.println("Invalid input");
                 }
                 break;
                 default: System.out.println("Invalid input");
