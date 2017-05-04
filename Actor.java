@@ -10,15 +10,25 @@ public class Actor
 
      public Actor(String firstname, String lastname, int day, int month, int year)
      {
-         this.firstname = firstname;
-         this.lastname = lastname;
+        this.firstname = firstname;
+        this.lastname = lastname;
+
+        Calendar birthday = Calendar.getInstance();
+        birthday.set(Calendar.YEAR, year);
+        birthday.set(Calendar.MONTH, month+1);
+        birthday.set(Calendar.DAY_OF_MONTH, day);
+
+
+
          //Virker ikke, giver mig NULL POINTER EXCEPTION
-        //  this.birthday.set(year, month, day);
+         // private Calendar birthday = new Calendar().set(year, month, day);
+         // this.birthday = new Calendar();
+         // birthday.set(year, month, day);
      }
 
      public void setFirstname(String firstname)
      {
-         this.firstname = firstname;
+        this.firstname = firstname;
      }
      
      public void setLastname(String lastname)
