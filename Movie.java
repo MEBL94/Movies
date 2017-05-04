@@ -18,6 +18,10 @@ public class Movie
         this.title = title;
     }
 
+    public int getReleaseYear(){
+        return this.releaseYear;
+    }
+
     public void setReleaseYear(int releaseYear)
     {
         this.releaseYear = releaseYear;
@@ -28,7 +32,7 @@ public class Movie
         return this.title;
     }
 
-    public ArrayList<Actor> getactors()
+    public ArrayList<Actor> getActors()
     {
        return this.actors;
     }
