@@ -95,4 +95,12 @@ public class User
     {
         return userID;
     }
+
+    public String getName(){
+        return firstName + " " + lastName;
+    }
+
+    public boolean getAdminStatus(){
+        return admin;
+    }
 }

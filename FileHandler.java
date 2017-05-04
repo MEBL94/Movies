@@ -282,27 +282,58 @@ public class FileHandler {
     
 
     private void saveUsers(){
-        // try{
-        //     File movieFile = new File("Movies.xml");
-        //     PrintStream fileStream = new PrintStream(movieFile);
-        //     for(Movie movie : lib.getMovies()){
-        //         //StartTag
-        //         fileStream.println("<movie>");
-        //         //Title
-        //         fileStream.println(movie.getTitle());
-        //         fileStream.println(movie.getReleaseYear());
-        //         fileStream.println("<actors>");
-        //         for(Actor actor : movie.getActors()){
-        //             fileStream.println( actor.getName());
-        //         }
-        //         fileStream.println("</actors>");
-        //         fileStream.println("</movie>");
+        try{
+            File userFile = new File("Users.xml");
+            PrintStream fileStream = new PrintStream(userFile);
+            for(User user : auth.getUsers()){
+                //StartTag
+                fileStream.println("<user>");
+                //firstname
+                UserInput nameScan = new UserInput(user.getName());
+                fileStream.println(nameScan.getWord());
+                //lastname
+                String lastname = nameScan.getWord();
+                while(nameScan.hasNext()){
+                    lastname += " ";
+                    lastname += (nameScan.getWord());
+                }
+                fileStream.println(lastname);
+                fileStream.println("<credentials>");
+                fileStream.println(user.getUsername());
+                fileStream.println(user.getPassword());
+                if(user.getAdminStatus()){
+                    fileStream.println("true");
+                } else {
+                    fileStream.println("false");
+                }
+                fileStream.println("<favorites>");
+                for(Movie movie : user.getFavorites()){
+                    fileStream.println( movie.getTitle());
+                }
+                fileStream.println("</favorites>");
+                fileStream.println("<history>");
+                for(HistoryEvent historyEvent : user.getHistory()){
+                    fileStream.println("<historyEvent>");
+                    UserInput historyScanner = new UserInput(historyEvent.getData());
+                    fileStream.println(historyScanner.getWord());
+                    String movieTitle = historyScanner.getWord();
+                    while(historyScanner.hasNext()){
+                        movieTitle += " ";
+                        movieTitle += historyScanner.getWord();
+                    }
+                    fileStream.println(movieTitle);
+                    
+                    fileStream.println("</historyEvent>");
+                }
+                fileStream.println("</history>");
+
+                fileStream.println("</movie>");
                 
-        //     }
-        // }
-        // catch(Exception e){
-        //     System.out.println(">> Exception in saveActors: " + e);
-        // }
+            }
+        }
+        catch(Exception e){
+            System.out.println(">> Exception in saveActors: " + e);
+        }
     }
 
 
