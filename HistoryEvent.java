@@ -2,10 +2,10 @@ import java.util.*;
 import java.text.*;
 public class HistoryEvent
 {
-    private Calendar date;
+    private String date;
     private Movie movie;
     
-    public HistoryEvent(Calendar date, Movie movie)
+    public HistoryEvent(String date, Movie movie)
     {
         this.date = date;
         this.movie = movie;

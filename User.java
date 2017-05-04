@@ -60,20 +60,15 @@ public class User
         {        
             startDate = df.parse(startDateString);
             String newDateString = df.format(startDate);
+            HistoryEvent event = new HistoryEvent(newDateString, movie);
+            history.add(event);
         }
         catch (Exception e)
         {
-
+            System.out.println("Doh!");
+            
         }
-
-        // Calendar calendar = new GregorianCalendar(1990,5-1,15);
-        // String startDateString = df.format(calendar.getTime());
-
-
-        // HistoryEvent event = new HistoryEvent(date, movie);
-        // history.add(event);
     }
-    
     
 
     public ArrayList<HistoryEvent> getHistory()
@@ -95,8 +90,4 @@ public class User
     {
         return userID;
     }
-    
-    
-    
-    
 }
