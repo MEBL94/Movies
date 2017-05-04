@@ -25,14 +25,16 @@ public class Actor
      {
          this.lastname = lastname;
      }
-     
+
+     public String getBirthday(){
+         return this.birthday;
+     }
+
      public void setBirthday(String birthday)
      {
          this.birthday = birthday;
      }
 
-   
-     
      public String getName()
      {
          return this.firstname + " " + this.lastname;
