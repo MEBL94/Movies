@@ -246,11 +246,12 @@ public class Menu {
     public void adminMenu() {
         int choice = 1;
         while (choice != 0) {
-            System.out.println("1. Create movie.");
-            System.out.println("2. Delete movie.");
-            System.out.println("3. Edit movie.");
-            System.out.println("4. Create actor.");
-            System.out.println("5. Delete actor.");
+            System.out.println("1. Create movie");
+            System.out.println("2. Delete movie");
+            System.out.println("3. Edit movie");
+            System.out.println("4. Create actor");
+            System.out.println("5. Delete actor");
+            System.out.println("6. Users");
             choice = scan.getInt();
             switch (choice) {
                 case 0:
@@ -269,6 +270,9 @@ public class Menu {
                 break;
                 case 5:
                 deleteActorMenu();
+                break;
+                case 6:
+                System.out.println("List of all users:");
                 break;
                 default: System.out.println("Invalid input");
                 break;
