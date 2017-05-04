@@ -13,12 +13,16 @@ public class FileHandler {
     }
 
     public void loadFromFiles(){
+        //done
         loadActors();
+        //done
         loadMovies();
+        //done
         loadUsers();
+        //mangler
         linker();
     }
-
+    
     private void loadActors(){
         try{
             File file = new File("Actors.xml");
@@ -39,7 +43,7 @@ public class FileHandler {
             UserInput scan = new UserInput(file);
         
             while(scan.hasNext()){
-                if(scan.getWord().equals("<movie>")){
+                if(scan.getLine().equals("<movie>")){
                     createMovieFromFile(scan);
                 }
             }
@@ -69,33 +73,34 @@ public class FileHandler {
         int birthday = scan.getInt();
         int birthmonth = scan.getInt();
         int birthyear = scan.getInt();
-
         lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
     }
 
     private void createMovieFromFile(UserInput scan){
-        scan.getLine();
         String movieTitle = scan.getLine();
         int productionYear = scan.getInt();
-
         lib.createMovie(movieTitle, productionYear);
     }
 
     private void createUserFromFile(UserInput scan){
-        scan.getLine();
         String firstname = scan.getLine();
         String lastname = scan.getLine();
+        //skip credentials tag
+        scan.getLine();
         String username = scan.getLine();
         String password = scan.getLine();
         boolean admin = false;
-        if(scan.getWord().equals("true")){ admin = true; }
+        if(scan.getLine().equals("true")){ admin = true; }
 
         auth.createUser(firstname,lastname,username,password,admin);
     }
 
     private void linker(){
+        //done
         linkActors();
+        //done
         linkMovies();
+        //mangler
         linkUsers();
     }
 
@@ -164,7 +169,40 @@ public class FileHandler {
     }
 
     private void linkUsers(){
+        try{
+            File file = new File("Users.xml");
+            UserInput scan = new UserInput(file);
         
+            String tag;
+            while(scan.hasNext()){
+                //Look for user tag
+                tag = scan.getLine();
+                if(tag.equals("<user>")){
+                    System.out.println("Ysssssssssssssssshej");
+                    //go to credentials tag
+                    while(!tag.equals("<credentials>")){
+                        tag = scan.getLine();
+                    }
+                    //find username and password, to get the user object from autheticator.
+                    String username = scan.getLine();
+                    String password = scan.getLine();
+                    User thisUser = auth.getUser(auth.login(username, password));
+                    while(!tag.equals("</user>")){
+                        //go look for favorites
+                        tag = scan.getLine();
+                        if (tag.equals("<favorites>")){
+                            tag = scan.getLine();
+                            while(!tag.equals("</favorites>")){
+                                thisUser.addToFavorites(lib.getMovie(lib.findMovie(tag)));
+                                tag = scan.getLine();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e){
+            System.out.println(">> Fejl i link users: " + e);
+        }
     }
 
     public void saveToFiles(){
