@@ -53,6 +53,15 @@ public class Authenticator
         return users;
     }
     
+    public void removeUser(String username){
+        int userIndex;
+        for(User user : users){
+            if(username.equals(user.getUsername())){
+                users.remove(user);
+                System.out.println("User: " + username + " removed.");
+            }
+        }
+    }
     // public void printUsers()
     // {
     //     for(User user : users)
