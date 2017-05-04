@@ -300,7 +300,6 @@ public class Menu {
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");
         System.out.print("Firstname: ");
-        scan.getLine();
         String firstname = scan.getLine();
         System.out.print("Lastname: ");
         String lastname = scan.getLine();
@@ -315,7 +314,7 @@ public class Menu {
     
     public void deleteActorMenu() {
         System.out.println("So you wish to delete an actor");
-        System.out.println("Name: ");
+        System.out.print("Name: ");
         String name = scan.getLine();        
         lib.deleteActor(name);
     }
