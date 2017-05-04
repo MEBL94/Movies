@@ -10,14 +10,18 @@ public class Actor
 
      public Actor(String firstname, String lastname, int day, int month, int year)
      {
-         this.firstname = firstname;
-         this.lastname = lastname;
-         this.birthday.set(year, month, day);
+        this.firstname = firstname;
+        this.lastname = lastname;
+
+        birthday = Calendar.getInstance();
+        birthday.set(Calendar.YEAR, year);
+        birthday.set(Calendar.MONTH, month-1);
+        birthday.set(Calendar.DAY_OF_MONTH, day);
      }
 
      public void setFirstname(String firstname)
      {
-         this.firstname = firstname;
+        this.firstname = firstname;
      }
      
      public void setLastname(String lastname)
@@ -34,7 +38,7 @@ public class Actor
      
      public String getName()
      {
-         return this.firstname + this.lastname;
+         return this.firstname + " " + this.lastname;
      }
 
      public ArrayList<Movie> getMovies()

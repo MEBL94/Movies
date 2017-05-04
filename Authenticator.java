@@ -37,21 +37,21 @@ public class Authenticator
         return 0;
     }
     
-    public User getUser(int userID)
-    {
-        for (User user : users)
-        {
-        if(user.getUserID() == userID)
-        {
-            return user;
-        }    
+    public User getUser(int userID){
+        for (User user : users){
+            if(user.getUserID() == userID){
+                return user;
+            }    
         }
-            return null;
-        
-        
-        
+        return null;
     }
+    
     // For testing purposes!
+    // ## ADDED BY JONAS FOR TESTS ##
+
+    public ArrayList<User> getUsers(){
+        return users;
+    }
     
     // public void printUsers()
     // {

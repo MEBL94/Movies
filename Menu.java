@@ -2,15 +2,21 @@ import java.util.*;
 import java.io.*;
 
 public class Menu {
+    UserInput scan = new UserInput();
+    Authenticator au = new Authenticator();
+    Library lib = new Library();
+    FileHandler fileHandler = new FileHandler(lib, au);
+    private int userID = 0;
+
     public void mainMenu() {
+        fileHandler.loadFromFiles();
         int choice = 1;
-        Scanner scan = new Scanner(System.in);
         while (choice != 0) {
         System.out.println("You now have the following choices:");
         System.out.println("1. Create user");
         System.out.println("2. Login");
         System.out.println("3. Admin login");
-        choice = scan.nextInt();
+        choice = scan.getInt();
         switch (choice) {
             case 0:
             break;
@@ -18,9 +24,11 @@ public class Menu {
             createUserMenu();
             break;
             case 2:
-            logInUserMenu();
+            userID = logInUserMenu();
+            userMenu(userID);
             break;
             case 3:
+            cls();
             adminMenu();
             break;
             default: System.out.println("Invalid input");
@@ -31,141 +39,211 @@ public class Menu {
     
     public void showFavoritesMenu() {
         int choice = 1;
-        Scanner scan = new Scanner(System.in);
         while (choice != 0) {
             System.out.println("Welcome to the favorites menu!");
-            System.out.println("You now have the following choices:");
-            System.out.println("1. Show favorites list.");
-            System.out.println("2. Return to user menu.");
-            System.out.println("3. Return to main menu.");
-            choice = scan.nextInt();
-            switch (choice) {
-                case 0:
-                break;
-                case 1: 
-                // supposed to show favorites list
-                //System.out.println(createUserMenu().user.getFavorites().get(i));
-                System.out.println("Favorites list: ");
-                break;
-                case 2:
-                userMenu();
-                break;
-                case 3:
-                mainMenu();
-                break;
-                default: System.out.println("Invalid input");
-                break;
+            System.out.println("Favorites list: ");
+            for (Movie movie : au.getUser(userID).getFavorites()) {
+                 System.out.println(movie);
             }
-        }
-    }
-
-    // implementation on its way...
-    public void createUserMenu() {
-        Scanner scanner = new Scanner(System.in);
-        //Authenticator authenticator = new Authenticator();
-        System.out.println("Welcome to the create user menu!");
-        System.out.print("Enter your firstname: ");
-        String firstname = scanner.next();
-        System.out.print("\nEnter your lastname: ");
-        String lastname = scanner.next();
-        System.out.print("\nEnter your desired username: ");
-        String username = scanner.next();
-        System.out.print("\nEnter your desired password: ");
-        String password = scanner.next();
-        //User user = new User(firstname, lastname, username, password, false);
-        //authenticator.createUser(user);
-        System.out.println("You have successfully created a user!");
-    }
-
-    // implementation on its way
-    public void logInUserMenu() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to the login menu!");
-        System.out.print("Enter username: ");
-        String username = scanner.next();
-        //if (username.equals(createUserMenu().username)) {
-        System.out.print("Enter password: ");
-        String password = scanner.next();
-        //    if (password.equals(createUserMenu().password)) {
-        System.out.println("Login successful");
-        userMenu();
-        //    }
-        //    else {
-        //        System.out.println("Wrong password! Try again.");
-        //        logInUserMenu();              
-        //    }
-        //else {
-        //    System.out.print("Wrong username");
-        //    logInUserMenu();
-        //}
-        // System.out.println("Welcome to the login menu!");
-        // System.out.print("Enter username: ");
-        // Scanner usernameScanner = new Scanner(System.in);
-        // String username = usernameScanner.next();
-        // System.out.println("Enter password: ");
-        // Scanner pwScanner = new Scanner(System.in);
-        // String password = pwScanner.next();
-    }
-
-    public void userMenu() {
-        int choice = 1;
-        Scanner scanner = new Scanner(System.in);
-        while (choice != 0) {
-            System.out.println("Welcome to the user menu! You now have the following choices:");
-            System.out.println("1. Play movie");
-            System.out.println("2. Display favorites");
-            System.out.println("3. Display history");
-            System.out.println("4. Return to main menu");
-            choice = scanner.nextInt();
+            System.out.println("You now have the following choices:");
+            System.out.println("1. Add to favorites");
+            System.out.println("2. Delete from favorites");
+            System.out.println("3. Return to user menu.");
+            System.out.println("4. Return to main menu.");
+            choice = scan.getInt();
             switch (choice) {
                 case 0:
                 break;
                 case 1:
-                // call of play movie method
-                System.out.println("Movie is played");
+                int index = searchForMovie();
+                if (index == -1) {
+                    break;
+                }
+                Movie movie = lib.getMovie(index);
+                au.getUser(userID).addToFavorites(movie);
                 break;
                 case 2:
-                System.out.println("Favorites are displayed"); 
-                // call of favorites method
+                int index2 = searchForMovie();
+                if (index2 == -1) {
+                    break;
+                }
+                Movie movie2 = lib.getMovie(index2);
+                au.getUser(userID).deleteFromFavorites(movie2);
                 break;
                 case 3:
-                System.out.println("History is displayed"); 
-                // call of display history method
+                userMenu(userID);
                 break;
                 case 4:
                 mainMenu();
                 break;
                 default: System.out.println("Invalid input");
-                userMenu();
                 break;
             }
         }
     }
 
-    // implementation on its way
+    public User createUserMenu() {
+        System.out.println("Welcome to the create user menu!");
+        System.out.print("Enter your firstname: ");
+        String firstname = scan.getLine();
+        System.out.print("Enter your lastname: ");
+        String lastname = scan.getLine();
+        System.out.print("Enter your desired username: ");
+        String username = scan.getLine();
+        System.out.print("Enter your desired password: ");
+        String password = scan.getLine();
+        if (au.checkUser(username) == false) {
+        au.createUser(firstname, lastname, username, password, false);
+        System.out.println("User created successfully.");
+        }
+        else {
+            System.out.println("Creating a user failed.");
+        }
+        this.userID = au.login(username, password); 
+        User user = au.getUser(userID);
+        return user;
+        //System.out.println("You have successfully created an account!");
+    }
+
+    public int logInUserMenu() {
+        System.out.println("Welcome to the login menu!");
+        System.out.print("Enter username: ");
+        String username = scan.getLine();
+        System.out.print("Enter password: ");
+        String password = scan.getLine();
+        int userID = au.login(username, password);
+        if (userID > 0) {
+            System.out.println("Login successful");
+            return userID;
+        }
+        else {
+            System.out.println("Login failed. Wrong username or password.");
+            mainMenu();
+            return 0;
+        }
+    }
+
+    public void userMenu(int userID) {
+        int choice = 1;
+        while (choice != 0) {
+            if (userID == 0) {
+                break;
+            }
+            System.out.println("Welcome to the user menu! You now have the following choices:");
+            System.out.println("1. Play movie");
+            System.out.println("2. Go to favorites menu");
+            System.out.println("3. Go to history menu");
+            System.out.println("4. Return to main menu");
+            choice = scan.getInt();
+            switch (choice) {
+                case 0:
+                break;
+                case 1:
+                // call of play movie method
+                System.out.println("Choose a movie that you would like to play.");
+                searchForMovie();
+                au.getUser(this.searchForMovie());
+                //createHistoryEvent(lib.getMovie(searchForMovie()));
+                break;
+                case 2: 
+                showFavoritesMenu();
+                break;
+                case 3:
+                displayHistoryMenu();
+                break;
+                case 4:
+                mainMenu();
+                break;
+                default: System.out.println("Invalid input");
+                userMenu(userID);
+                break;
+            }
+        }
+    }
+
     public void displayHistoryMenu() {
         System.out.println("Welcome to the history menu!");
-        System.out.println("Call of getHistory() method");
+        System.out.print("Do you wish to display history? Yes or no? : ");
+        String answer = scan.getLine();
+        if (answer.equalsIgnoreCase("no")) {
+            userMenu(userID);
+        } 
+        else { 
+        System.out.println(au.getUser(userID).getHistory());
+        }
     }
 
-    // implementatio on its way
     public void searchMenu() {
         System.out.println("Welcome to the search menu!");
-        System.out.println("Call of search() method");
+        int choice = 1;
+        while (choice != 0) {
+        System.out.println("1. Search for movie");
+        System.out.println("2. Search for actor");
+        choice = scan.getInt();
+        switch (choice) {
+            case 0:
+            break;
+            case 1:
+            searchForMovie();
+            // System.out.println(movie);
+            break;
+            case 2:
+            searchForActor();
+            break;
+            default:
+            System.out.println("Invalid input");
+            break;
+        }
+    }
     }
 
-    // implementation on its way
+    private int searchForMovie() {
+            String search = "";
+            boolean foundMovie = false;
+            while(foundMovie == false) {
+                System.out.print("Search term (only title): "); 
+                search = scan.getLine();
+                if (lib.findMovie(search) >= 0) {
+                    foundMovie = true;
+                }
+                else {
+                    System.out.println("Could not find the movie. Try Again! Want to try again? Yes or no?");
+                    if (scan.getLine().equalsIgnoreCase("no")) {
+                        return -1;
+                    } 
+                }
+            }
+        return lib.findMovie(search); 
+    }
+
+    private int searchForActor() {
+            String search = "";
+            boolean foundActor = false;
+            while(foundActor == false) {
+                System.out.print("Search term (only name): "); 
+                search = scan.getLine();
+                if (lib.findActor(search) >= 0) {
+                    foundActor = true;
+                }
+                else {
+                    System.out.println("Could not find the actor. Try Again! Want to try again? Yes or no?");
+                    if (scan.getLine().equalsIgnoreCase("no")) {
+                        return -1;
+                    } 
+                }
+            }
+        return lib.findActor(search); 
+    }
+
     public void adminMenu() {
         int choice = 1;
-        Scanner scanner = new Scanner(System.in);
         while (choice != 0) {
-            System.out.println("1. Create movie");
-            System.out.println("2. Delete movie");
-            System.out.println("3. Edit movie");
-            System.out.println("4. Create actor");
-            System.out.println("5. Delete actor");
-            System.out.println("6. Edit actor");
-            choice = scanner.nextInt();
+            System.out.println("1. Create movie.");
+            System.out.println("2. Delete movie.");
+            System.out.println("3. Edit movie.");
+            System.out.println("4. Create actor.");
+            System.out.println("5. Delete actor.");
+            choice = scan.getInt();
             switch (choice) {
                 case 0:
                 break;
@@ -184,9 +262,6 @@ public class Menu {
                 case 5:
                 deleteActorMenu();
                 break;
-                case 6:
-                editActorMenu();
-                break;
                 default: System.out.println("Invalid input");
                 break;
             }
@@ -194,23 +269,64 @@ public class Menu {
     }
 
     public void createMovieMenu() {
-        System.out.println("Create movie option");
+        System.out.println("So you wish to create a movie");
+        System.out.print("Title: ");
+        String title = scan.getLine();
+        System.out.print("Release year: ");
+        int year = scan.getInt();
+        lib.createMovie(title, year);    
     }
     public void deleteMovieMenu() {
-        System.out.println("Delete movie option");
+        System.out.println("So you wish to delete a movie");
+        System.out.print("Title: ");
+        String title = scan.getLine();
+        System.out.print("Release year: ");
+        int year = scan.getInt();
+        lib.deleteMovie(title);
     }
     public void editMovieMenu() {
-        System.out.println("Edit movie option");
+        System.out.println("So you wish to edit a movie");
+        System.out.print("Title: ");
+        String title = scan.getLine();
+        lib.findMovie(title);
+        System.out.print("New title: ");
+        String newTitle = scan.getLine();
+        System.out.print("New release year: ");
+        int newYear = scan.getInt();
+        lib.createMovie(newTitle, newYear);
+        lib.deleteMovie(title);
+        
     }
     public void createActorMenu() {
-        System.out.println("Create actor option");
+        System.out.println("So you wish to create an actor");
+        System.out.print("Firstname: ");
+        scan.getLine();
+        String firstname = scan.getLine();
+        System.out.print("Lastname: ");
+        String lastname = scan.getLine();
+        System.out.print("Day: ");
+        int day = scan.getInt();
+        System.out.print("Month: ");
+        int month = scan.getInt();
+        System.out.print("Year: ");
+        int year = scan.getInt();
+        lib.createActor(firstname, lastname, day, month, year);
     }
+    
     public void deleteActorMenu() {
-        System.out.println("Delete actor option");
+        System.out.println("So you wish to delete an actor");
+        System.out.println("Name: ");
+        String name = scan.getLine();        
+        lib.deleteActor(name);
     }
-    public void editActorMenu() {
-        System.out.println("Edit actor option");
-    }
+
+    // public void editActorMenu() {
+    //     System.out.println("So you wish to edit an actor");
+    //     System.out.print("Name: ");
+    //     String name = scan.getLine();        
+    //     //lib.editActor(name);
+    //}
+
     public void pause() {
         Scanner input = new Scanner(System.in);                     
         input.nextLine(); //fanger den nye linie der kommer ved et entertryk
