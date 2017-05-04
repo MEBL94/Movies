@@ -70,7 +70,7 @@ public class Library {
     public void deleteActor(String actorName)
     {
         if ( findActor(actorName) > -1) {
-            movies.remove(findActor(actorName));
+            actors.remove(findActor(actorName));
             System.out.println("Actor deleted.");
         } else {
             System.out.println("Actor not found.");
