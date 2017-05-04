@@ -52,8 +52,8 @@ public class Library {
         movies.add(new Movie(title, releaseYear));
     } 
     
-    public void createActor(String firstname, String lastname, int day, int month, int year){
-            Actor tempActor = new Actor(firstname, lastname, day, month, year);
+    public void createActor(String firstname, String lastname, String birthday){
+            Actor tempActor = new Actor(firstname, lastname, birthday);
             actors.add(tempActor);
     } 
      

@@ -316,7 +316,8 @@ public class Menu {
         int month = scan.getInt();
         System.out.print("Year: ");
         int year = scan.getInt();
-        lib.createActor(firstname, lastname, day, month, year);
+        String birthday = day + "/" + month + "-" + year;
+        lib.createActor(firstname, lastname, birthday);
     }
     
     public void deleteActorMenu() {

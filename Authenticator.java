@@ -47,6 +47,11 @@ public class Authenticator
     }
     
     // For testing purposes!
+    // ## ADDED BY JONAS FOR TESTS ##
+
+    public ArrayList<User> getUsers(){
+        return users;
+    }
     
     // public void printUsers()
     // {

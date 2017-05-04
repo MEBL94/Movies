@@ -7,6 +7,10 @@ public class UserInput {
         this.scanner = new Scanner(System.in);
     }
 
+    public UserInput(String string){
+        this.scanner = new Scanner(string);
+    }
+
     public UserInput(File file){
         try{this.scanner = new Scanner(file);}
         catch(Exception e){

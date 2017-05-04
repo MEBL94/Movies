@@ -69,6 +69,11 @@ public class User
             
         }
     }
+    public void createHistoryEvent(String date, Movie movie)
+    {
+        HistoryEvent event = new HistoryEvent(date, movie);
+        history.add(event);
+    }
     
 
     public ArrayList<HistoryEvent> getHistory()
