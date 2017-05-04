@@ -19,7 +19,7 @@ public class FileHandler {
         loadMovies();
         //done
         loadUsers();
-        //mangler
+        //done
         linker();
     }
     
@@ -99,7 +99,7 @@ public class FileHandler {
         linkActors();
         //done
         linkMovies();
-        //mangler
+        //done
         linkUsers();
     }
 
@@ -224,8 +224,8 @@ public class FileHandler {
 
     private void saveActors(){
         try{
-            File movieFile = new File("ActorsTest.xml");
-            PrintStream fileStream = new PrintStream(movieFile);
+            File actorFile = new File("Actors.xml");
+            PrintStream fileStream = new PrintStream(actorFile);
             for(Actor actor : lib.getActors()){
                 //StartTag
                 fileStream.println("<actor>");
@@ -239,6 +239,13 @@ public class FileHandler {
                     lastname += (nameScan.getWord());
                 }
                 fileStream.println(lastname);
+                fileStream.println(actor.getBirthday());
+                fileStream.println("<movies>");
+                for(Movie movie : actor.getMovies()){
+                    fileStream.println(movie.getTitle());
+                }
+                fileStream.println("</movies>");
+
                 //birthday
                 //code here?? 
                 fileStream.println("</actor>");
@@ -250,11 +257,52 @@ public class FileHandler {
     }
 
     private void saveMovies(){
-
+        try{
+            File movieFile = new File("Movies.xml");
+            PrintStream fileStream = new PrintStream(movieFile);
+            for(Movie movie : lib.getMovies()){
+                //StartTag
+                fileStream.println("<movie>");
+                //Title
+                fileStream.println(movie.getTitle());
+                fileStream.println(movie.getReleaseYear());
+                fileStream.println("<actors>");
+                for(Actor actor : movie.getActors()){
+                    fileStream.println( actor.getName());
+                }
+                fileStream.println("</actors>");
+                fileStream.println("</movie>");
+                
+            }
+        }
+        catch(Exception e){
+            System.out.println(">> Exception in saveActors: " + e);
+        }
     }
+    
 
     private void saveUsers(){
-
+        // try{
+        //     File movieFile = new File("Movies.xml");
+        //     PrintStream fileStream = new PrintStream(movieFile);
+        //     for(Movie movie : lib.getMovies()){
+        //         //StartTag
+        //         fileStream.println("<movie>");
+        //         //Title
+        //         fileStream.println(movie.getTitle());
+        //         fileStream.println(movie.getReleaseYear());
+        //         fileStream.println("<actors>");
+        //         for(Actor actor : movie.getActors()){
+        //             fileStream.println( actor.getName());
+        //         }
+        //         fileStream.println("</actors>");
+        //         fileStream.println("</movie>");
+                
+        //     }
+        // }
+        // catch(Exception e){
+        //     System.out.println(">> Exception in saveActors: " + e);
+        // }
     }
 
 

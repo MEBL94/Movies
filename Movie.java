@@ -18,6 +18,10 @@ public class Movie
         this.title = title;
     }
 
+    public int getReleaseYear(){
+        return this.releaseYear;
+    }
+
     public void setReleaseYear(int releaseYear)
     {
         this.releaseYear = releaseYear;
