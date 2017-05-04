@@ -18,6 +18,7 @@ public class User
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.userID = userID;
         this.admin = admin;
     }
 
@@ -28,16 +29,19 @@ public class User
 
     public void deleteFromFavorites(Movie movie)
     {
+        int deletedMovieCount = 0;
         for (Movie m : favorites)
         {
             if(m.getTitle().equals(movie.getTitle()))
             {
                 favorites.remove(m);
+                deletedMovieCount += 1;
             }
-            else
-            {
-                System.out.println("Can't find movie");
-            }
+        }
+        if(deletedMovieCount == 0){
+            System.out.println("No movies deleted from favorites");
+        } else {
+            System.out.println("Deleted " + deletedMovieCount + " movies from favorites.");
         }
     }
 
@@ -65,6 +69,11 @@ public class User
             
         }
     }
+    public void createHistoryEvent(String date, Movie movie)
+    {
+        HistoryEvent event = new HistoryEvent(date, movie);
+        history.add(event);
+    }
     
 
     public ArrayList<HistoryEvent> getHistory()
@@ -85,5 +94,17 @@ public class User
     public int getUserID()
     {
         return userID;
+    }
+
+    public String getName(){
+        return firstName + " " + lastName;
+    }
+
+    public boolean getAdminStatus(){
+        return admin;
+    }
+
+    public String toString() {
+        return firstName + " " + lastName + ": " + userName;
     }
 }

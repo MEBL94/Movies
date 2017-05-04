@@ -37,22 +37,31 @@ public class Authenticator
         return 0;
     }
     
-    public User getUser(int userID)
-    {
-        for (User user : users)
-        {
-        if(user.getUserID() == userID)
-        {
-            return user;
-        }    
+    public User getUser(int userID){
+        for (User user : users){
+            if(user.getUserID() == userID){
+                return user;
+            }    
         }
-            return null;
-        
-        
-        
+        return null;
     }
-    // For testing purposes!
     
+    // For testing purposes!
+    // ## ADDED BY JONAS FOR TESTS ##
+
+    public ArrayList<User> getUsers(){
+        return users;
+    }
+    
+    public void removeUser(String username){
+        int userIndex;
+        for(User user : users){
+            if(username.equals(user.getUsername())){
+                users.remove(user);
+                System.out.println("User: " + username + " removed.");
+            }
+        }
+    }
     // public void printUsers()
     // {
     //     for(User user : users)
