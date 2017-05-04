@@ -111,10 +111,10 @@ public class Menu {
         String username = scan.getLine();
         System.out.print("Enter password: ");
         String password = scan.getLine();
-        int userid = au.login(username, password);
-        if (userid > 0) {
+        int userID = au.login(username, password);
+        if (userID > 0) {
             System.out.println("Login successful");
-            return userid;
+            return userID;
         }
         else {
             System.out.println("Login failed. Wrong username or password.");
@@ -160,7 +160,14 @@ public class Menu {
 
     public void displayHistoryMenu() {
         System.out.println("Welcome to the history menu!");
-        createUserMenu().getHistory();
+        System.out.print("Do you wish to display history? Yes or no? : ");
+        String answer = scan.getLine();
+        if (answer.equalsIgnoreCase("no")) {
+            userMenu(userID);
+        } 
+        else { 
+        System.out.println(createUserMenu().getHistory());
+        }
     }
 
     public void searchMenu() {
