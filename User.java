@@ -56,6 +56,7 @@ public class User
         {        
             startDate = df.parse(startDateString);
             String newDateString = df.format(startDate);
+            history.add(startDate);
         }
         catch (Exception e)
         {
