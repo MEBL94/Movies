@@ -8,12 +8,12 @@ public class Actor
      private String birthday;
      private ArrayList<Movie> movies = new ArrayList<Movie>();
 
-     public Actor(String firstname, String lastname, int day, int month, int year)
+     public Actor(String firstname, String lastname, String birthday)
      {
         this.firstname = firstname;
         this.lastname = lastname;
 
-        birthday = day + "/" + month + "-" + year;
+        this.birthday = birthday;
      }
 
      public void setFirstname(String firstname)
@@ -26,9 +26,9 @@ public class Actor
          this.lastname = lastname;
      }
      
-     public void setBirthday(int day, int month, int year)
+     public void setBirthday(String birthday)
      {
-         this.birthday = day + "/" + month + "-" + year;
+         this.birthday = birthday;
      }
 
    

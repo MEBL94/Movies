@@ -58,7 +58,7 @@ public class FileHandler {
             UserInput scan = new UserInput(file);
         
             while(scan.hasNext()){
-                if(scan.getWord().equals("<user>")){
+                if(scan.getLine().equals("<user>")){
                     createUserFromFile(scan);
                 }
             }
@@ -70,10 +70,8 @@ public class FileHandler {
     private void createActorFromFile(UserInput scan){
         String firstname = scan.getLine();
         String lastname = scan.getLine();
-        int birthday = scan.getInt();
-        int birthmonth = scan.getInt();
-        int birthyear = scan.getInt();
-        lib.createActor(firstname, lastname, birthday, birthmonth, birthyear);
+        String birthday = scan.getLine();
+        lib.createActor(firstname, lastname, birthday);
     }
 
     private void createMovieFromFile(UserInput scan){
@@ -86,7 +84,8 @@ public class FileHandler {
         String firstname = scan.getLine();
         String lastname = scan.getLine();
         //skip credentials tag
-        scan.getLine();
+        while(!scan.getLine().equals("<credentials>")){
+        }
         String username = scan.getLine();
         String password = scan.getLine();
         boolean admin = false;
@@ -178,7 +177,6 @@ public class FileHandler {
                 //Look for user tag
                 tag = scan.getLine();
                 if(tag.equals("<user>")){
-                    System.out.println("Ysssssssssssssssshej");
                     //go to credentials tag
                     while(!tag.equals("<credentials>")){
                         tag = scan.getLine();
@@ -195,6 +193,19 @@ public class FileHandler {
                             while(!tag.equals("</favorites>")){
                                 thisUser.addToFavorites(lib.getMovie(lib.findMovie(tag)));
                                 tag = scan.getLine();
+                            }
+                        } else if (tag.equals("<history>")){
+                            while(!tag.equals("</history>")){
+                                tag = scan.getLine();
+                                if(tag.equals("<historyEvent>")){
+                                    while(!tag.equals("</historyEvent>")){
+                                        String date = scan.getLine();
+                                        String movieTitle = scan.getLine();
+                                        thisUser.createHistoryEvent(date, lib.getMovie(lib.findMovie(movieTitle)));
+                                        //look for historyevent closer
+                                        tag = scan.getLine();
+                                    }
+                                }
                             }
                         }
                     }

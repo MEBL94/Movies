@@ -1,6 +1,7 @@
 <user>
 Jonas
 Ladefoged Holm
+
 <credentials>
 duch22
 mitpassword
@@ -11,15 +12,11 @@ Beauty and the beast 2
 </favorites>
 <history>
 <historyEvent>
-27
-april
-2017
+27/4-2017
 Beauty and the beast 2
 </historyEvent>
 <historyEvent>
-25
-april
-2017
+25/4-2017
 Beauty and the beast
 </historyEvent>
 </history>
@@ -27,6 +24,7 @@ Beauty and the beast
 <user>
 Jonas
 Ladefoged Holm
+<credentials>
 d
 d
 true
@@ -36,15 +34,11 @@ Beauty and the beast 2
 </favorites>
 <history>
 <historyEvent>
-27
-april
-2017
+27/4-2017
 Beauty and the beast 2
 </historyEvent>
 <historyEvent>
-25
-april
-2017
+25/4-2017
 Beauty and the beast
 </historyEvent>
 </history>
@@ -52,6 +46,7 @@ Beauty and the beast
 <user>
 Jonas
 Ladefoged Holm
+<credentials>
 duch21
 mitpassword
 true
@@ -61,15 +56,11 @@ Beauty and the beast 2
 </favorites>
 <history>
 <historyEvent>
-27
-april
-2017
+27/4-2017
 Beauty and the beast 2
 </historyEvent>
 <historyEvent>
-25
-april
-2017
+25/4-2017
 Beauty and the beast
 </historyEvent>
 </history>
