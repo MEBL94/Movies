@@ -19,6 +19,7 @@ public class Menu {
         choice = scan.getInt();
         switch (choice) {
             case 0:
+            fileHandler.saveToFiles();
             break;
             case 1:
             createUserMenu();
@@ -281,7 +282,19 @@ public class Menu {
         String title = scan.getLine();
         System.out.print("Release year: ");
         int year = scan.getInt();
-        lib.createMovie(title, year);    
+        lib.createMovie(title, year);
+        System.out.print("Which actor do you wish to add to the movie? : ");
+        String actor = scan.getLine();
+        lib.getActor(lib.findActor(actor));
+        System.out.print("Do you wish to add another actor? Yes or no?");
+        String answer = scan.getLine();
+        if (answer.equals("yes")) {
+            String anotherActor = scan.getLine();
+            lib.getActor(lib.findActor(anotherActor));
+        }
+        else {
+            adminMenu();
+        }
     }
     public void deleteMovieMenu() {
         System.out.println("So you wish to delete a movie");
