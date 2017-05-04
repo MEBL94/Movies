@@ -327,7 +327,8 @@ public class FileHandler {
                 }
                 fileStream.println("</history>");
 
-                fileStream.println("</movie>");
+                fileStream.println("</user>");
+                
                 
             }
         }
