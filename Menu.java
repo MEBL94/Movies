@@ -149,8 +149,17 @@ public class Menu {
                 case 1:
                 // call of play movie method
                 System.out.println("Choose a movie that you would like to play.");
-                searchForMovie();
-                au.getUser(this.searchForMovie());
+                System.out.println("0 for search");
+                choice = scan.getInt();
+                if (choice == 0){
+                    int searchResult = this.searchForMovie();
+                    if (searchResult > -1){
+                        System.out.println(lib.getMovie(searchResult));
+                    }
+                } else if (choice > 0){
+                    System.out.println(lib.getMovie(choice -1));
+                }
+
                 //createHistoryEvent(lib.getMovie(searchForMovie()));
                 break;
                 case 2: 
