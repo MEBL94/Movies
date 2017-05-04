@@ -273,6 +273,23 @@ public class Menu {
                 break;
                 case 6:
                 System.out.println("List of all users:");
+                for (User user : au.getUsers()) {
+                    System.out.println(user);
+                }
+                System.out.println("Do you wish to create a new user or delete an existing user? Write create/delete.");
+                String answer = scan.getLine();
+                if (answer.equalsIgnoreCase("create")) {
+                    createUserMenu();
+                }
+                else if (answer.equalsIgnoreCase("delete")) {
+                   System.out.print("Which user do you wish to remove? Enter the specific username : ");
+                   answer = scan.getLine(); 
+                   for (int i = 0; i < au.getUsers().size(); i++) {
+                   if (au.getUser(userID).getUsername().equals(answer)) {
+                        au.getUsers().remove(i);
+                   }               
+                }
+                }
                 break;
                 default: System.out.println("Invalid input");
                 break;

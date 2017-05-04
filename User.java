@@ -103,4 +103,8 @@ public class User
     public boolean getAdminStatus(){
         return admin;
     }
+
+    public String toString() {
+        return firstName + " " + lastName + ": " + userName;
+    }
 }
