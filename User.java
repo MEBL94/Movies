@@ -96,9 +96,12 @@ public class User
 
     public void printHistory()
     {
+
         for(HistoryEvent event : history){
+            System.out.println("--------------------");
             System.out.println(event);
         }
+        System.out.println("--------------------");
     }
 
     public ArrayList<HistoryEvent> getHistory(){

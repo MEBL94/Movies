@@ -47,10 +47,12 @@ public class Movie
         actors.remove(actor);
     }
 
-    // public boolean hasActors(){
-    //     if
-    //     return 
-    // }
+    public boolean hasActors(){
+        if(actors.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString()
@@ -59,9 +61,10 @@ public class Movie
         for(Actor actor : actors){
             actorsString += actor + "\n";
         }
+        actorsString += "         The End";
+        if(actors.isEmpty()){
+            return this.title + " " + this.releaseYear;
+        }
         return this.title + " " + this.releaseYear + "\n" + actorsString;
     }
-
-    //add getdata til filehandler
-
 }

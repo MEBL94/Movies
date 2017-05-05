@@ -32,12 +32,12 @@ public class UserInput {
     
     public int getInt(){
         try{
-        int integer = Integer.parseInt(scanner.nextLine());
-        return integer;
+            int integer = Integer.parseInt(scanner.nextLine());
+            return integer;
         } catch (NumberFormatException e){
             System.out.println(">> ikke et tal: " + e);
+            return -1;
         }
-        return -1;
     }
 
 }

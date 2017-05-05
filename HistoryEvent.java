@@ -12,7 +12,7 @@ public class HistoryEvent
     }
     public String toString()
     {
-        return "##################\n" + movie.getTitle() + "\n" + "Watched at " + date;
+        return movie.getTitle() + "\n" + "Watched at " + date;
     }
 
     public String getData(){

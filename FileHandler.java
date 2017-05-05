@@ -268,7 +268,7 @@ public class FileHandler {
                 fileStream.println(movie.getReleaseYear());
                 fileStream.println("<actors>");
                 for(Actor actor : movie.getActors()){
-                    fileStream.println( actor.getName());
+                    fileStream.println(actor.getName());
                 }
                 fileStream.println("</actors>");
                 fileStream.println("</movie>");
