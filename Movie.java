@@ -41,11 +41,27 @@ public class Movie
     {
         actors.add(actor);
     }
+    
+    public void removeActor(Actor actor)
+    {
+        actors.remove(actor);
+    }
+
+    // public boolean hasActors(){
+    //     if
+    //     return 
+    // }
 
     @Override
     public String toString()
     {
-        return this.title + " " + this.releaseYear;
+        String actorsString = "";
+        for(Actor actor : actors){
+            actorsString += actor + "\n";
+        }
+        return this.title + " " + this.releaseYear + "\n" + actorsString;
     }
+
+    //add getdata til filehandler
 
 }

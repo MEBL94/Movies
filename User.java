@@ -43,16 +43,23 @@ public class User
         // } else {
         //     System.out.println("Deleted " + deletedMovieCount + " movies from favorites.");
         // }
-        int favoriteIndex;
+        int favoriteIndex = -1;
         for(Movie favorite : favorites)
         {
             if (favorite.getTitle().equals(movie.getTitle()))
             {
-                favoriteIndex = favorite.indexOf(movie);
-                
+                favoriteIndex = favorites.indexOf(movie);
             }
         }
-        favorites.remove(favoriteIndex);
+        if(favoriteIndex != -1)
+        {
+            System.out.println("Favorite " + favorites.get(favoriteIndex).getTitle() + " removed.");
+            favorites.remove(favoriteIndex);
+        } 
+        else 
+        {
+            System.out.println("Could not find movie.");
+        }
         
     }
 
@@ -87,8 +94,14 @@ public class User
     }
     
 
-    public ArrayList<HistoryEvent> getHistory()
+    public void printHistory()
     {
+        for(HistoryEvent event : history){
+            System.out.println(event);
+        }
+    }
+
+    public ArrayList<HistoryEvent> getHistory(){
         return history;
     }
 
