@@ -305,7 +305,7 @@ public class Menu {
                 else if (answer.equalsIgnoreCase("delete")) {
                    System.out.print("Which user do you wish to remove? Enter the specific username : ");
                    String username = scan.getLine(); 
-                   au.removeUser(username);               
+                   au.removeUser(username);
                 }
                 else {
                     System.out.println("Invalid input");
