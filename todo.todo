@@ -11,20 +11,26 @@
   - Delete actor fanger fejlen - brug koden der fra.
 - CREATE MOVIE: Kan ikke skabe en actor under create movie
   - Kan ikke create a movie without an actor.
+- PLAY MOVIE spiller kun en film
+- mellemrum admin want to add actor?
+- EDIT MOVIE: Man kan ikke vælge eller tilføje actors under edit movie
+- Add actor to movie menu option
+
+ANDREAS: TEST
+Jonas Filehandler
+mathias: opdater klassediagram
+Tobias CLS og niceness generelt <3 mr apple.. 
 
 //// BUGS ////
-- PLAY MOVIE spiller kun en film
-- EDIT MOVIE: Man kan ikke vælge eller tilføje actors under edit movie
+- Fanget i et loop hvis der en film ikke har en actor når man vælger delete actor i admin
 - Filehandler bug sikkert i movie tostring
 
 
 //// Changes ////
-- Input Exception handling, i sær ved "-1"
 - Skal være manage Actor og manage Movies i stedet for hver enkelt CRUD mulighed.
-- Add actor to movie menu option
+- Input Exception handling, i sær ved "-1"
 
 //// NICENESS ////
-- mellemrum admin want to add actor?
 - Insert cls()
 - WaitForEnter ved Login Succesful og User created succesful
 
