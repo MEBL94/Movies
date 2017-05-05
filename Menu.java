@@ -405,6 +405,7 @@ public class Menu {
             System.out.println("2. Change release year");
             System.out.println("3. Add actor");
             System.out.println("4. Remove actor");
+            System.out.println("5. return to admin menu");
             switch (scan.getInt()){
                 case 1:
                     System.out.print("New title: ");
@@ -423,6 +424,7 @@ public class Menu {
                     // if(movie.)
                     movie.removeActor(chooseActorMenu("remove", movie.getActors()));
                 break;
+                case 5:adminMenu();
             }
         }
     }
