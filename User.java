@@ -52,8 +52,7 @@ public class User
             }
         }
         if(favoriteIndex != -1)
-        {
-            System.out.println("Favorite " + favorites.get(favoriteIndex).getTitle() + " removed.");
+        {         
             favorites.remove(favoriteIndex);
         } 
         else 

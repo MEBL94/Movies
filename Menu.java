@@ -8,7 +8,9 @@ public class Menu {
     FileHandler fileHandler = new FileHandler(lib, au);
     private int userID = 0;
 
-    public void mainMenu() {
+    public void mainMenu()
+    {
+        cls();
         fileHandler.loadFromFiles();
         int choice = 1;
         while (choice != 0) {
@@ -37,15 +39,18 @@ public class Menu {
     }
     }    
     
-    public void showFavoritesMenu() {
+    public void showFavoritesMenu()
+    {
+        
         int choice = 1;
         while (choice != 0) {
-            System.out.println("Welcome to the favorites menu!");
+            cls();
+            System.out.println("Welcome to the favorites menu!\n");
             System.out.println("Favorites list: ");
             for (Movie movie : au.getUser(userID).getFavorites()) {
-                 System.out.println(movie);
+                 System.out.println(movie.getTitle());
             }
-            System.out.println("You now have the following choices:");
+            System.out.println("\nYou now have the following choices:");
             System.out.println("1. Add to favorites");
             System.out.println("2. Delete from favorites");
             System.out.println("3. Return to user menu.");
@@ -71,6 +76,11 @@ public class Menu {
                     try
                     {
                         au.getUser(userID).deleteFromFavorites(movie2);
+                        cls();
+                        System.out.print("Movie removed from favorites\n\n");
+                        System.out.print("PRESS ANY KEY TO CONTINUE");
+                        pause();
+                        
                     }
                     catch (Exception e)
                     {
@@ -89,7 +99,9 @@ public class Menu {
         }
     }
 
-    public User createUserMenu() {
+    public User createUserMenu()
+    {   
+        cls();
         System.out.println("Welcome to the create user menu!");
         System.out.print("Enter your firstname: ");
         String firstname = scan.getLine();
@@ -112,7 +124,9 @@ public class Menu {
         //System.out.println("You have successfully created an account!");
     }
 
-    public int logInUserMenu() {
+    public int logInUserMenu()
+    {
+        cls();
         System.out.println("Welcome to the login menu!");
         System.out.print("Enter username: ");
         String username = scan.getLine();
@@ -120,7 +134,10 @@ public class Menu {
         String password = scan.getLine();
         int userID = au.login(username, password);
         if (userID > 0) {
-            System.out.println("Login successful");
+            cls();
+            System.out.println("Login successful\n");
+            System.out.print("PRESS ANY KEY TO CONTINUE");
+            pause();
             return userID;
         }
         else {
@@ -130,12 +147,15 @@ public class Menu {
         }
     }
 
-    public void userMenu(int userID) {
+    public void userMenu(int userID)
+    {
+        
         int choice = 1;
         while (choice != 0) {
             if (userID == 0) {
                 break;
             }
+            cls();
             System.out.println("Welcome to the user menu! You now have the following choices:");
             System.out.println("1. Play movie");
             System.out.println("2. Go to favorites menu");
@@ -146,6 +166,7 @@ public class Menu {
                 break;
                 case 1:
                 // call of play movie method
+                cls();
                 System.out.println("Choose a movie that you would like to play.");
                 System.out.println("0 for search");
                 int number = 0;
@@ -178,14 +199,18 @@ public class Menu {
         }
     }
 
-    public void displayHistoryMenu() {
-        System.out.println("Welcome to the history menu!");
+    public void displayHistoryMenu()
+    {
+        cls();
+        System.out.println("Welcome to the history menu!\n");
         au.getUser(userID).printHistory();
-        System.out.println("PRESS ANY KEY TO CONTINUE");
+        System.out.println("\nPRESS ANY KEY TO CONTINUE");
         pause();
     }
 
-    public void playMovie(Movie movie, int userID){
+    public void playMovie(Movie movie, int userID)
+    {
+        cls();
         System.out.println("#################");
         System.out.println("You are now playing a movie:");
         System.out.println(movie);
@@ -195,7 +220,9 @@ public class Menu {
         pause();
     }
 
-    public void searchMenu() {
+    public void searchMenu()
+    {
+        cls();
         System.out.println("Welcome to the search menu!");
         int choice = 1;
         while (choice != 0) {
@@ -219,45 +246,51 @@ public class Menu {
     }
     }
 
-    private int searchForMovie() {
-            String search = "";
-            boolean foundMovie = false;
-            while(foundMovie == false) {
-                System.out.print("Search term (only title): "); 
-                search = scan.getLine();
-                if (lib.findMovie(search) >= 0) {
-                    foundMovie = true;
-                }
-                else {
-                    System.out.println("Could not find the movie. Try Again! Want to try again? Yes or no?");
-                    if (scan.getLine().equalsIgnoreCase("no")) {
-                        return -1;
-                    } 
-                }
+    private int searchForMovie()
+    {
+        cls();   
+        String search = "";
+        boolean foundMovie = false;
+        while(foundMovie == false) {
+            System.out.print("Search term (only title): "); 
+            search = scan.getLine();
+            if (lib.findMovie(search) >= 0) {
+                foundMovie = true;
             }
+            else {
+                System.out.println("Could not find the movie. Try Again! Want to try again? Yes or no?");
+                if (scan.getLine().equalsIgnoreCase("no")) {
+                    return -1;
+                } 
+            }
+        }
         return lib.findMovie(search); 
     }
 
-    private int searchForActor() {
-            String search = "";
-            boolean foundActor = false;
-            while(foundActor == false) {
-                System.out.print("Search term (only name): "); 
-                search = scan.getLine();
-                if (lib.findActor(search) >= 0) {
-                    foundActor = true;
-                }
-                else {
-                    System.out.println("Could not find the actor. Try Again! Want to try again? Yes or no?");
-                    if (scan.getLine().equalsIgnoreCase("no")) {
-                        return -1;
-                    } 
-                }
+    private int searchForActor()
+    {
+        cls();
+        String search = "";
+        boolean foundActor = false;
+        while(foundActor == false) {
+            System.out.print("Search term (only name): "); 
+            search = scan.getLine();
+            if (lib.findActor(search) >= 0) {
+                foundActor = true;
             }
-        return lib.findActor(search); 
+            else {
+                System.out.println("Could not find the actor. Try Again! Want to try again? Yes or no?");
+                if (scan.getLine().equalsIgnoreCase("no")) {
+                    return -1;
+                } 
+            }
+        }
+    return lib.findActor(search); 
     }
 
-    public void adminMenu() {
+    public void adminMenu()
+    {
+        cls();
         int choice = 1;
         while (choice != 0) {
             System.out.println("1. Create movie");
@@ -310,7 +343,9 @@ public class Menu {
         }
     }
 
-    public void createMovieMenu() {
+    public void createMovieMenu()
+    {
+        cls();
         System.out.println("So you wish to create a movie");
         System.out.print("Title: ");
         String title = scan.getLine();
@@ -337,7 +372,9 @@ public class Menu {
             }
         }
     }
-    public void deleteMovieMenu() {
+    public void deleteMovieMenu()
+    {
+        cls();
         System.out.println("So you wish to delete a movie");
         System.out.print("Title: ");
         String title = scan.getLine();
@@ -345,7 +382,9 @@ public class Menu {
         int year = scan.getInt();
         lib.deleteMovie(title);
     }
-    public Movie chooseMovieMenu(String operation) {
+    public Movie chooseMovieMenu(String operation)
+    {
+        cls();
         System.out.println("What movie would you like to " + operation +"?");
         System.out.println("0 for search");
         int number = 0;
@@ -362,7 +401,9 @@ public class Menu {
         }
         return lib.getMovie(number - 1);
     }
-    public Actor chooseActorMenu(String operation) {
+    public Actor chooseActorMenu(String operation)
+    {
+        cls();
         System.out.println("What Actor would you like to " + operation +"?");
         System.out.println("0 for search");
         int number = 0;
@@ -380,7 +421,9 @@ public class Menu {
         return lib.getActor(number - 1);
     }
 
-    public Actor chooseActorMenu(String operation, ArrayList<Actor> actors) {
+    public Actor chooseActorMenu(String operation, ArrayList<Actor> actors)
+    {
+        cls();
         System.out.println("What Actor would you like to " + operation +"?");
         boolean wrongChoice = true;
         int number = 0;
@@ -397,7 +440,9 @@ public class Menu {
         return lib.getActor(number);
     }
 
-    public void editMovieMenu(Movie movie){
+    public void editMovieMenu(Movie movie)
+    {
+        cls();
         boolean running = true;
         while(running){
             System.out.println("Edit " + movie.getTitle());
@@ -426,7 +471,9 @@ public class Menu {
             }
         }
     }
-    public void createActorMenu() {
+    public void createActorMenu()
+    {
+        cls();
         System.out.println("So you wish to create an actor");
         System.out.print("Firstname: ");
         String firstname = scan.getLine();
@@ -442,7 +489,9 @@ public class Menu {
         lib.createActor(firstname, lastname, birthday);
     }
     
-    public void deleteActorMenu() {
+    public void deleteActorMenu()
+    {
+        cls();
         System.out.println("So you wish to delete an actor");
         System.out.print("Name: ");
         String name = scan.getLine();        
@@ -456,7 +505,8 @@ public class Menu {
     //     //lib.editActor(name);
     //}
 
-    public void pause() {
+    public void pause()
+    {
         Scanner input = new Scanner(System.in);                     
         input.nextLine(); //fanger den nye linie der kommer ved et entertryk
         // cls();        
