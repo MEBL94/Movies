@@ -68,14 +68,14 @@ public class Menu {
                         break;
                     }
                     Movie movie2 = lib.getMovie(index2);
-                    try
-                    {
+                    // try
+                    // {
                         au.getUser(userID).deleteFromFavorites(movie2);
-                    }
-                    catch (Exception e)
-                    {
+                    // }
+                    // catch (Exception e)
+                    // {
                         
-                    }
+                    // }
                     break;
                 case 3:
                     userMenu(userID);
