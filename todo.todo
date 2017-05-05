@@ -24,6 +24,10 @@ Tobias CLS og niceness generelt <3 mr apple..
 //// BUGS ////
 - Fanget i et loop hvis der en film ikke har en actor når man vælger delete actor i admin
 - Filehandler bug sikkert i movie tostring
+- edit movie viser, nogle gange 2x af film. 
+- I createActor hopper den videre hvis man ikke skriver int i birthday istedet for man skal skrive igen
+  - Createmovie har samme fejl med ReleaseYear
+- Fav list viser actors til hver film
 
 
 //// Changes ////
