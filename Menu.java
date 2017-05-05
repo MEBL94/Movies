@@ -341,9 +341,9 @@ public class Menu {
         System.out.println("So you wish to delete a movie");
         System.out.print("Title: ");
         String title = scan.getLine();
-        System.out.print("Release year: ");
-        int year = scan.getInt();
         lib.deleteMovie(title);
+        
+
     }
     public Movie chooseMovieMenu(String operation) {
         System.out.println("What movie would you like to " + operation +"?");
