@@ -46,13 +46,10 @@ public class Authenticator
         return null;
     }
     
-    // For testing purposes!
-    // ## ADDED BY JONAS FOR TESTS ##
-
     public ArrayList<User> getUsers(){
         return users;
     }
-    
+
     public void removeUser(String username){
         int userIndex;
         for(User user : users){
@@ -62,11 +59,4 @@ public class Authenticator
             }
         }
     }
-    // public void printUsers()
-    // {
-    //     for(User user : users)
-    //     {
-    //         System.out.println(user.getUsername());
-    //     }
-    // }
 }

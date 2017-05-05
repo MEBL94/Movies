@@ -393,6 +393,7 @@ public class Menu {
         input.nextLine(); //fanger den nye linie der kommer ved et entertryk
         // cls();        
     }
+    
     public void cls() {
          try { 
             Process p = Runtime.getRuntime().exec("clear"); 
