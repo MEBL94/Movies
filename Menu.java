@@ -140,7 +140,6 @@ public class Menu {
             System.out.println("1. Play movie");
             System.out.println("2. Go to favorites menu");
             System.out.println("3. Go to history menu");
-            System.out.println("4. Return to main menu");
             choice = scan.getInt();
             switch (choice) {
                 case 0:
@@ -152,16 +151,16 @@ public class Menu {
                 int number = 0;
                 for (Movie movie : lib.getMovies()) {
                     number++;
-                    System.out.println(number +": "+ movie);
+                    System.out.println(number +": "+ movie.getTitle());
                 }
-                choice = scan.getInt();
-                if (choice == 0){
+                number = scan.getInt();
+                if (number == 0){
                     int searchResult = this.searchForMovie();
                     if (searchResult > -1){
-                        playMovie(lib.getMovie(searchResult));
+                        playMovie(lib.getMovie(searchResult), userID);
                     }
-                } else if (choice > 0){
-                    playMovie(lib.getMovie(choice -1));
+                } else if (number > 0){
+                    playMovie(lib.getMovie(number - 1), userID);
                 }
 
                 //createHistoryEvent(lib.getMovie(searchForMovie()));
@@ -172,9 +171,6 @@ public class Menu {
                 case 3:
                 displayHistoryMenu();
                 break;
-                case 4:
-                mainMenu();
-                break;
                 default: System.out.println("Invalid input");
                 userMenu(userID);
                 break;
@@ -184,21 +180,18 @@ public class Menu {
 
     public void displayHistoryMenu() {
         System.out.println("Welcome to the history menu!");
-        System.out.print("Do you wish to display history? Yes or no? : ");
-        String answer = scan.getLine();
-        if (answer.equalsIgnoreCase("no")) {
-            userMenu(userID);
-        } 
-        else { 
-        System.out.println(au.getUser(userID).getHistory());
-        }
+        au.getUser(userID).printHistory();
+        System.out.println("PRESS ANY KEY TO CONTINUE");
+        pause();
     }
 
-    public void playMovie(Movie movie){
+    public void playMovie(Movie movie, int userID){
         System.out.println("#################");
         System.out.println("You are now playing a movie:");
         System.out.println(movie);
+        au.getUser(userID).createHistoryEvent(movie);
         System.out.println("#################");
+
         pause();
     }
 
@@ -284,7 +277,7 @@ public class Menu {
                 deleteMovieMenu();
                 break;
                 case 3:
-                editMovieMenu();
+                editMovieMenu(chooseMovieMenu("edit"));
                 break;
                 case 4:
                 createActorMenu();
@@ -305,7 +298,7 @@ public class Menu {
                 else if (answer.equalsIgnoreCase("delete")) {
                    System.out.print("Which user do you wish to remove? Enter the specific username : ");
                    String username = scan.getLine(); 
-                   au.removeUser(username);               
+                   au.removeUser(username); 
                 }
                 else {
                     System.out.println("Invalid input");
@@ -324,17 +317,24 @@ public class Menu {
         System.out.print("Release year: ");
         int year = scan.getInt();
         lib.createMovie(title, year);
-        System.out.print("Which actor do you wish to add to the movie? : ");
-        String actor = scan.getLine();
-        lib.getActor(lib.findActor(actor));
-        System.out.print("Do you wish to add another actor? Yes or no?");
+        System.out.println("Do you wish to add an actor? Yes or no?");
         String answer = scan.getLine();
         if (answer.equals("yes")) {
-            String anotherActor = scan.getLine();
-            lib.getActor(lib.findActor(anotherActor));
-        }
-        else {
-            adminMenu();
+            while(answer.equals("yes")){
+                System.out.print("Actorname: ");
+                String actor = scan.getLine();
+                if(lib.findActor(actor) > -1)
+                {
+                    lib.getActor(lib.findActor(actor));
+                    System.out.println("Want to add another actor? ");
+                } 
+                else 
+                {
+                    System.out.println("Actor not found");
+                    System.out.println("Want to try again?");
+                }
+                answer = scan.getLine();
+            }
         }
     }
     public void deleteMovieMenu() {
@@ -345,18 +345,86 @@ public class Menu {
         int year = scan.getInt();
         lib.deleteMovie(title);
     }
-    public void editMovieMenu() {
-        System.out.println("So you wish to edit a movie");
-        System.out.print("Title: ");
-        String title = scan.getLine();
-        lib.findMovie(title);
-        System.out.print("New title: ");
-        String newTitle = scan.getLine();
-        System.out.print("New release year: ");
-        int newYear = scan.getInt();
-        Movie movie = lib.getMovie(lib.findMovie(title));
-        movie.setTitle(newTitle);
-        movie.setReleaseYear(newYear);
+    public Movie chooseMovieMenu(String operation) {
+        System.out.println("What movie would you like to " + operation +"?");
+        System.out.println("0 for search");
+        int number = 0;
+        for (Movie movie : lib.getMovies()) {
+            number++;
+            System.out.println(number +": "+ movie.getTitle());
+        }
+        number = scan.getInt();
+        if (number == 0){
+            int searchResult = this.searchForMovie();
+            if (searchResult > -1){
+                return lib.getMovie(searchResult);
+            }
+        }
+        return lib.getMovie(number - 1);
+    }
+    public Actor chooseActorMenu(String operation) {
+        System.out.println("What Actor would you like to " + operation +"?");
+        System.out.println("0 for search");
+        int number = 0;
+        for (Actor actor : lib.getActors()) {
+            number++;
+            System.out.println(number +": "+ actor.getName());
+        }
+        number = scan.getInt();
+        if (number == 0){
+            int searchResult = this.searchForActor();
+            if (searchResult > -1){
+                return lib.getActor(searchResult);
+            }
+        }
+        return lib.getActor(number - 1);
+    }
+
+    public Actor chooseActorMenu(String operation, ArrayList<Actor> actors) {
+        System.out.println("What Actor would you like to " + operation +"?");
+        boolean wrongChoice = true;
+        int number = 0;
+        while(wrongChoice){
+            for (Actor actor : actors) {
+                number++;
+                System.out.println(number +": "+ actor.getName());
+            }
+            number = scan.getInt() - 1;
+            if(number < actors.size() && number >= 0){
+                wrongChoice = false;
+            }
+        }
+        return lib.getActor(number);
+    }
+
+    public void editMovieMenu(Movie movie){
+        boolean running = true;
+        while(running){
+            System.out.println("Edit " + movie.getTitle());
+            System.out.println("1. Change title");
+            System.out.println("2. Change release year");
+            System.out.println("3. Add actor");
+            System.out.println("4. Remove actor");
+            switch (scan.getInt()){
+                case 1:
+                    System.out.print("New title: ");
+                    String newTitle = scan.getLine();
+                    movie.setTitle(newTitle);
+                break;
+                case 2:
+                    System.out.print("New release year: ");
+                    int newYear = scan.getInt();
+                    movie.setReleaseYear(newYear);
+                break;
+                case 3:
+                    movie.addActor(chooseActorMenu("add"));
+                break;
+                case 4:
+                    // if(movie.)
+                    movie.removeActor(chooseActorMenu("remove", movie.getActors()));
+                break;
+            }
+        }
     }
     public void createActorMenu() {
         System.out.println("So you wish to create an actor");

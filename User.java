@@ -29,20 +29,38 @@ public class User
 
     public void deleteFromFavorites(Movie movie)
     {
-        int deletedMovieCount = 0;
-        for (Movie m : favorites)
+        // int deletedMovieCount = 0;
+        // for (Movie m : favorites)
+        // {
+        //     if(m.getTitle().equals(movie.getTitle()))
+        //     {
+        //         favorites.remove(m);
+        //         deletedMovieCount += 1;
+        //     }
+        // }
+        // if(deletedMovieCount == 0){
+        //     System.out.println("No movies deleted from favorites");
+        // } else {
+        //     System.out.println("Deleted " + deletedMovieCount + " movies from favorites.");
+        // }
+        int favoriteIndex = -1;
+        for(Movie favorite : favorites)
         {
-            if(m.getTitle().equals(movie.getTitle()))
+            if (favorite.getTitle().equals(movie.getTitle()))
             {
-                favorites.remove(m);
-                deletedMovieCount += 1;
+                favoriteIndex = favorites.indexOf(movie);
             }
         }
-        if(deletedMovieCount == 0){
-            System.out.println("No movies deleted from favorites");
-        } else {
-            System.out.println("Deleted " + deletedMovieCount + " movies from favorites.");
+        if(favoriteIndex != -1)
+        {
+            System.out.println("Favorite " + favorites.get(favoriteIndex).getTitle() + " removed.");
+            favorites.remove(favoriteIndex);
+        } 
+        else 
+        {
+            System.out.println("Could not find movie.");
         }
+        
     }
 
     public ArrayList<Movie> getFavorites()
@@ -76,8 +94,14 @@ public class User
     }
     
 
-    public ArrayList<HistoryEvent> getHistory()
+    public void printHistory()
     {
+        for(HistoryEvent event : history){
+            System.out.println(event);
+        }
+    }
+
+    public ArrayList<HistoryEvent> getHistory(){
         return history;
     }
 
