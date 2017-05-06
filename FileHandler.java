@@ -255,7 +255,7 @@ public class FileHandler {
             System.out.println(">> Exception in saveActors: " + e);
         }
     }
-
+    
     private void saveMovies(){
         try{
             File movieFile = new File("Movies.xml");
@@ -279,7 +279,6 @@ public class FileHandler {
             System.out.println(">> Exception in saveActors: " + e);
         }
     }
-    
 
     private void saveUsers(){
         try{
@@ -336,6 +335,4 @@ public class FileHandler {
             System.out.println(">> Exception in saveActors: " + e);
         }
     }
-
-
 }

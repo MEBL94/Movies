@@ -46,27 +46,22 @@ public class Authenticator
         return null;
     }
     
-    // For testing purposes!
-    // ## ADDED BY JONAS FOR TESTS ##
-
     public ArrayList<User> getUsers(){
         return users;
     }
-    
+
     public void removeUser(String username){
-        int userIndex;
+        int userIndex = -1;
         for(User user : users){
             if(username.equals(user.getUsername())){
-                users.remove(user);
-                System.out.println("User: " + username + " removed.");
+                userIndex = users.indexOf(user);
             }
         }
+        if (userIndex != -1){
+            users.remove(userIndex);
+            System.out.println("User: " + username + " removed.");
+        } else {
+            System.out.println(username + " not found.");
+        }
     }
-    // public void printUsers()
-    // {
-    //     for(User user : users)
-    //     {
-    //         System.out.println(user.getUsername());
-    //     }
-    // }
 }

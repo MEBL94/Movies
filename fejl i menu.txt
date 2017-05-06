@@ -1,2 +1,0 @@
-1. DeleteFromFavorites() giver en ConcurrentModificationException i main. Menu: Linje 71, 147, 28.
-2. Jeg skal bruge createHistoryEvent() fra det user objekt som jeg har lavet i createUserMenu() linje 144.
