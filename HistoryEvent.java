@@ -10,6 +10,7 @@ public class HistoryEvent
         this.date = date;
         this.movie = movie;
     }
+
     public String toString()
     {
         return movie.getTitle() + "\n" + "Watched at " + date;

@@ -30,6 +30,21 @@ public class UserInput {
         return scanner.hasNext();
     }
     
+    public int getIntOrC(){
+        String testForLetter = scanner.nextLine();
+        if(testForLetter.contains("c")){
+            return 999;
+        } else {
+            try{
+                int integer = Integer.parseInt(testForLetter);
+                return integer;
+            } catch (NumberFormatException e){
+                System.out.println(">> ikke et tal: " + e);
+                return -1;
+            }
+
+        }
+    }
     public int getInt(){
         try{
             int integer = Integer.parseInt(scanner.nextLine());

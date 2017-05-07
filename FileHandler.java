@@ -314,7 +314,9 @@ public class FileHandler {
                 for(HistoryEvent historyEvent : user.getHistory()){
                     fileStream.println("<historyEvent>");
                     UserInput historyScanner = new UserInput(historyEvent.getData());
-                    fileStream.println(historyScanner.getWord());
+                    String dateAndTime = historyScanner.getWord();
+                    dateAndTime = dateAndTime + " " + historyScanner.getWord();
+                    fileStream.println(dateAndTime);
                     String movieTitle = historyScanner.getWord();
                     while(historyScanner.hasNext()){
                         movieTitle += " ";

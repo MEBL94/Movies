@@ -1,66 +1,54 @@
 <user>
-Jonas
-Ladefoged Holm
+Test
+User
 <credentials>
-duch22
-mitpassword
-true
+d
+d
+false
 <favorites>
+JonasVerden
 Beauty and the beast
-Beauty and the beast 2
 </favorites>
 <history>
 <historyEvent>
-27/4-2017
+15:56 07/05-2017
+Beauty and the beast
+</historyEvent>
+<historyEvent>
+15:56 07/05-2017
 Beauty and the beast 2
 </historyEvent>
 <historyEvent>
-25/4-2017
-Beauty and the beast
+16:55 07/05-2017
+Avatar the last airbender
+</historyEvent>
+<historyEvent>
+17:18 07/05-2017
+The hangover
+</historyEvent>
+<historyEvent>
+17:18 07/05-2017
+JonasVerden
 </historyEvent>
 </history>
 </user>
 <user>
-Jonas
-Ladefoged Holm
+Mikkel
+Hansen
 <credentials>
-d
-d
-true
+mikkelboi92
+123
+false
 <favorites>
-Beauty and the beast
-Beauty and the beast 2
 </favorites>
 <history>
 <historyEvent>
-27/4-2017
-Beauty and the beast 2
+17:22 07/05-2017
+JonasVerden
 </historyEvent>
 <historyEvent>
-25/4-2017
-Beauty and the beast
-</historyEvent>
-</history>
-</user>
-<user>
-Jonas
-Ladefoged Holm
-<credentials>
-duch21
-mitpassword
-true
-<favorites>
-Beauty and the beast
-Beauty and the beast 2
-</favorites>
-<history>
-<historyEvent>
-27/4-2017
-Beauty and the beast 2
-</historyEvent>
-<historyEvent>
-25/4-2017
-Beauty and the beast
+17:28 07/05-2017
+Dwarf Fortress the movie
 </historyEvent>
 </history>
 </user>
