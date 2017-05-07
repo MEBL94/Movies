@@ -1,0 +1,2 @@
+alle objekter passes som memory addresser, DVS pointers.
+alle primitive datatyper, er bare pass by value IKKE pointer.. 

@@ -1,0 +1,45 @@
+//DONE//
+- Efter Play Movie går den tilbage til Main Menu *Fejl*
+- Problem med search movie / bruger choice flere gange
+- Newline fejl i history event to string
+- Tilføj actor list til toString i Movie
+- Redundant prompt in go to history menu
+- I history printes arryalist i stedet for sout for hver event
+- Efter at have returneret fra user menu til main, og derefter trykker 0, kommer vi ind i user menu
+- Play movie adder ikke et history event
+- IndexOutBounds i added actor i create movie
+  - Delete actor fanger fejlen - brug koden der fra.
+- CREATE MOVIE: Kan ikke skabe en actor under create movie
+  - Kan ikke create a movie without an actor.
+- PLAY MOVIE spiller kun en film
+- mellemrum admin want to add actor?
+- EDIT MOVIE: Man kan ikke vælge eller tilføje actors under edit movie
+- Add actor to movie menu option
+// JEG VED IKKE HVAD DER SKETE, MEN JEG KAN IKKE REPRODUCERE BUGGEN (har måske fået fixet den nu) //
+- Filehandler bug sikkert i movie tostring
+- I createActor hopper den videre hvis man ikke skriver int i birthday istedet for man skal skrive igen
+  - Createmovie har samme fejl med ReleaseYear
+- Fanget i et loop hvis der en film ikke har en actor når man vælger delete actor i admin
+- Fav list viser actors til hver film
+- Skal være manage Actor og manage Movies i stedet for hver enkelt CRUD mulighed.
+
+ANDREAS: TEST
+Jonas Filehandler
+mathias: opdater klassediagram
+Tobias CLS og niceness generelt <3 mr apple.. 
+
+//// BUGS //// Har lige fixet det meste. :) Mvh Jonas
+- edit movie viser, nogle gange 2x af film. ????
+
+
+//// Changes ////
+- Input Exception handling, i sær ved "-1" <==== MORE TESTING NEEDED THEN, jeg mener HVOR? :)
+
+//// NICENESS ////
+- Insert cls()
+- WaitForEnter ved Login Succesful og User created succesful og andre situationer
+- WaitForEnter skal skrive "press any key"
+
+
+
+
