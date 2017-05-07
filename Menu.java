@@ -22,7 +22,6 @@ public class Menu {
 
     {
 
-        cls();
 
         fileHandler.loadFromFiles();
 
@@ -113,6 +112,7 @@ public class Menu {
             System.out.println("2. Delete from favorites");
 
             choice = scan.getInt();
+            int index = 0;
 
             switch (choice) {
 
@@ -121,14 +121,17 @@ public class Menu {
                     break;
 
                 case 1:
-
-                    au.getUser(userID).addToFavorites(chooseMovieMenu("add to favorites"));
-
+                    index = chooseMovieMenu("add to favorites");
+                    if(index > -1){
+                        au.getUser(userID).addToFavorites(lib.getMovie(index));
+                    }
                     break;
 
                 case 2:
-
-                    au.getUser(userID).deleteFromFavorites(chooseMovieMenu("add to favorites", au.getUser(userID).getFavorites()));
+                    index = chooseMovieMenu("add to favorites", au.getUser(userID).getFavorites());
+                    if(index > -1){
+                        au.getUser(userID).deleteFromFavorites(index);
+                    }
 
                     break;
 
@@ -374,54 +377,54 @@ public class Menu {
 
 
 
-    public void searchMenu()
+    // public void searchMenu()
 
-    {
+    // {
 
 
-        System.out.println("Welcome to the search menu!");
+    //     System.out.println("Welcome to the search menu!");
 
-        int choice = 1;
+    //     int choice = 1;
 
-       while(choice != 0) {
+    //    while(choice != 0) {
 
-            cls();
+    //         cls();
             
-            System.out.println("1. Search for movie");
+    //         System.out.println("1. Search for movie");
 
-            System.out.println("2. Search for actor");
+    //         System.out.println("2. Search for actor");
 
-            choice = scan.getInt();
+    //         choice = scan.getInt();
 
-            switch (choice) {
+    //         switch (choice) {
 
-                case 0:
+    //             case 0:
 
-                break;
+    //             break;
 
-                case 1:
+    //             case 1:
 
-                searchForMovie();
+    //             searchForMovie();
 
-                break;
+    //             break;
 
-                case 2:
+    //             case 2:
 
-                searchForActor();
+    //             searchForActor();
 
-                break;
+    //             break;
 
-                default:
+    //             default:
 
-                System.out.println("Invalid input");
+    //             System.out.println("Invalid input");
 
-                break;
+    //             break;
 
-            }
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 
 
 
@@ -434,79 +437,161 @@ public class Menu {
 
         boolean foundMovie = false;
 
-      while(foundMovie == false) {
+        while(foundMovie == false) {
             
             cls();   
 
             System.out.print("Search term (only title): "); 
 
             search = scan.getLine();
+            ArrayList<Movie> listOfFoundMovies = new ArrayList<Movie>();
+            int preciseResult = lib.findMovie(search);
+            int listNumber = 0;
+            System.out.println("Found these movies, which one did you mean?");
+            
+            if (preciseResult > -1){
+                listNumber++;                
+                listOfFoundMovies.add(lib.getMovie(preciseResult));
+                System.out.println("Exact result:");
+                System.out.println(listNumber + ". " + lib.getMovie(preciseResult).getTitle());
+            }
+            
+            for(Movie movie : lib.getMovies()){
+                if(movie.getTitle().toLowerCase().contains(search.toLowerCase())){
+                    listOfFoundMovies.add(movie);
+                }
+            }
 
-            if (lib.findMovie(search) >= 0) {
+            System.out.println("Partial results:");
+            for(Movie movie : listOfFoundMovies){
+                listNumber++;
+                System.out.println(listNumber + ". " + movie.getTitle());
+            }
+            
 
+            System.out.println("Which one did you mean? (0 to go back)");
+            
+            listNumber = scan.getInt();
+            //go back please
+            if(listNumber == 0){
+                return -1;
+            // if in range SUCCESS
+            } else if ((listNumber) > 0 && (listNumber -1) < listOfFoundMovies.size()){
                 foundMovie = true;
-
+                return lib.getMovies().indexOf(listOfFoundMovies.get(listNumber - 1));
+            } else {
+                System.out.println("Wrong input");
+                pause();
             }
-
-            else {
-
-                System.out.println("Could not find the movie. Try Again! Want to try again? Yes or no?");
-
-                if (scan.getLine().equalsIgnoreCase("no")) {
-
-                    return -1;
-
-                } 
-
-            }
-
+            
         }
 
         return lib.findMovie(search); 
 
     }
 
-
-
-    private int searchForActor()
+private int searchForActor()
 
     {
+
 
         String search = "";
 
         boolean foundActor = false;
 
-      while(foundActor == false) {
+        while(foundActor == false) {
+            
+            cls();   
 
-            cls();
-
-            System.out.print("Search term (only name): "); 
+            System.out.print("Search term (only Name): "); 
 
             search = scan.getLine();
+            ArrayList<Actor> listOfFoundActors = new ArrayList<Actor>();
+            int preciseResult = lib.findActor(search);
+            int listNumber = 0;
+            System.out.println("Found these Actors, which one did you mean?");
+            
+            if (preciseResult > -1){
+                listNumber++;                
+                listOfFoundActors.add(lib.getActor(preciseResult));
+                System.out.println("Exact result:");
+                System.out.println(listNumber + ". " + lib.getActor(preciseResult).getName());
+            }
+            
+            for(Actor actor : lib.getActors()){
+                if(actor.getName().toLowerCase().contains(search.toLowerCase())){
+                    listOfFoundActors.add(actor);
+                }
+            }
 
-            if (lib.findActor(search) >= 0) {
+            System.out.println("Partial results:");
+            for(Actor actor : listOfFoundActors){
+                listNumber++;
+                System.out.println(listNumber + ". " + actor.getName());
+            }
+            
 
+            System.out.println("Which one did you mean? (0 to go back)");
+            
+            listNumber = scan.getInt();
+            //go back please
+            if(listNumber == 0){
+                return -1;
+            // if in range SUCCESS
+            } else if ((listNumber) > 0 && (listNumber -1) < listOfFoundActors.size()){
                 foundActor = true;
-
+                return lib.getActors().indexOf(listOfFoundActors.get(listNumber - 1));
+            } else {
+                System.out.println("Wrong input");
+                pause();
             }
-
-            else {
-
-                System.out.println("Could not find the actor. Try Again! Want to try again? Yes or no?");
-
-                if (scan.getLine().equalsIgnoreCase("no")) {
-
-                    return -1;
-
-                } 
-
-            }
-
+            
         }
 
         return lib.findActor(search); 
 
     }
+
+
+    // private int searchForActor()
+
+    // {
+
+    //     String search = "";
+
+    //     boolean foundActor = false;
+
+    //   while(foundActor == false) {
+
+    //         cls();
+
+    //         System.out.print("Search term (only name): "); 
+
+    //         search = scan.getLine();
+
+    //         if (lib.findActor(search) >= 0) {
+
+    //             foundActor = true;
+
+    //         }
+
+    //         else {
+
+    //             System.out.println("Could not find the actor. Try Again! Want to try again? Yes or no?");
+
+    //             if (scan.getLine().equalsIgnoreCase("no")) {
+
+    //                 return -1;
+
+    //             } 
+
+    //         }
+
+    //     }
+
+    //     return lib.findActor(search); 
+
+    // }
 
 
 
@@ -607,9 +692,10 @@ public class Menu {
                     break;
 
                 case 2:
-
-                    editMovieMenu(chooseMovieMenu("edit"));
-
+                    int index = chooseMovieMenu("edit");
+                    if(index > -1){
+                        editMovieMenu(lib.getMovie(index));
+                    }
                     break;
 
                 case 3:
@@ -657,6 +743,7 @@ public class Menu {
             System.out.println("1. Create an actor.");
 
             System.out.println("2. Delete actor.");
+            System.out.println("3. Show actor details.");
 
             answer = scan.getInt();
 
@@ -678,6 +765,10 @@ public class Menu {
 
                     break;
 
+                case 3:
+                    showActorDetails();
+                    break;
+
                 default:
 
                     System.out.println("Not an option try again.");
@@ -690,6 +781,22 @@ public class Menu {
 
         }
 
+    }
+
+    public void showActorDetails(){
+        cls();
+        int index = chooseActorMenu("see");
+        
+        if(index > -1){
+            Actor thisActor = lib.getActor(index);
+            cls();
+            System.out.println(thisActor.getName()); 
+
+            for(Movie movie : thisActor.getMovies()){
+                System.out.println(movie.getTitle());
+            }
+            pause();
+        }
     }
 
 
@@ -733,7 +840,11 @@ public class Menu {
                     break;
 
                 case 2:
-                    au.removeUser(chooseUserMenu("delete").getUsername());
+
+                    int index = chooseUserMenu("delete");
+                    if(index > -1){
+                        au.removeUser(au.getUser(index).getUsername());
+                    }
 
                     break;
 
@@ -789,10 +900,14 @@ public class Menu {
 
                 cls();
                 
-                Actor tempactor;
-                tempactor = chooseActorMenu("add");
 
-                createdMovie.addActor(tempactor);
+                int index = chooseActorMenu("add");
+                if(index > -1){
+                    createdMovie.addActor(lib.getActor(index));
+                    lib.getActor(index).addMovie(createdMovie);
+                }
+                
+                
 
                 System.out.println("Want to add another?");
 
@@ -807,14 +922,19 @@ public class Menu {
 
 
     public void deleteMovieMenu() {
+        
+        int index = chooseMovieMenu("delete");
+        if(index > -1){
+            lib.deleteMovie(lib.getMovie(index).getTitle());
+        }
 
-        lib.deleteMovie(chooseMovieMenu("delete").getTitle());
+        
 
     }
 
 
 
-    public Movie chooseMovieMenu(String operation) 
+    public int chooseMovieMenu(String operation) 
     {
         cls();
         int number = -1;
@@ -824,7 +944,6 @@ public class Menu {
 
             System.out.println("What movie would you like to " + operation +"?");
 
-            System.out.println("0 for search");
 
             number = 0;
 
@@ -835,23 +954,29 @@ public class Menu {
                 System.out.println(number +": "+ movie.getTitle());
 
             }
+            System.out.println("Press 0 to return.");
+            System.out.println("S for search");
 
-            number = scan.getInt();
+            number = scan.getIntOrLetter();
             
-            if (number == 0){
+            if (number == 888){
 
                 number = this.searchForMovie();
 
                 if (number > -1){
 
-                    return lib.getMovie(number);
+                    return number;
 
                 } else {
+                    cls();
                     reason = "Couldn't find that movie";
                 }
 
             } else if (number > 0 && (number - 1) < lib.getMovies().size()){
                 wrongChoice = false;
+            } else if (number == 0) {
+                //RETURN ved 0
+                return -1;
             } else {
                 reason = "wrong choice";
             }
@@ -859,15 +984,16 @@ public class Menu {
 
         }
 
-        return lib.getMovie(number - 1);
+        return (number - 1);
 
     }
 
 
 
-    public Movie chooseMovieMenu(String operation, ArrayList<Movie> movies) {
+    public int chooseMovieMenu(String operation, ArrayList<Movie> movies) {
 
         System.out.println("What Movie would you like to " + operation +"?");
+        System.out.println("Press 0 to return.");
 
         boolean wrongChoice = true;
 
@@ -883,25 +1009,31 @@ public class Menu {
 
             }
 
-            number = scan.getInt() - 1;
+            number = scan.getInt();
 
-            if(number < movies.size() && number >= 0){
+            if((number -1) < movies.size() && number > 0){
 
                 wrongChoice = false;
 
+            } else if (number == 0) {
+                return -1;
+            } else {
+                System.out.println("Wrong choice try again.");
             }
 
         }
 
-        return movies.get(number);
+        return number - 1;
 
     }
 
 
 
-    public User chooseUserMenu(String operation) {
+    public int chooseUserMenu(String operation) {
 
         System.out.println("What User would you like to " + operation +"?");
+        System.out.println("Press 0 to return.");
+        
 
         boolean wrongChoice = true;
 
@@ -919,21 +1051,25 @@ public class Menu {
 
             }
 
-            number = scan.getInt() - 1;
+            number = scan.getInt();
 
-            if(number < au.getUsers().size() && number >= 0){
+            if((number - 1) < au.getUsers().size() && number > 0){
 
                 wrongChoice = false;
 
-            } 
+            } else if (number == 0) {
+                return -1;
+            } else {
+                System.out.println("Wrong choice try again.");
+            }
 
         }
 
-        return au.getUsers().get(number);
+        return (number - 1);
 
     }
 
-    public Actor chooseActorMenu(String operation)
+    public int chooseActorMenu(String operation)
     {
         cls();
         boolean wrongChoice = true;
@@ -942,48 +1078,53 @@ public class Menu {
         
         while(wrongChoice){
             System.out.println("What Actor would you like to " + operation +"?");
-            System.out.println("0 for search");
             number = 0;
             for (Actor actor : lib.getActors()) {
                 number++;
                 System.out.println(number +": "+ actor.getName());
             }
-            number = scan.getIntOrC();
-            if (number == 0){
+            System.out.println("S for search");
+            System.out.println("Press 0 to return.");
+            number = scan.getIntOrLetter();
+            //if S
+            if (number == 888){
                 number = this.searchForActor();
                 if (number > -1){
-                    return lib.getActor(number);
+                    return number;
                 } else {
                     reason = "Couldn't find that actor";
                 }
             } else if (number > 0 && (number - 1) < lib.getActors().size()){
                 wrongChoice = false;
+            //if C
             } else if(number == 999){
                 createActorMenu();
+            } else if(number == 0) {
+                return -1;
             } else {
-                reason = "wrong choice";
-                System.out.println(reason + " Try again.");
+                reason = "Wrong choice";
+                System.out.println(reason + " try again.");
             }
         }
-        return lib.getActor(number - 1);
+        return (number - 1);
     }
 
 
 
-    public Actor chooseActorMenu(String operation, ArrayList<Actor> actors)
+    public int chooseActorMenu(String operation, ArrayList<Actor> actors)
 
     {
 
         cls();
-
-        System.out.println("What Actor would you like to " + operation +"?");
 
         boolean wrongChoice = true;
 
         int number = 0;
 
       while(wrongChoice){
+          
 
+            System.out.println("What Actor would you like to " + operation +"?");
             for (Actor actor : actors) {
 
                 number++;
@@ -991,18 +1132,21 @@ public class Menu {
                 System.out.println(number +": "+ actor.getName());
 
             }
+            System.out.println("Press 0 to return.");
 
-            number = scan.getInt() - 1;
+            number = scan.getInt();
 
-            if(number < actors.size() && number >= 0){
-
+            if((number - 1) < actors.size() && number > 0){
                 wrongChoice = false;
-
+            } else if(number == 0) {
+                return -1;
+            } else {
+                System.out.println("Wrong choice try again.");
             }
 
         }
 
-        return actors.get(number);
+        return number - 1;
 
     }
 
@@ -1029,6 +1173,7 @@ public class Menu {
             System.out.println("4. Remove actor");
 
             System.out.println("5. return to admin menu");
+            int index = 0;
 
             switch (scan.getInt()){
 
@@ -1053,16 +1198,21 @@ public class Menu {
                 break;
 
                 case 3:
-
-                    movie.addActor(chooseActorMenu("add"));
+                    index = chooseActorMenu("add");
+                    if(index > -1){
+                        movie.addActor(lib.getActor(index));
+                    }
+                    
 
                 break;
 
                 case 4:
 
                     if(movie.hasActors()){
-
-                        movie.removeActor(chooseActorMenu("remove", movie.getActors()));
+                        index = chooseActorMenu("remove", movie.getActors());
+                        if(index > -1){
+                            movie.removeActor(lib.getActor(index));
+                        }
 
                     } else {
 
@@ -1146,8 +1296,10 @@ public class Menu {
 
     public void deleteActorMenu() {
 
-        lib.deleteActor(chooseActorMenu("delete").getName());
-
+        int index = chooseActorMenu("delete");
+        if(index > -1){
+            lib.deleteActor(lib.getActor(index).getName());
+        }
     }
 
 

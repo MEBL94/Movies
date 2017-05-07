@@ -30,10 +30,12 @@ public class UserInput {
         return scanner.hasNext();
     }
     
-    public int getIntOrC(){
+    public int getIntOrLetter(){
         String testForLetter = scanner.nextLine();
         if(testForLetter.contains("c")){
             return 999;
+        } else if (testForLetter.contains("s")){
+            return 888;
         } else {
             try{
                 int integer = Integer.parseInt(testForLetter);
@@ -45,6 +47,7 @@ public class UserInput {
 
         }
     }
+    
     public int getInt(){
         try{
             int integer = Integer.parseInt(scanner.nextLine());

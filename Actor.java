@@ -45,10 +45,26 @@ public class Actor
         return this.movies;
      }
     
-     public void addMovies(Movie movie)
+     public void addMovie(Movie movie)
      {
         movies.add(movie);
-        
+     }
+     
+     public void removeMovie(Movie movieToRemove){
+         int movieIndexToRemove = 0;
+         boolean moreMovies = true;
+         while(moreMovies){
+            moreMovies = false;
+            for(Movie movie : movies){
+                if(movie.getTitle().equals(movieToRemove.getTitle())){
+                   movieIndexToRemove = movies.indexOf(movie);
+                   moreMovies = true;
+                }
+            }
+            if(moreMovies){
+                movies.remove(movieIndexToRemove);
+            }
+         }
      }
     
      @Override

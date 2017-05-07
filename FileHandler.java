@@ -123,7 +123,7 @@ public class FileHandler {
                         if (tag.equals("<movies>")){
                             tag = scan.getLine();
                             while(!tag.equals("</movies>")){
-                                thisActor.addMovies(lib.getMovie(lib.findMovie(tag)));
+                                thisActor.addMovie(lib.getMovie(lib.findMovie(tag)));
                                 tag = scan.getLine();
                             }
                         }

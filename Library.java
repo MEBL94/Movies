@@ -17,20 +17,20 @@ public class Library {
         return actors;
     }
     
-    public int findMovie(String movieTitle)
+    public int findMovie(String searchTerm)
     {
         for (Movie movie : movies){
-            if(movie.getTitle().equals(movieTitle)){
+            if(movie.getTitle().equals(searchTerm)){
                 return movies.indexOf(movie);
             }
         }
         return -1; // -1 error signal: no movie found
     }
               
-    public int findActor(String actorName)
+    public int findActor(String searchTerm)
     {
         for (Actor actor : actors){
-            if(actor.getName().equals(actorName)){
+            if(actor.getName().equals(searchTerm)){
                 return actors.indexOf(actor);
             }
         }
@@ -60,7 +60,12 @@ public class Library {
      
     public void deleteMovie(String movieTitle)
     {
-        if(findMovie(movieTitle) > -1){
+        int movieIndex = findMovie(movieTitle);
+        if(movieIndex > -1){
+            Movie movie = getMovie(movieIndex);
+            for(Actor actor : movie.getActors()){
+                actor.removeMovie(movie);
+            }
             movies.remove(findMovie(movieTitle));
             System.out.println("Movie deleted.");
         } else {
@@ -70,8 +75,13 @@ public class Library {
     
     public void deleteActor(String actorName)
     {
-        if ( findActor(actorName) > -1) {
-            actors.remove(findActor(actorName));
+        int actorIndex = findActor(actorName);
+        if (actorIndex > -1) {
+            Actor actor = getActor(actorIndex);
+            for(Movie movie : actor.getMovies()){
+                movie.removeActor(actor);
+            }
+            actors.remove(actorIndex);
             System.out.println("Actor deleted.");
         } else {
             System.out.println("Actor not found.");

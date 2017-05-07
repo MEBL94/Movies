@@ -44,6 +44,21 @@ public class Movie
     
     public void removeActor(Actor actor)
     {
+        int actorIndexToRemove = 0;
+        boolean moreActors = true;
+        while(moreActors){
+            moreActors = false;
+            for(Actor actorToCheck : actors){
+                if(actorToCheck.getName().equals(actor.getName())){
+                    actorIndexToRemove = actors.indexOf(actorToCheck);
+                    moreActors = true;
+                }
+            }
+            if(moreActors){
+                actors.remove(actorIndexToRemove);
+            }
+        }
+
         actors.remove(actor);
     }
 
@@ -63,7 +78,7 @@ public class Movie
         }
         actorsString += "         The End";
         if(actors.isEmpty()){
-            return this.title + " " + this.releaseYear;
+            return this.title + " " + this.releaseYear + "\n         The End";
         }
         return this.title + " " + this.releaseYear + "\n" + actorsString;
     }

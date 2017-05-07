@@ -27,38 +27,26 @@ public class User
         favorites.add(movie);
     }
 
-    public void deleteFromFavorites(Movie movie)
+    public void deleteFromFavorites(int favoriteIndex)
     {
-        // int deletedMovieCount = 0;
-        // for (Movie m : favorites)
+
+        favorites.remove(favoriteIndex);
+        // int favoriteIndex = -1;
+        // for(Movie favorite : favorites)
         // {
-        //     if(m.getTitle().equals(movie.getTitle()))
+        //     if (favorite.getTitle().equals(movie.getTitle()))
         //     {
-        //         favorites.remove(m);
-        //         deletedMovieCount += 1;
+        //         favoriteIndex = favorites.indexOf(movie);
         //     }
         // }
-        // if(deletedMovieCount == 0){
-        //     System.out.println("No movies deleted from favorites");
-        // } else {
-        //     System.out.println("Deleted " + deletedMovieCount + " movies from favorites.");
+        // if(favoriteIndex != -1)
+        // {         
+        //     favorites.remove(favoriteIndex);
+        // } 
+        // else 
+        // {
+        //     System.out.println("Could not find movie.");
         // }
-        int favoriteIndex = -1;
-        for(Movie favorite : favorites)
-        {
-            if (favorite.getTitle().equals(movie.getTitle()))
-            {
-                favoriteIndex = favorites.indexOf(movie);
-            }
-        }
-        if(favoriteIndex != -1)
-        {         
-            favorites.remove(favoriteIndex);
-        } 
-        else 
-        {
-            System.out.println("Could not find movie.");
-        }
         
     }
 

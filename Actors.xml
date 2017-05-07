@@ -17,13 +17,6 @@ Beauty and the beast 2
 </movies>
 </actor>
 <actor>
-Zachary
-"Zach" Tyler Eisen
-23/9-1993
-<movies>
-</movies>
-</actor>
-<actor>
 Jonas
 Holm
 11/4-1990
@@ -34,6 +27,13 @@ Holm
 Anna
 Holm
 9/6-1991
+<movies>
+</movies>
+</actor>
+<actor>
+Jonas
+Hooolm
+1/1-1
 <movies>
 </movies>
 </actor>
